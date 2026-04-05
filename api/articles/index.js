@@ -3,10 +3,12 @@ const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const GITHUB_REPO = process.env.GITHUB_REPO || 'grl2345/claude-code-mastery';
 
 const moduleNames = {
-  'm1-basics': '基础篇',
+  'm1-basics': '入门篇',
   'm2-thinking': '思维篇',
   'm3-practice': '实战篇',
   'm4-advanced': '进阶篇',
+  'm5-compare': '工具对比',
+  'm6-sidebiz': '副业指南',
 };
 const MODULES = Object.keys(moduleNames);
 

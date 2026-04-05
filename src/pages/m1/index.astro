@@ -1,0 +1,15 @@
+---
+import { getCollection } from 'astro:content';
+import ModuleLayout from '../../layouts/ModuleLayout.astro';
+
+const allLessons = await getCollection('lessons', ({ data }) => !data.draft && data.module === 'm1-basics');
+const sorted = allLessons.sort((a, b) => a.data.order - b.data.order);
+---
+
+<ModuleLayout
+  moduleId="m1-basics"
+  moduleName="入门篇"
+  moduleDesc="从零开始掌握 Claude Code。安装配置、核心命令、Prompt 写法、文件操作——覆盖新手最容易卡住的那些问题，带你建立 AI 编程的第一个工作流。"
+  moduleColor="#2d8a56"
+  lessons={sorted.map(l => ({ slug: l.id, data: l.data }))}
+/>

@@ -1,0 +1,226 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import '../styles/prose.css';
+
+interface Lesson {
+  slug: string;
+  data: { title: string; module: string; order: number; group?: string; description: string; duration: string; level: string };
+}
+
+interface Props {
+  moduleId: string;
+  moduleName: string;
+  moduleDesc: string;
+  moduleColor: string;
+  lessons: Lesson[];
+}
+
+const { moduleId, moduleName, moduleDesc, moduleColor, lessons } = Astro.props;
+
+// Group lessons by their group field
+const groups = new Map<string, Lesson[]>();
+for (const lesson of lessons) {
+  const group = lesson.data.group || '目录';
+  if (!groups.has(group)) groups.set(group, []);
+  groups.get(group)!.push(lesson);
+}
+
+function lessonUrl(slug: string): string {
+  const parts = slug.split('/');
+  const modulePrefix = parts[0].split('-')[0];
+  return `/${modulePrefix}/${parts[1]}`;
+}
+---
+
+<BaseLayout
+  title={`${moduleName} - Claude Code 精通之路`}
+  description={moduleDesc}
+>
+  <div class="mod-index">
+    <div class="mod-index-header" style={`--mod-color: ${moduleColor}`}>
+      <div class="mod-index-inner">
+        <a class="mod-back" href="/">← 返回首页</a>
+        <div class="mod-index-badge" style={`background: ${moduleColor}`}>{moduleId.split('-')[0].toUpperCase()}</div>
+        <h1>{moduleName}</h1>
+        <p class="mod-index-desc">{moduleDesc}</p>
+        <div class="mod-index-stats">
+          <span>{lessons.length} 篇文章</span>
+          <span>·</span>
+          <span>持续更新中</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mod-index-body">
+      {[...groups.entries()].map(([groupName, groupLessons]) => (
+        <div class="mod-group">
+          <div class="mod-group-label">{groupName}</div>
+          <div class="mod-group-list">
+            {groupLessons.map(lesson => (
+              <a class="mod-article-card" href={lessonUrl(lesson.slug)}>
+                <div class="mod-article-num">{String(lesson.data.order).padStart(2, '0')}</div>
+                <div class="mod-article-content">
+                  <h3>{lesson.data.title}</h3>
+                  <p>{lesson.data.description}</p>
+                  <div class="mod-article-meta">
+                    <span>{lesson.data.duration}</span>
+                    <span>{lesson.data.level}</span>
+                  </div>
+                </div>
+                <div class="mod-article-arrow">&rarr;</div>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .mod-index-header {
+    background: linear-gradient(135deg, var(--ink) 0%, #2a2520 100%);
+    color: #fff;
+    padding: 60px 40px 50px;
+  }
+  .mod-index-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .mod-back {
+    color: rgba(255,255,255,.6);
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 24px;
+    transition: color .2s;
+  }
+  .mod-back:hover { color: #fff; }
+  .mod-index-badge {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: var(--mono);
+    color: #fff;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
+  .mod-index-header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .mod-index-desc {
+    font-size: 16px;
+    color: rgba(255,255,255,.7);
+    line-height: 1.7;
+    max-width: 600px;
+  }
+  .mod-index-stats {
+    margin-top: 20px;
+    font-size: 14px;
+    color: rgba(255,255,255,.5);
+    display: flex;
+    gap: 8px;
+  }
+  .mod-index-body {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 40px 80px;
+  }
+  .mod-group {
+    margin-bottom: 40px;
+  }
+  .mod-group-label {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--gray);
+    margin-bottom: 16px;
+    padding-left: 4px;
+  }
+  .mod-group-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    background: var(--gray-200);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .mod-article-card {
+    display: grid;
+    grid-template-columns: 48px 1fr 32px;
+    gap: 16px;
+    align-items: center;
+    padding: 20px 24px;
+    background: var(--paper);
+    text-decoration: none;
+    color: var(--ink);
+    transition: all .2s;
+  }
+  .mod-article-card:hover {
+    background: #faf8f4;
+  }
+  .mod-article-card:hover .mod-article-arrow {
+    transform: translateX(4px);
+    color: var(--accent);
+  }
+  .mod-article-num {
+    font-family: var(--mono);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--gray);
+    text-align: center;
+  }
+  .mod-article-content h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+  .mod-article-content p {
+    font-size: 13px;
+    color: var(--gray);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .mod-article-meta {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--gray-400);
+  }
+  .mod-article-arrow {
+    font-size: 18px;
+    color: var(--gray-300);
+    transition: all .2s;
+  }
+
+  @media (max-width: 768px) {
+    .mod-index-header {
+      padding: 40px 20px 36px;
+    }
+    .mod-index-header h1 {
+      font-size: 24px;
+    }
+    .mod-index-body {
+      padding: 24px 16px 60px;
+    }
+    .mod-article-card {
+      grid-template-columns: 36px 1fr 24px;
+      padding: 16px;
+      gap: 12px;
+    }
+    .mod-article-content p {
+      display: none;
+    }
+  }
+</style>

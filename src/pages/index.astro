@@ -4,17 +4,15 @@ import Terminal from '../components/Terminal.astro';
 import '../styles/terminal.css';
 import { getCollection } from 'astro:content';
 
-// Get all published lessons for the article list
 const allLessons = await getCollection('lessons', ({ data }) => !data.draft);
 const sortedLessons = allLessons.sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
-const recentLessons = sortedLessons.slice(0, 5);
-
-// Count lessons per module
-const m1Count = allLessons.filter(l => l.data.module === 'm1-basics').length;
-const m2Count = allLessons.filter(l => l.data.module === 'm2-thinking').length;
-const m3Count = allLessons.filter(l => l.data.module === 'm3-practice').length;
-const m4Count = allLessons.filter(l => l.data.module === 'm4-advanced').length;
+const recentLessons = sortedLessons.slice(0, 8);
 const totalCount = allLessons.length;
+
+const moduleCounts: Record<string, number> = {};
+allLessons.forEach(l => {
+  moduleCounts[l.data.module] = (moduleCounts[l.data.module] || 0) + 1;
+});
 
 function lessonUrl(slug: string): string {
   const parts = slug.split('/');
@@ -23,27 +21,36 @@ function lessonUrl(slug: string): string {
 }
 
 const moduleNames: Record<string, string> = {
-  'm1-basics': '基础篇',
+  'm1-basics': '入门篇',
   'm2-thinking': '思维篇',
   'm3-practice': '实战篇',
   'm4-advanced': '进阶篇',
+  'm5-compare': '工具对比',
+  'm6-sidebiz': '副业指南',
 };
+
+const modules = [
+  { id: 'm1-basics', name: '入门篇', desc: '新手从 0 到 1', detail: '安装配置、核心命令、Prompt 写法、MCP 入门、费用攻略——零基础也能跟上。', color: '#2d8a56', href: '/m1' },
+  { id: 'm3-practice', name: '实战篇', desc: '深度项目案例', detail: '从零搭建项目、重构复盘、线上排查、数据工程、CI/CD 自动化——每篇都是完整记录。', color: '#2b6cc4', href: '/m3' },
+  { id: 'm5-compare', name: '工具对比', desc: '横评与选型', detail: 'Claude Code vs Cursor vs Copilot vs Windsurf，模型选型、API vs 订阅——帮你做出最优选择。', color: '#d97706', href: '/m5' },
+  { id: 'm6-sidebiz', name: '副业指南', desc: 'AI 赚钱实操方法论', detail: '搭建副业网站、AdSense 变现、AI 接单提效、公众号运营——用 AI 开启技术变现之路。', color: '#059669', href: '/m6' },
+];
 ---
 
 <BaseLayout
-  title="Claude Code 精通之路 — 一个开发者的 AI 编程实战笔记"
-  description="记录使用 Claude Code 进行真实项目开发的经验、踩坑与思考。不讲花哨技巧，只写工程实践中真正有用的东西。"
+  title="Claude Code 精通之路 — AI 编程实战教程"
+  description="最全面的 Claude Code 中文教程站。从入门到实战，工具对比到副业变现，帮你真正掌握 AI 编程。"
 >
 
 <!-- Hero -->
 <section class="hero">
   <div>
-    <div class="hero-badge">持续更新的实战笔记</div>
-    <h1>一个开发者的<br><span class="hl">AI 编程</span>实战记录</h1>
-    <p class="hero-desc">这里记录了我用 Claude Code 做真实项目的全过程——怎么拆需求、怎么管理上下文、什么时候该让 AI 写代码、什么时候该自己来。没有"十倍效率"的噱头，只有一步步趟出来的实际经验。</p>
+    <div class="hero-badge">持续更新 · {totalCount} 篇原创教程</div>
+    <h1>用 <span class="hl">Claude Code</span><br>做真实项目的实战记录</h1>
+    <p class="hero-desc">从安装配置到项目实战，从工具选型到副业变现。不讲花哨技巧，只写工程实践中真正有用的东西。</p>
     <div class="hero-actions">
-      <a class="btn-primary" href="/m1/01-what-is-claude-code">从头开始读</a>
-      <a class="btn-secondary" href="/m2/01-why-prompts-fall-short">直接看思维篇</a>
+      <a class="btn-primary" href="/m1">从零开始学</a>
+      <a class="btn-secondary" href="/m3">直接看实战</a>
     </div>
   </div>
   <Terminal>
@@ -62,59 +69,45 @@ const moduleNames: Record<string, string> = {
   </Terminal>
 </section>
 
-<!-- Stats -->
-<div class="stats">
-  <div class="stat-item">
-    <div class="stat-number">{totalCount}+</div>
-    <div class="stat-label">篇原创教程</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-number">{m1Count + m2Count > 10 ? '10+' : m1Count + m2Count}</div>
-    <div class="stat-label">个实战案例</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-number">CLI</div>
-    <div class="stat-label">命令行优先的工作流</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-number">开源</div>
-    <div class="stat-label">所有内容免费阅读</div>
-  </div>
-</div>
-
-<!-- Tutorial Grid -->
+<!-- Module Cards -->
 <section class="section fade-in">
   <div class="section-label">教程目录</div>
-  <h2 class="section-title">从零基础到工程化实践</h2>
-  <p class="section-desc">我把自己的学习路径整理成了两个系列，从安装配置讲到架构决策。每篇都带真实的代码场景和踩坑记录。</p>
+  <h2 class="section-title">选择你的学习路径</h2>
+  <p class="section-desc">四大板块，覆盖从入门到变现的完整链路。每个板块独立成篇，按需阅读。</p>
   <div class="course-grid">
-    <a class="course-card" href="/m1/01-what-is-claude-code">
-      <div class="course-icon i-g">01</div>
-      <div class="tag tag-g">基础篇</div>
-      <h3>环境搭建与核心工作流</h3>
-      <p>从安装 CLI 开始，搞定环境配置、文件操作、prompt 基本功。写了 8 篇，覆盖了新手最容易卡住的那些问题。</p>
-      <div class="course-meta"><span>{m1Count} 篇</span><span>约 3 小时</span><span>零基础可读</span></div>
+    {modules.map((mod, i) => (
+      <a class="course-card" href={mod.href}>
+        <div class="course-icon" style={`background: ${mod.color}`}>{String(i + 1).padStart(2, '0')}</div>
+        <div class="tag" style={`color: ${mod.color}; border-color: ${mod.color}`}>{mod.name}</div>
+        <h3>{mod.desc}</h3>
+        <p>{mod.detail}</p>
+        <div class="course-meta">
+          <span>{moduleCounts[mod.id] || 0} 篇</span>
+          <span>持续更新</span>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>
+
+<!-- More Modules -->
+<section class="section fade-in" style="padding-top: 0;">
+  <div class="more-modules">
+    <a class="more-module-card" href="/m2">
+      <div class="mmc-badge" style="background: #c44b2b">思维篇</div>
+      <div class="mmc-info">
+        <h4>软件工程思维与协作策略</h4>
+        <p>任务拆解、上下文管理、代码审查、架构决策——{moduleCounts['m2-thinking'] || 0} 篇深度内容</p>
+      </div>
+      <span class="mmc-arrow">&rarr;</span>
     </a>
-    <a class="course-card" href="/m2/01-why-prompts-fall-short">
-      <div class="course-icon i-a">02</div>
-      <div class="tag tag-a">思维篇</div>
-      <h3>软件工程思维与协作策略</h3>
-      <p>这部分是我花时间最多的——怎么拆任务、管上下文、做代码审查、处理 AI 犯的错。想用好 Claude Code，思维比技巧重要。</p>
-      <div class="course-meta"><span>{m2Count} 篇</span><span>约 5 小时</span><span>需编程基础</span></div>
-    </a>
-    <a class="course-card" href="/m3/01-build-project-from-scratch">
-      <div class="course-icon i-b">03</div>
-      <div class="tag tag-b">实战篇</div>
-      <h3>真实项目开发复盘</h3>
-      <p>从零搭建项目、重构 400 行巨型组件、排查线上内存泄漏、一个月使用数据复盘——每篇都是完整的实战记录，附踩坑和修复过程。</p>
-      <div class="course-meta"><span>{m3Count} 篇</span><span>约 4 小时</span><span>需编程基础</span></div>
-    </a>
-    <a class="course-card" href="/m4/01-headless-mode">
-      <div class="course-icon i-p">04</div>
-      <div class="tag tag-p">进阶篇</div>
-      <h3>自动化与深度集成</h3>
-      <p>Headless 模式、管道操作、Git Hook 集成、批量处理——把 Claude Code 从对话工具变成可编程的自动化引擎。</p>
-      <div class="course-meta"><span>{m4Count} 篇</span><span>持续更新</span><span>需编程基础</span></div>
+    <a class="more-module-card" href="/m4">
+      <div class="mmc-badge" style="background: #8b5cf6">进阶篇</div>
+      <div class="mmc-info">
+        <h4>自动化与深度集成</h4>
+        <p>Headless 模式、管道操作、Git Hook 集成——{moduleCounts['m4-advanced'] || 0} 篇进阶内容</p>
+      </div>
+      <span class="mmc-arrow">&rarr;</span>
     </a>
   </div>
 </section>
@@ -129,7 +122,7 @@ const moduleNames: Record<string, string> = {
       <div class="phil-card">
         <div class="phil-num">01</div>
         <h3>工具只是放大器</h3>
-        <p>如果你不会拆解问题，prompt 写得再漂亮也没用。Claude Code 放大的是你的工程能力，不是取代它。我在教程里反复强调这一点。</p>
+        <p>如果你不会拆解问题，prompt 写得再漂亮也没用。Claude Code 放大的是你的工程能力，不是取代它。</p>
       </div>
       <div class="phil-card">
         <div class="phil-num">02</div>
@@ -168,7 +161,77 @@ const moduleNames: Record<string, string> = {
 <section class="cta-section fade-in">
   <h2>从第一篇开始读</h2>
   <p>不需要任何 AI 编程经验。从安装 Claude Code 开始，一步步带你搭建自己的 AI 编程工作流。所有内容免费，随时可以开始。</p>
-  <a class="btn-primary" style="font-size: 16px; padding: 16px 36px;" href="/m1/01-what-is-claude-code">阅读第一篇教程</a>
+  <a class="btn-primary" style="font-size: 16px; padding: 16px 36px;" href="/m1">阅读入门篇</a>
 </section>
 
 </BaseLayout>
+
+<style>
+  .more-modules {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    background: var(--gray-200);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .more-module-card {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 16px;
+    align-items: center;
+    padding: 20px 24px;
+    background: var(--paper);
+    text-decoration: none;
+    color: var(--ink);
+    transition: background .2s;
+  }
+  .more-module-card:hover {
+    background: #faf8f4;
+  }
+  .more-module-card:hover .mmc-arrow {
+    transform: translateX(4px);
+    color: var(--accent);
+  }
+  .mmc-badge {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 8px;
+    white-space: nowrap;
+  }
+  .mmc-info h4 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .mmc-info p {
+    font-size: 13px;
+    color: var(--gray);
+  }
+  .mmc-arrow {
+    font-size: 18px;
+    color: var(--gray-300);
+    transition: all .2s;
+  }
+  .course-icon {
+    color: #fff;
+    font-family: var(--mono);
+    font-weight: 700;
+  }
+  .tag {
+    border: 1.5px solid;
+    background: transparent;
+  }
+
+  @media (max-width: 768px) {
+    .more-module-card {
+      grid-template-columns: 1fr auto;
+      padding: 16px;
+    }
+    .mmc-badge {
+      display: none;
+    }
+  }
+</style>

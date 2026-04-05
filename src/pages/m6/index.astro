@@ -1,0 +1,15 @@
+---
+import { getCollection } from 'astro:content';
+import ModuleLayout from '../../layouts/ModuleLayout.astro';
+
+const allLessons = await getCollection('lessons', ({ data }) => !data.draft && data.module === 'm6-sidebiz');
+const sorted = allLessons.sort((a, b) => a.data.order - b.data.order);
+---
+
+<ModuleLayout
+  moduleId="m6-sidebiz"
+  moduleName="副业指南"
+  moduleDesc="用 AI 工具开启技术变现之路。从搭建副业网站到 AdSense 变现，从接私活提效到公众号运营，分享 AI 时代的实操赚钱方法论。"
+  moduleColor="#059669"
+  lessons={sorted.map(l => ({ slug: l.id, data: l.data }))}
+/>

@@ -1,0 +1,15 @@
+---
+import { getCollection } from 'astro:content';
+import ModuleLayout from '../../layouts/ModuleLayout.astro';
+
+const allLessons = await getCollection('lessons', ({ data }) => !data.draft && data.module === 'm4-advanced');
+const sorted = allLessons.sort((a, b) => a.data.order - b.data.order);
+---
+
+<ModuleLayout
+  moduleId="m4-advanced"
+  moduleName="进阶篇"
+  moduleDesc="把 Claude Code 从对话工具变成可编程的自动化引擎。Headless 模式、管道操作、Git Hook 集成、批量处理——面向有经验的开发者。"
+  moduleColor="#8b5cf6"
+  lessons={sorted.map(l => ({ slug: l.id, data: l.data }))}
+/>
