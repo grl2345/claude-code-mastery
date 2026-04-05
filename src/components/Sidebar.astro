@@ -1,0 +1,55 @@
+---
+interface Lesson {
+  slug: string;
+  data: { title: string; module: string; order: number; group?: string };
+}
+
+interface Props {
+  moduleName: string;
+  moduleId: string;
+  lessons: Lesson[];
+  currentSlug: string;
+}
+
+const { moduleName, moduleId, lessons, currentSlug } = Astro.props;
+
+// Group lessons by their group field
+const groups = new Map<string, Lesson[]>();
+for (const lesson of lessons) {
+  const group = lesson.data.group || '课程';
+  if (!groups.has(group)) groups.set(group, []);
+  groups.get(group)!.push(lesson);
+}
+
+// Build lesson URL from slug: "m1-basics/01-what-is-claude-code" -> "/m1/01-what-is-claude-code"
+function lessonUrl(slug: string): string {
+  const parts = slug.split('/');
+  const modulePrefix = parts[0].split('-')[0]; // "m1-basics" -> "m1"
+  return `/${modulePrefix}/${parts[1]}`;
+}
+---
+
+<div class="sidebar">
+  <a class="sb-back" href="/">← 返回首页</a>
+  <div class="sb-title">{moduleName}</div>
+  <div class="sb-desc">{lessons.length} 篇</div>
+
+  {[...groups.entries()].map(([groupName, groupLessons]) => (
+    <>
+      <div class="sb-group">{groupName}</div>
+      {groupLessons.map(lesson => {
+        const url = lessonUrl(lesson.slug);
+        const isActive = currentSlug.endsWith(url) || currentSlug.endsWith(url + '/');
+        return (
+          <a
+            class={`sb-item ${isActive ? 'active' : ''}`}
+            href={url}
+          >
+            <span class="sb-num">{String(lesson.data.order).padStart(2, '0')}</span>
+            {lesson.data.title}
+          </a>
+        );
+      })}
+    </>
+  ))}
+</div>

@@ -1,0 +1,26 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import '../styles/prose.css';
+
+const { frontmatter } = Astro.props;
+---
+
+<BaseLayout
+  title={frontmatter.title}
+  description={frontmatter.description}
+>
+  <div class="page-container">
+    <div class="prose">
+      <h1>{frontmatter.title}</h1>
+      <slot />
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 140px 40px 100px;
+  }
+</style>

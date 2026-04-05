@@ -1,0 +1,35 @@
+---
+import { getCollection, render } from 'astro:content';
+import LessonLayout from '../layouts/LessonLayout.astro';
+
+export async function getStaticPaths() {
+  const lessons = await getCollection('lessons', ({ data }) => !data.draft);
+
+  return lessons.map(lesson => {
+    const parts = lesson.id.split('/');
+    const modulePrefix = parts[0].split('-')[0];
+    const slug = `${modulePrefix}/${parts[1]}`;
+    return {
+      params: { slug },
+      props: { lesson, allLessons: lessons },
+    };
+  });
+}
+
+const { lesson, allLessons } = Astro.props;
+const { Content } = await render(lesson);
+---
+
+<LessonLayout
+  title={lesson.data.title}
+  description={lesson.data.description}
+  module={lesson.data.module}
+  order={lesson.data.order}
+  duration={lesson.data.duration}
+  level={lesson.data.level}
+  publishedAt={lesson.data.publishedAt}
+  updatedAt={lesson.data.updatedAt}
+  allLessons={allLessons.map(l => ({ slug: l.id, data: l.data }))}
+>
+  <Content />
+</LessonLayout>

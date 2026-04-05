@@ -1,0 +1,36 @@
+---
+interface LessonRef {
+  slug: string;
+  data: { title: string; module: string; order: number };
+}
+
+interface Props {
+  prev: LessonRef | null;
+  next: LessonRef | null;
+}
+
+const { prev, next } = Astro.props;
+
+function lessonUrl(slug: string): string {
+  const parts = slug.split('/');
+  const modulePrefix = parts[0].split('-')[0];
+  return `/${modulePrefix}/${parts[1]}`;
+}
+---
+
+{(prev || next) && (
+  <div class="pagination">
+    {prev ? (
+      <a class="pg-link" href={lessonUrl(prev.slug)}>
+        <div class="pg-label">← 上一篇</div>
+        <div class="pg-title">{prev.data.title}</div>
+      </a>
+    ) : <div />}
+    {next ? (
+      <a class="pg-link next" href={lessonUrl(next.slug)}>
+        <div class="pg-label">下一篇 →</div>
+        <div class="pg-title">{next.data.title}</div>
+      </a>
+    ) : <div />}
+  </div>
+)}

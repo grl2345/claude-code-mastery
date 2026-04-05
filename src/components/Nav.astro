@@ -1,0 +1,36 @@
+---
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '/' } = Astro.props;
+---
+
+<nav id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="/">
+      <div class="nav-logo-icon">CC</div>
+      <span class="nav-logo-text">精通之路</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/" class={currentPath === '/' ? 'active' : ''}>首页</a></li>
+      <li><a href="/m1/01-what-is-claude-code" class={currentPath.startsWith('/m1') ? 'active' : ''}>基础篇</a></li>
+      <li><a href="/m2/01-why-prompts-fall-short" class={currentPath.startsWith('/m2') ? 'active' : ''}>思维篇</a></li>
+      <li><a href="/about" class={currentPath === '/about' ? 'active' : ''}>关于</a></li>
+      <li><a href="/m1/01-what-is-claude-code" class="nav-cta">开始学习 →</a></li>
+    </ul>
+    <div class="nav-hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Nav scroll shadow
+  const nav = document.getElementById('nav');
+  if (nav) {
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 10);
+    });
+  }
+</script>

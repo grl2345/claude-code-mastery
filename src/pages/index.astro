@@ -1,0 +1,172 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Terminal from '../components/Terminal.astro';
+import '../styles/terminal.css';
+import { getCollection } from 'astro:content';
+
+// Get all published lessons for the article list
+const allLessons = await getCollection('lessons', ({ data }) => !data.draft);
+const sortedLessons = allLessons.sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+const recentLessons = sortedLessons.slice(0, 5);
+
+// Count lessons per module
+const m1Count = allLessons.filter(l => l.data.module === 'm1-basics').length;
+const m2Count = allLessons.filter(l => l.data.module === 'm2-thinking').length;
+const totalCount = allLessons.length;
+
+function lessonUrl(slug: string): string {
+  const parts = slug.split('/');
+  const modulePrefix = parts[0].split('-')[0];
+  return `/${modulePrefix}/${parts[1]}`;
+}
+
+const moduleNames: Record<string, string> = {
+  'm1-basics': '基础篇',
+  'm2-thinking': '思维篇',
+  'm3-practice': '实战篇',
+  'm4-advanced': '进阶篇',
+};
+---
+
+<BaseLayout
+  title="Claude Code 精通之路 — 软件工程思维 × AI 编程"
+  description="不只是教你用 Claude Code，而是教你如何像资深工程师一样思考——拆解问题、设计架构、与 AI 高效协作。"
+>
+
+<!-- Hero -->
+<section class="hero">
+  <div>
+    <div class="hero-badge">2026 · 持续更新中</div>
+    <h1>用<span class="hl">工程思维</span><br>驾驭 AI 编程</h1>
+    <p class="hero-desc">不只是教你用 Claude Code，而是教你如何像资深工程师一样思考——拆解问题、设计架构、与 AI 高效协作，写出真正可维护的代码。</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="/m1/01-what-is-claude-code">浏览课程 →</a>
+      <a class="btn-secondary" href="/m2/01-why-prompts-fall-short">阅读思维篇</a>
+    </div>
+  </div>
+  <Terminal>
+    <div><span class="t-comment"># 第一步：清晰描述你要做什么</span></div>
+    <div><span class="t-green">❯ </span><span class="t-blue">claude</span> <span class="t-orange">"帮我重构 auth 模块，</span></div>
+    <div><span class="t-orange">&nbsp;&nbsp;拆分为 login / register / token</span></div>
+    <div><span class="t-orange">&nbsp;&nbsp;三个独立服务，保持接口不变"</span></div><br>
+    <div><span class="t-purple">✓ 分析现有代码结构...</span></div>
+    <div><span class="t-purple">✓ 识别 12 个依赖关系</span></div>
+    <div><span class="t-purple">✓ 生成重构计划</span></div>
+    <div><span class="t-purple">✓ 创建 3 个服务模块</span></div>
+    <div><span class="t-purple">✓ 更新 8 个测试用例</span></div><br>
+    <div><span class="t-comment"># 关键不是 prompt 写得多花哨</span></div>
+    <div><span class="t-comment"># 而是你能不能把需求拆清楚 ↑</span></div><br>
+    <div><span class="t-green">❯ </span><span class="cursor-blink"></span></div>
+  </Terminal>
+</section>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat-item">
+    <div class="stat-number">{totalCount}</div>
+    <div class="stat-label">篇教程</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">2</div>
+    <div class="stat-label">个完整模块</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">CLI</div>
+    <div class="stat-label">为主 · 桌面版为辅</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">免费</div>
+    <div class="stat-label">全部内容开放</div>
+  </div>
+</div>
+
+<!-- Course Grid -->
+<section class="section fade-in">
+  <div class="section-label">课程体系</div>
+  <h2 class="section-title">从入门到工程化实践</h2>
+  <p class="section-desc">围绕真实开发场景，把工具使用和工程思维编织在一起。</p>
+  <div class="course-grid">
+    <a class="course-card" href="/m1/01-what-is-claude-code">
+      <div class="course-icon i-g">🚀</div>
+      <div class="tag tag-g">基础篇</div>
+      <h3>环境搭建与核心工作流</h3>
+      <p>从安装配置开始，掌握 CLI 和桌面版的基础用法，建立正确的使用习惯。</p>
+      <div class="course-meta"><span>{m1Count} 篇</span><span>~3h</span><span>零基础</span></div>
+    </a>
+    <a class="course-card" href="/m2/01-why-prompts-fall-short">
+      <div class="course-icon i-a">🧠</div>
+      <div class="tag tag-a">思维篇</div>
+      <h3>软件工程思维框架</h3>
+      <p>任务拆解的艺术、上下文管理策略、渐进式开发——用工程师的方式与 AI 对话。</p>
+      <div class="course-meta"><span>{m2Count} 篇</span><span>~5h</span><span>需编程基础</span></div>
+    </a>
+    <div class="course-card" style="opacity: 0.6; cursor: default;">
+      <div class="course-icon i-b">⚡</div>
+      <div class="tag tag-b">实战篇</div>
+      <h3>完整项目实战复盘</h3>
+      <p>从需求分析到部署上线，用真实项目展示 Claude Code 结对编程全流程。</p>
+      <div class="course-meta"><span>筹备中</span></div>
+    </div>
+    <div class="course-card" style="opacity: 0.6; cursor: default;">
+      <div class="course-icon i-p">🔮</div>
+      <div class="tag tag-p">进阶篇</div>
+      <h3>自动化与高级集成</h3>
+      <p>Headless 模式、MCP 服务器、CI/CD 集成、自定义工作流——释放全部潜力。</p>
+      <div class="course-meta"><span>筹备中</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Philosophy -->
+<section class="philosophy-bg">
+  <div class="section fade-in">
+    <div class="section-label" style="color: var(--accent-light)">教学理念</div>
+    <h2 class="section-title" style="color: var(--paper)">我们相信的三件事</h2>
+    <p class="section-desc" style="color: var(--gray-400); margin-bottom: 48px;">工具会更新，框架会过时，但思维方式会留下来。</p>
+    <div class="phil-grid">
+      <div class="phil-card">
+        <div class="phil-num">01</div>
+        <h3>思维先于工具</h3>
+        <p>Claude Code 只是放大器。如果你不会拆解问题，再强的 AI 也帮不了你。</p>
+      </div>
+      <div class="phil-card">
+        <div class="phil-num">02</div>
+        <h3>CLI 是主战场</h3>
+        <p>CLI 让你把 Claude Code 融入 git、docker、CI/CD 等完整工具链，这才是工程化。</p>
+      </div>
+      <div class="phil-card">
+        <div class="phil-num">03</div>
+        <h3>实战胜于理论</h3>
+        <p>每个概念都配有真实项目案例——走过的弯路和踩过的坑，一个不少。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Recent Articles -->
+<section class="section fade-in">
+  <div class="section-label">最新文章</div>
+  <h2 class="section-title">经验分享</h2>
+  <p class="section-desc">来自真实项目的一线经验。</p>
+  <div class="article-list">
+    {recentLessons.map((lesson, i) => (
+      <a class="article-item" href={lessonUrl(lesson.id)}>
+        <span class="a-num">{String(i + 1).padStart(2, '0')}</span>
+        <div class="a-info">
+          <h4>{lesson.data.title}</h4>
+          <p>{moduleNames[lesson.data.module]} · {lesson.data.duration}</p>
+        </div>
+        <span class="a-arrow">→</span>
+      </a>
+    ))}
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section fade-in">
+  <h2>准备好了吗？</h2>
+  <p>从第一行命令开始，掌握 AI 时代的软件工程方法论。</p>
+  <a class="btn-primary" style="font-size: 17px; padding: 16px 40px;" href="/m1/01-what-is-claude-code">开始第一课 →</a>
+</section>
+
+</BaseLayout>

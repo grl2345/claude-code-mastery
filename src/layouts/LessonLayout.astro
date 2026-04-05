@@ -1,0 +1,90 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Sidebar from '../components/Sidebar.astro';
+import Pagination from '../components/Pagination.astro';
+import '../styles/prose.css';
+
+interface Props {
+  title: string;
+  description: string;
+  module: string;
+  order: number;
+  duration: string;
+  level: string;
+  publishedAt: Date;
+  updatedAt?: Date;
+  allLessons: Array<{
+    slug: string;
+    data: { title: string; module: string; order: number; group?: string };
+  }>;
+}
+
+const {
+  title, description, module, order, duration, level,
+  publishedAt, updatedAt, allLessons,
+} = Astro.props;
+
+// Module display names
+const moduleNames: Record<string, string> = {
+  'm1-basics': '基础篇',
+  'm2-thinking': '思维篇',
+  'm3-practice': '实战篇',
+  'm4-advanced': '进阶篇',
+};
+
+const moduleName = moduleNames[module] || module;
+
+// Get lessons for current module, sorted by order
+const moduleLessons = allLessons
+  .filter(l => l.data.module === module)
+  .sort((a, b) => a.data.order - b.data.order);
+
+// Find prev/next
+const currentIndex = moduleLessons.findIndex(l => l.data.order === order);
+const prev = currentIndex > 0 ? moduleLessons[currentIndex - 1] : null;
+const next = currentIndex < moduleLessons.length - 1 ? moduleLessons[currentIndex + 1] : null;
+
+// Current slug for sidebar active state
+const currentSlug = Astro.url.pathname;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  type="article"
+  publishedAt={publishedAt}
+  updatedAt={updatedAt}
+>
+  <div class="mod-layout">
+    <Sidebar
+      moduleName={moduleName}
+      moduleId={module}
+      lessons={moduleLessons}
+      currentSlug={currentSlug}
+    />
+    <div class="mod-main">
+      <div class="breadcrumb">
+        <a href="/">首页</a>
+        <span>/</span>
+        <a href={`/${module.split('-')[0]}/${moduleLessons[0]?.slug.split('/').pop()}`}>{moduleName}</a>
+        <span>/</span>
+        <span>第 {String(order).padStart(2, '0')} 课</span>
+      </div>
+
+      <div class="lesson-header">
+        <h1>{title}</h1>
+        <div class="lesson-meta">
+          <span>{moduleName} · 第 {order} 课</span>
+          <span>{duration}</span>
+          <span>{level}</span>
+        </div>
+      </div>
+
+      <div class="prose">
+        <slot />
+      </div>
+
+      <Pagination prev={prev} next={next} />
+    </div>
+  </div>
+</BaseLayout>
