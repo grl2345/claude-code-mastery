@@ -16,7 +16,7 @@ const { moduleName, moduleId, lessons, currentSlug } = Astro.props;
 // Group lessons by their group field
 const groups = new Map<string, Lesson[]>();
 for (const lesson of lessons) {
-  const group = lesson.data.group || '课程';
+  const group = lesson.data.group || '目录';
   if (!groups.has(group)) groups.set(group, []);
   groups.get(group)!.push(lesson);
 }

@@ -68,13 +68,13 @@ const currentSlug = Astro.url.pathname;
         <span>/</span>
         <a href={`/${module.split('-')[0]}/${moduleLessons[0]?.slug.split('/').pop()}`}>{moduleName}</a>
         <span>/</span>
-        <span>第 {String(order).padStart(2, '0')} 课</span>
+        <span>第 {String(order).padStart(2, '0')} 篇</span>
       </div>
 
       <div class="lesson-header">
         <h1>{title}</h1>
         <div class="lesson-meta">
-          <span>{moduleName} · 第 {order} 课</span>
+          <span>{moduleName} · 第 {order} 篇</span>
           <span>{duration}</span>
           <span>{level}</span>
         </div>

@@ -197,9 +197,10 @@ nav.scrolled { box-shadow: 0 2px 20px rgba(0, 0, 0, .06); }
 }
 .course-card:hover::before { opacity: 1; }
 .course-icon {
-  width: 48px; height: 48px; border-radius: 12px;
+  width: 44px; height: 44px; border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 22px; margin-bottom: 20px;
+  font-family: var(--mono); font-size: 14px; font-weight: 600;
+  margin-bottom: 20px;
 }
 .course-icon.i-g { background: var(--green-light); }
 .course-icon.i-a { background: var(--accent-glow); }
