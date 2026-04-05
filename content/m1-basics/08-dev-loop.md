@@ -20,7 +20,7 @@ publishedAt: 2026-03-22
 动手之前先搞清楚现状。这一步最容易被跳过，也最容易省下后面的返工时间。
 
 ```bash
-❯ "我要给用户模块添加头像上传功能。
+$ "我要给用户模块添加头像上传功能。
    请先分析：
    1. src/modules/user/ 目前的代码结构
    2. 有没有现成的文件上传逻辑
@@ -38,15 +38,15 @@ publishedAt: 2026-03-22
 
 ```bash
 # 第一步：类型定义
-❯ "在 User 接口添加 avatarUrl 字段"
+$ "在 User 接口添加 avatarUrl 字段"
 
 # 审查确认后...
 
 # 第二步：上传服务
-❯ "创建 uploadAvatar 函数..."
+$ "创建 uploadAvatar 函数..."
 
 # 第三步：路由
-❯ "添加 PUT /api/users/:id/avatar 路由"
+$ "添加 PUT /api/users/:id/avatar 路由"
 ```
 
 为什么要拆这么细？因为如果你一口气让 Claude Code 把所有东西都写完，出了问题很难定位是哪一步错了。分步做的话，每一步的改动都很小，review 起来很快，发现问题也容易回退。
@@ -66,7 +66,7 @@ publishedAt: 2026-03-22
 代码写完了，让 Claude Code 帮你补测试：
 
 ```bash
-❯ "为 uploadAvatar 写单元测试：
+$ "为 uploadAvatar 写单元测试：
    覆盖：成功上传、文件过大、格式不支持、用户不存在"
 ```
 
@@ -77,7 +77,7 @@ publishedAt: 2026-03-22
 最后一步，生成 commit message：
 
 ```bash
-❯ git diff --staged | claude --print "生成 commit message"
+$ git diff --staged | claude --print "生成 commit message"
 ```
 
 这里用了管道 + `--print`，Claude Code 会根据实际的 diff 内容生成描述性的 commit message。比自己想措辞快多了，而且它能看到所有改动，不会遗漏。

@@ -12,6 +12,7 @@ const recentLessons = sortedLessons.slice(0, 5);
 // Count lessons per module
 const m1Count = allLessons.filter(l => l.data.module === 'm1-basics').length;
 const m2Count = allLessons.filter(l => l.data.module === 'm2-thinking').length;
+const m3Count = allLessons.filter(l => l.data.module === 'm3-practice').length;
 const totalCount = allLessons.length;
 
 function lessonUrl(slug: string): string {
@@ -100,13 +101,13 @@ const moduleNames: Record<string, string> = {
       <p>这部分是我花时间最多的——怎么拆任务、管上下文、做代码审查、处理 AI 犯的错。想用好 Claude Code，思维比技巧重要。</p>
       <div class="course-meta"><span>{m2Count} 篇</span><span>约 5 小时</span><span>需编程基础</span></div>
     </a>
-    <div class="course-card" style="opacity: 0.5; cursor: default;">
+    <a class="course-card" href="/m3/01-build-project-from-scratch">
       <div class="course-icon i-b">03</div>
       <div class="tag tag-b">实战篇</div>
-      <h3>完整项目实战复盘</h3>
-      <p>正在整理几个真实项目的开发复盘——从需求分析、任务拆解到最终上线，完整记录和 Claude Code 结对编程的全过程。</p>
-      <div class="course-meta"><span>写作中</span></div>
-    </div>
+      <h3>真实项目开发复盘</h3>
+      <p>从零搭建项目、重构 400 行巨型组件、排查线上内存泄漏、一个月使用数据复盘——每篇都是完整的实战记录，附踩坑和修复过程。</p>
+      <div class="course-meta"><span>{m3Count} 篇</span><span>约 4 小时</span><span>需编程基础</span></div>
+    </a>
     <div class="course-card" style="opacity: 0.5; cursor: default;">
       <div class="course-icon i-p">04</div>
       <div class="tag tag-p">进阶篇</div>

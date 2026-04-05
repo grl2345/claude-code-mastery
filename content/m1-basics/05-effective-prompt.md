@@ -18,13 +18,13 @@ publishedAt: 2026-03-19
 ## 差 Prompt vs 好 Prompt
 
 ```bash
-# ❌ 差 Prompt
-❯ "写一个处理日期的函数"
+# [反例] 差 Prompt
+$ "写一个处理日期的函数"
 ```
 
 ```bash
-# ✅ 好 Prompt
-❯ "在 src/utils/date.ts 中创建 formatRelativeTime：
+# [正例] 好 Prompt
+$ "在 src/utils/date.ts 中创建 formatRelativeTime：
    - 输入：ISO 8601 时间字符串
    - 输出：'刚刚'/'X 分钟前'/'X 小时前'/'X 天前'
    - 不使用第三方库

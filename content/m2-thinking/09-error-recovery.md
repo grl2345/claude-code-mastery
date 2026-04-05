@@ -50,7 +50,7 @@ publishedAt: 2026-03-28
 如果你一直在按小步快跑的节奏 commit，回退就非常简单：
 
 ```bash
-❯ git reset --hard HEAD~1
+$ git reset --hard HEAD~1
 ```
 
 这是最干净的回退方式。回到上一个已验证的状态，然后重新给 Claude Code 下指令。这也是为什么我在上一课反复强调「每步审查后立即 commit」——commit 就是你的存档点，没有存档点的回退是很痛苦的。

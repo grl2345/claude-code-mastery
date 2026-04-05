@@ -20,8 +20,8 @@ publishedAt: 2026-03-21
 目标层要回答的核心问题是：做完这件事之后，你能用什么方式判断它「做到了」？
 
 ```
-❌ "重构 auth 模块"
-✅ "auth 模块拆分为 login / register / token 三个独立服务，
+[反例] "重构 auth 模块"
+[正例] "auth 模块拆分为 login / register / token 三个独立服务，
     现有 API 接口不变，所有测试通过"
 ```
 

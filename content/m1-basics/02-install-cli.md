@@ -16,15 +16,15 @@ publishedAt: 2026-03-16
 首先是 Node.js 环境。Claude Code 需要 Node.js 18 或更高版本：
 
 ```bash
-❯ node --version
+$ node --version
 v20.11.0
 ```
 
 如果没有安装，推荐使用 `nvm`：
 
 ```bash
-❯ nvm install --lts
-❯ node --version
+$ nvm install --lts
+$ node --version
 v20.11.0
 ```
 
@@ -35,8 +35,8 @@ v20.11.0
 安装本身非常简单，一行命令搞定：
 
 ```bash
-❯ npm install -g @anthropic-ai/claude-code
-❯ claude --version
+$ npm install -g @anthropic-ai/claude-code
+$ claude --version
 claude-code v1.x.x
 ```
 
@@ -47,7 +47,7 @@ claude-code v1.x.x
 安装完成后，直接在终端输入 `claude` 就会启动认证流程：
 
 ```bash
-❯ claude
+$ claude
 Welcome to Claude Code!
 Press Enter to open the browser for login...
 

@@ -15,13 +15,13 @@ Claude Code 有几种不同的启动方式，适合不同场景：
 
 ```bash
 # 交互模式——最常用，启动后进入持续对话
-❯ claude
+$ claude
 
 # 单次命令——适合快速提问，不需要来回对话
-❯ claude "解释 src/index.ts 的主要逻辑"
+$ claude "解释 src/index.ts 的主要逻辑"
 
 # 续接对话——继续上一次的对话上下文
-❯ claude --continue
+$ claude --continue
 ```
 
 我日常用得最多的是交互模式，但单次命令在写脚本和自动化时特别有用。比如你可以在 git hook 里放一个 `claude --print "检查这段代码有没有明显问题"`，每次提交前自动过一遍。
@@ -48,26 +48,26 @@ Claude Code 有几种不同的启动方式，适合不同场景：
 
 ```bash
 # git diff 传给 Claude Code 做代码审查
-❯ git diff | claude "审查这些改动"
+$ git diff | claude "审查这些改动"
 
 # 错误日志传给 Claude Code 分析
-❯ cat error.log | claude "分析这些错误"
+$ cat error.log | claude "分析这些错误"
 
 # ESLint 输出传给 Claude Code 修复
-❯ npx eslint src/ 2>&1 | claude "修复这些 lint 错误"
+$ npx eslint src/ 2>&1 | claude "修复这些 lint 错误"
 ```
 
 管道的真正威力在于组合。你可以把 Claude Code 嵌入到任何现有工作流中——git hook、CI 脚本、构建流程，甚至是 cron job。举几个我实际用过的例子：
 
 ```bash
 # 每次 PR 自动生成 review 摘要
-❯ gh pr diff 42 | claude --print "总结这个 PR 的主要改动，列出潜在风险"
+$ gh pr diff 42 | claude --print "总结这个 PR 的主要改动，列出潜在风险"
 
 # 构建失败时快速定位原因
-❯ npm run build 2>&1 | claude "构建失败了，帮我分析原因并给出修复建议"
+$ npm run build 2>&1 | claude "构建失败了，帮我分析原因并给出修复建议"
 
 # 快速理解一段不熟悉的代码
-❯ cat src/legacy/parser.js | claude --print "用简洁的中文解释这段代码的核心逻辑"
+$ cat src/legacy/parser.js | claude --print "用简洁的中文解释这段代码的核心逻辑"
 ```
 
 > 小技巧：管道配合 `--print` 参数使用时，Claude Code 只输出结果文本，不进入交互模式。这在脚本和自动化场景中非常关键。

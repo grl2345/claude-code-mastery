@@ -26,9 +26,9 @@ publishedAt: 2026-03-24
 ## 策略 2：精确文件引用
 
 ```bash
-# ❌
+# [反例]
 "看看 src/modules/ 目录"
-# ✅
+# [正例]
 "看 src/modules/auth/service.ts 中的 validateToken 函数"
 ```
 

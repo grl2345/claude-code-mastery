@@ -41,7 +41,7 @@ publishedAt: 2026-03-30
 ## 用 AI 辅助决策
 
 ```bash
-❯ "对比 Zustand、Jotai、Redux Toolkit：
+$ "对比 Zustand、Jotai、Redux Toolkit：
    - 学习曲线 / 适合规模 / TS 支持
    列出优缺点，不要替我做选择"
 ```
