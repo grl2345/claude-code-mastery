@@ -13,6 +13,7 @@ const recentLessons = sortedLessons.slice(0, 5);
 const m1Count = allLessons.filter(l => l.data.module === 'm1-basics').length;
 const m2Count = allLessons.filter(l => l.data.module === 'm2-thinking').length;
 const m3Count = allLessons.filter(l => l.data.module === 'm3-practice').length;
+const m4Count = allLessons.filter(l => l.data.module === 'm4-advanced').length;
 const totalCount = allLessons.length;
 
 function lessonUrl(slug: string): string {
@@ -108,13 +109,13 @@ const moduleNames: Record<string, string> = {
       <p>从零搭建项目、重构 400 行巨型组件、排查线上内存泄漏、一个月使用数据复盘——每篇都是完整的实战记录，附踩坑和修复过程。</p>
       <div class="course-meta"><span>{m3Count} 篇</span><span>约 4 小时</span><span>需编程基础</span></div>
     </a>
-    <div class="course-card" style="opacity: 0.5; cursor: default;">
+    <a class="course-card" href="/m4/01-headless-mode">
       <div class="course-icon i-p">04</div>
       <div class="tag tag-p">进阶篇</div>
       <h3>自动化与深度集成</h3>
-      <p>Headless 模式、MCP 服务器、CI/CD 集成这些进阶用法。等实战篇写完就开始更新这部分。</p>
-      <div class="course-meta"><span>计划中</span></div>
-    </div>
+      <p>Headless 模式、管道操作、Git Hook 集成、批量处理——把 Claude Code 从对话工具变成可编程的自动化引擎。</p>
+      <div class="course-meta"><span>{m4Count} 篇</span><span>持续更新</span><span>需编程基础</span></div>
+    </a>
   </div>
 </section>
 
