@@ -2,11 +2,14 @@ import { createServer } from 'node:http';
 import { readdir, readFile, writeFile, unlink, mkdir } from 'node:fs/promises';
 import { join, extname } from 'node:path';
 import { existsSync } from 'node:fs';
+import { execFile } from 'node:child_process';
 
 const PORT = process.env.ADMIN_PORT || 4000;
 const PASSWORD = process.env.ADMIN_PASSWORD || 'cc-admin-2026';
-const CONTENT_DIR = join(import.meta.dirname, '..', 'content');
+const PROJECT_DIR = join(import.meta.dirname, '..');
+const CONTENT_DIR = join(PROJECT_DIR, 'content');
 const ADMIN_HTML = join(import.meta.dirname, 'index.html');
+const AUTO_BUILD = process.env.AUTO_BUILD !== 'false'; // default true
 
 // Simple token store (in-memory, resets on restart)
 const tokens = new Set();
@@ -134,6 +137,27 @@ async function deleteArticle(id) {
   return true;
 }
 
+// Site rebuild
+let buildStatus = { running: false, lastBuild: null, lastError: null };
+
+function triggerBuild() {
+  if (!AUTO_BUILD || buildStatus.running) return;
+  buildStatus.running = true;
+  console.log('[build] 开始构建...');
+
+  execFile('npx', ['astro', 'build'], { cwd: PROJECT_DIR, timeout: 120000 }, (err, stdout, stderr) => {
+    buildStatus.running = false;
+    if (err) {
+      buildStatus.lastError = err.message;
+      console.log('[build] 构建失败:', err.message);
+    } else {
+      buildStatus.lastBuild = new Date().toISOString();
+      buildStatus.lastError = null;
+      console.log('[build] 构建完成');
+    }
+  });
+}
+
 const moduleNames = {
   'm1-basics': '基础篇',
   'm2-thinking': '思维篇',
@@ -193,11 +217,24 @@ const server = createServer(async (req, res) => {
       return json(res, article);
     }
 
+    // Build status
+    if (path === '/api/build-status' && req.method === 'GET') {
+      return json(res, buildStatus);
+    }
+
+    // Manual rebuild
+    if (path === '/api/rebuild' && req.method === 'POST') {
+      if (buildStatus.running) return json(res, { error: '正在构建中' }, 409);
+      triggerBuild();
+      return json(res, { success: true, message: '构建已触发' });
+    }
+
     // Update article
     if (articleMatch && req.method === 'PUT') {
       try {
         const data = await parseBody(req);
         await saveArticle(decodeURIComponent(articleMatch[1]), data);
+        triggerBuild();
         return json(res, { success: true });
       } catch (e) {
         return json(res, { error: e.message }, 500);
@@ -208,6 +245,7 @@ const server = createServer(async (req, res) => {
     if (articleMatch && req.method === 'DELETE') {
       const ok = await deleteArticle(decodeURIComponent(articleMatch[1]));
       if (!ok) return json(res, { error: '文章不存在' }, 404);
+      triggerBuild();
       return json(res, { success: true });
     }
 
@@ -223,6 +261,7 @@ const server = createServer(async (req, res) => {
         if (existing) return json(res, { error: '文件已存在' }, 409);
         delete data.filename;
         await saveArticle(id, data);
+        triggerBuild();
         return json(res, { success: true, id });
       } catch (e) {
         return json(res, { error: e.message }, 500);
@@ -237,5 +276,6 @@ server.listen(PORT, () => {
   console.log(`\n  后台管理系统已启动`);
   console.log(`  地址: http://localhost:${PORT}`);
   console.log(`  默认密码: ${PASSWORD}`);
-  console.log(`  内容目录: ${CONTENT_DIR}\n`);
+  console.log(`  内容目录: ${CONTENT_DIR}`);
+  console.log(`  自动构建: ${AUTO_BUILD ? '开启（保存/删除后自动 astro build）' : '关闭'}\n`);
 });
