@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>后台管理 - Claude Code 精通之路</title>
+<style>
+:root {
+  --bg: #f6f3ed; --card: #fff; --ink: #1a1a1a; --gray: #6b665e;
+  --gray-light: #e2ded6; --accent: #c44b2b; --accent-light: #e8694d;
+  --green: #2d8a56; --blue: #2b6cc4; --red: #dc2626;
+  --sans: system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --mono: 'JetBrains Mono', 'Menlo', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--sans); background: var(--bg); color: var(--ink); min-height: 100vh; }
+
+/* Login */
+.login-wrap {
+  display: flex; align-items: center; justify-content: center; min-height: 100vh;
+}
+.login-box {
+  background: var(--card); padding: 48px; border-radius: 16px; width: 380px;
+  box-shadow: 0 4px 24px rgba(0,0,0,.06); text-align: center;
+}
+.login-box h1 { font-size: 22px; margin-bottom: 8px; }
+.login-box p { font-size: 14px; color: var(--gray); margin-bottom: 32px; }
+.login-box input {
+  width: 100%; padding: 12px 16px; border: 1.5px solid var(--gray-light);
+  border-radius: 8px; font-size: 15px; outline: none; margin-bottom: 16px;
+  font-family: var(--sans);
+}
+.login-box input:focus { border-color: var(--accent); }
+.login-box .error { color: var(--red); font-size: 13px; margin-bottom: 12px; }
+
+/* Layout */
+.app { display: none; }
+.header {
+  background: var(--ink); color: #fff; padding: 0 32px; height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 10;
+}
+.header h1 { font-size: 16px; font-weight: 600; }
+.header-actions { display: flex; gap: 12px; align-items: center; }
+.main { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px;
+  border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer;
+  border: none; font-family: var(--sans); transition: all .2s;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent-light); }
+.btn-sm { padding: 6px 14px; font-size: 13px; }
+.btn-outline {
+  background: transparent; color: var(--ink); border: 1.5px solid var(--gray-light);
+}
+.btn-outline:hover { border-color: var(--ink); }
+.btn-danger { background: transparent; color: var(--red); border: 1.5px solid var(--red); }
+.btn-danger:hover { background: var(--red); color: #fff; }
+.btn-ghost { background: transparent; color: rgba(255,255,255,.7); border: 1px solid rgba(255,255,255,.2); }
+.btn-ghost:hover { color: #fff; border-color: rgba(255,255,255,.5); }
+
+/* Module tabs */
+.tabs {
+  display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;
+}
+.tab {
+  padding: 8px 18px; border-radius: 8px; font-size: 14px;
+  cursor: pointer; border: 1.5px solid var(--gray-light); background: var(--card);
+  font-family: var(--sans); transition: all .2s; color: var(--gray);
+}
+.tab.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+.tab:hover:not(.active) { border-color: var(--ink); color: var(--ink); }
+.tab .count {
+  display: inline-block; background: rgba(0,0,0,.08); padding: 1px 7px;
+  border-radius: 10px; font-size: 12px; margin-left: 4px;
+}
+.tab.active .count { background: rgba(255,255,255,.2); }
+
+/* Article list */
+.article-list { display: flex; flex-direction: column; gap: 1px; background: var(--gray-light); border-radius: 12px; overflow: hidden; }
+.article-row {
+  background: var(--card); padding: 18px 24px;
+  display: grid; grid-template-columns: 40px 1fr auto; gap: 16px; align-items: center;
+}
+.article-row:hover { background: #faf8f4; }
+.article-order { font-family: var(--mono); font-size: 13px; color: var(--gray); text-align: center; }
+.article-info h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+.article-meta { font-size: 13px; color: var(--gray); display: flex; gap: 12px; flex-wrap: wrap; }
+.article-actions { display: flex; gap: 8px; }
+.badge {
+  display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 4px;
+  font-weight: 500;
+}
+.badge-draft { background: #fef3c7; color: #92400e; }
+
+/* Editor */
+.editor { display: none; }
+.editor-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 24px; gap: 16px; flex-wrap: wrap;
+}
+.editor-header h2 { font-size: 20px; }
+.form-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  background: var(--card); padding: 28px; border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04); margin-bottom: 20px;
+}
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group.full { grid-column: 1 / -1; }
+.form-group label { font-size: 13px; font-weight: 600; color: var(--gray); }
+.form-group input, .form-group select {
+  padding: 10px 14px; border: 1.5px solid var(--gray-light); border-radius: 8px;
+  font-size: 14px; font-family: var(--sans); outline: none;
+}
+.form-group input:focus, .form-group select:focus { border-color: var(--accent); }
+.form-group textarea {
+  padding: 16px; border: 1.5px solid var(--gray-light); border-radius: 12px;
+  font-size: 14px; font-family: var(--mono); line-height: 1.7; outline: none;
+  min-height: 500px; resize: vertical; background: var(--card);
+  tab-size: 2;
+}
+.form-group textarea:focus { border-color: var(--accent); }
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 24px; right: 24px; padding: 14px 24px;
+  border-radius: 10px; color: #fff; font-size: 14px; font-weight: 500;
+  z-index: 100; opacity: 0; transform: translateY(12px);
+  transition: all .3s;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+.toast.success { background: var(--green); }
+.toast.error { background: var(--red); }
+
+/* Modal */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 50;
+  display: none; align-items: center; justify-content: center;
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: var(--card); border-radius: 14px; padding: 32px; width: 420px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.15);
+}
+.modal h3 { font-size: 18px; margin-bottom: 12px; }
+.modal p { font-size: 14px; color: var(--gray); margin-bottom: 24px; line-height: 1.6; }
+.modal-actions { display: flex; gap: 12px; justify-content: flex-end; }
+
+/* Empty state */
+.empty {
+  text-align: center; padding: 60px 20px; color: var(--gray);
+}
+.empty p { font-size: 15px; margin-bottom: 20px; }
+
+/* Build indicator */
+.build-indicator {
+  font-size: 12px; padding: 4px 12px; border-radius: 6px; font-weight: 500;
+}
+.build-indicator.building { background: #fbbf24; color: #78350f; }
+.build-indicator.success { background: #34d399; color: #064e3b; }
+.build-indicator.error { background: #f87171; color: #7f1d1d; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header { padding: 0 16px; }
+  .main { padding: 20px 16px; }
+  .article-row { grid-template-columns: 1fr; gap: 10px; padding: 16px; }
+  .article-order { display: none; }
+  .article-actions { justify-content: flex-start; }
+  .form-grid { grid-template-columns: 1fr; padding: 20px; }
+  .editor-header { flex-direction: column; align-items: flex-start; }
+  .tabs { gap: 6px; }
+  .tab { padding: 6px 14px; font-size: 13px; }
+  .modal { width: calc(100% - 32px); }
+  .login-box { width: calc(100% - 32px); padding: 32px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Login -->
+<div class="login-wrap" id="loginView">
+  <div class="login-box">
+    <h1>后台管理</h1>
+    <p>Claude Code 精通之路</p>
+    <div class="error" id="loginError" style="display:none"></div>
+    <input type="password" id="passwordInput" placeholder="请输入管理密码" autofocus>
+    <button class="btn btn-primary" style="width:100%" onclick="login()">登录</button>
+  </div>
+</div>
+
+<!-- App -->
+<div class="app" id="appView">
+  <div class="header">
+    <h1>文章管理</h1>
+    <div class="header-actions">
+      <span id="deployIndicator" class="build-indicator" style="display:none"></span>
+      <button class="btn btn-ghost btn-sm" onclick="showNewArticle()">新建文章</button>
+      <button class="btn btn-ghost btn-sm" onclick="logout()">退出</button>
+    </div>
+  </div>
+  <div class="main">
+    <!-- List view -->
+    <div id="listView">
+      <div class="tabs" id="tabs"></div>
+      <div class="article-list" id="articleList"></div>
+    </div>
+    <!-- Editor view -->
+    <div class="editor" id="editorView">
+      <div class="editor-header">
+        <h2 id="editorTitle">编辑文章</h2>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-outline btn-sm" onclick="cancelEdit()">返回列表</button>
+          <button class="btn btn-primary btn-sm" onclick="saveArticle()">保存</button>
+        </div>
+      </div>
+      <div class="form-grid">
+        <div class="form-group full">
+          <label>标题</label>
+          <input type="text" id="f-title" placeholder="文章标题">
+        </div>
+        <div class="form-group">
+          <label>模块</label>
+          <select id="f-module">
+            <option value="m1-basics">基础篇</option>
+            <option value="m2-thinking">思维篇</option>
+            <option value="m3-practice">实战篇</option>
+            <option value="m4-advanced">进阶篇</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>序号</label>
+          <input type="number" id="f-order" placeholder="1" min="1">
+        </div>
+        <div class="form-group">
+          <label>分组</label>
+          <input type="text" id="f-group" placeholder="例如：准备工作">
+        </div>
+        <div class="form-group">
+          <label>阅读时长</label>
+          <input type="text" id="f-duration" placeholder="例如：15 分钟">
+        </div>
+        <div class="form-group">
+          <label>难度</label>
+          <select id="f-level">
+            <option value="零基础">零基础</option>
+            <option value="零基础可读">零基础可读</option>
+            <option value="需编程基础">需编程基础</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>发布日期</label>
+          <input type="date" id="f-publishedAt">
+        </div>
+        <div class="form-group full">
+          <label>描述</label>
+          <input type="text" id="f-description" placeholder="文章简短描述">
+        </div>
+        <div class="form-group full" id="filenameGroup">
+          <label>文件名（仅新建时填写，不含 .md）</label>
+          <input type="text" id="f-filename" placeholder="例如：01-getting-started">
+        </div>
+        <div class="form-group full">
+          <label>正文（Markdown）</label>
+          <textarea id="f-body" placeholder="## 正文内容&#10;&#10;在此输入 Markdown 内容..."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete modal -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal">
+    <h3>确认删除</h3>
+    <p>即将删除文章「<span id="deleteTitle"></span>」。此操作不可撤销，确定要继续吗？</p>
+    <div class="modal-actions">
+      <button class="btn btn-outline btn-sm" onclick="closeDeleteModal()">取消</button>
+      <button class="btn btn-danger btn-sm" onclick="confirmDelete()">确认删除</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+const API = window.location.origin;
+let token = localStorage.getItem('admin_token');
+let articles = [];
+let moduleNames = {};
+let currentModule = 'all';
+let editingId = null;
+let deletingId = null;
+
+// Init
+if (token) {
+  checkToken();
+} else {
+  document.getElementById('loginView').style.display = 'flex';
+}
+
+document.getElementById('passwordInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') login();
+});
+
+// Handle tab key in textarea
+document.getElementById('f-body').addEventListener('keydown', e => {
+  if (e.key === 'Tab') {
+    e.preventDefault();
+    const ta = e.target;
+    const start = ta.selectionStart;
+    const end = ta.selectionEnd;
+    ta.value = ta.value.substring(0, start) + '  ' + ta.value.substring(end);
+    ta.selectionStart = ta.selectionEnd = start + 2;
+  }
+});
+
+async function checkToken() {
+  try {
+    const res = await fetch(`${API}/api/articles`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    if (res.ok) {
+      showApp();
+    } else {
+      localStorage.removeItem('admin_token');
+      token = null;
+      document.getElementById('loginView').style.display = 'flex';
+    }
+  } catch {
+    document.getElementById('loginView').style.display = 'flex';
+  }
+}
+
+async function login() {
+  const pw = document.getElementById('passwordInput').value;
+  if (!pw) return;
+  try {
+    const res = await fetch(`${API}/api/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pw }),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      token = data.token;
+      localStorage.setItem('admin_token', token);
+      showApp();
+    } else {
+      const el = document.getElementById('loginError');
+      el.textContent = data.error;
+      el.style.display = 'block';
+    }
+  } catch {
+    toast('网络错误', 'error');
+  }
+}
+
+function logout() {
+  localStorage.removeItem('admin_token');
+  token = null;
+  document.getElementById('appView').style.display = 'none';
+  document.getElementById('loginView').style.display = 'flex';
+  document.getElementById('passwordInput').value = '';
+}
+
+async function showApp() {
+  document.getElementById('loginView').style.display = 'none';
+  document.getElementById('appView').style.display = 'block';
+  await loadArticles();
+}
+
+async function loadArticles() {
+  try {
+    const res = await fetch(`${API}/api/articles`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const data = await res.json();
+    articles = data.articles;
+    moduleNames = data.moduleNames;
+    renderTabs();
+    renderList();
+  } catch {
+    toast('加载失败', 'error');
+  }
+}
+
+function renderTabs() {
+  const counts = {};
+  articles.forEach(a => {
+    counts[a.module] = (counts[a.module] || 0) + 1;
+  });
+  let html = `<button class="tab ${currentModule === 'all' ? 'active' : ''}" onclick="switchModule('all')">全部<span class="count">${articles.length}</span></button>`;
+  for (const [id, name] of Object.entries(moduleNames)) {
+    const c = counts[id] || 0;
+    html += `<button class="tab ${currentModule === id ? 'active' : ''}" onclick="switchModule('${id}')">${name}<span class="count">${c}</span></button>`;
+  }
+  document.getElementById('tabs').innerHTML = html;
+}
+
+function switchModule(mod) {
+  currentModule = mod;
+  renderTabs();
+  renderList();
+}
+
+function renderList() {
+  const filtered = currentModule === 'all' ? articles : articles.filter(a => a.module === currentModule);
+  if (filtered.length === 0) {
+    document.getElementById('articleList').innerHTML = `<div class="empty"><p>该模块下暂无文章</p><button class="btn btn-primary btn-sm" onclick="showNewArticle()">新建文章</button></div>`;
+    return;
+  }
+  let html = '';
+  filtered.forEach(a => {
+    const draft = a.draft ? '<span class="badge badge-draft">草稿</span>' : '';
+    const modLabel = currentModule === 'all' ? `<span>${moduleNames[a.module] || a.module}</span>` : '';
+    html += `
+      <div class="article-row">
+        <span class="article-order">${String(a.order || 0).padStart(2, '0')}</span>
+        <div class="article-info">
+          <h3>${a.title || '(无标题)'} ${draft}</h3>
+          <div class="article-meta">
+            ${modLabel}
+            <span>${a.duration || ''}</span>
+            <span>${a.level || ''}</span>
+            <span>${a.bodyLength || 0} 字</span>
+          </div>
+        </div>
+        <div class="article-actions">
+          <button class="btn btn-outline btn-sm" onclick="editArticle('${a.id}')">编辑</button>
+          <button class="btn btn-danger btn-sm" onclick="showDeleteModal('${a.id}', '${(a.title || '').replace(/'/g, "\\'")}')">删除</button>
+        </div>
+      </div>`;
+  });
+  document.getElementById('articleList').innerHTML = html;
+}
+
+async function editArticle(id) {
+  try {
+    const res = await fetch(`${API}/api/articles/${encodeURIComponent(id)}`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    if (!res.ok) return toast('加载文章失败', 'error');
+    const data = await res.json();
+    editingId = id;
+    document.getElementById('editorTitle').textContent = '编辑文章';
+    document.getElementById('filenameGroup').style.display = 'none';
+    document.getElementById('f-title').value = data.title || '';
+    document.getElementById('f-module').value = data.module || 'm1-basics';
+    document.getElementById('f-order').value = data.order || '';
+    document.getElementById('f-group').value = data.group || '';
+    document.getElementById('f-duration').value = data.duration || '';
+    document.getElementById('f-level').value = data.level || '需编程基础';
+    document.getElementById('f-description').value = data.description || '';
+    document.getElementById('f-publishedAt').value = (data.publishedAt || '').slice(0, 10);
+    document.getElementById('f-body').value = data.body || '';
+    document.getElementById('listView').style.display = 'none';
+    document.getElementById('editorView').style.display = 'block';
+  } catch {
+    toast('网络错误', 'error');
+  }
+}
+
+function showNewArticle() {
+  editingId = null;
+  document.getElementById('editorTitle').textContent = '新建文章';
+  document.getElementById('filenameGroup').style.display = 'block';
+  document.getElementById('f-title').value = '';
+  document.getElementById('f-module').value = currentModule !== 'all' ? currentModule : 'm1-basics';
+  document.getElementById('f-order').value = '';
+  document.getElementById('f-group').value = '';
+  document.getElementById('f-duration').value = '';
+  document.getElementById('f-level').value = '需编程基础';
+  document.getElementById('f-description').value = '';
+  document.getElementById('f-publishedAt').value = new Date().toISOString().slice(0, 10);
+  document.getElementById('f-filename').value = '';
+  document.getElementById('f-body').value = '';
+  document.getElementById('listView').style.display = 'none';
+  document.getElementById('editorView').style.display = 'block';
+}
+
+async function saveArticle() {
+  const data = {
+    title: document.getElementById('f-title').value,
+    module: document.getElementById('f-module').value,
+    order: parseInt(document.getElementById('f-order').value) || 1,
+    group: document.getElementById('f-group').value,
+    duration: document.getElementById('f-duration').value,
+    level: document.getElementById('f-level').value,
+    description: document.getElementById('f-description').value,
+    publishedAt: document.getElementById('f-publishedAt').value,
+    body: document.getElementById('f-body').value,
+  };
+  if (!data.title) return toast('请填写标题', 'error');
+  if (!data.description) return toast('请填写描述', 'error');
+
+  try {
+    let res;
+    if (editingId) {
+      res = await fetch(`${API}/api/articles/${encodeURIComponent(editingId)}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify(data),
+      });
+    } else {
+      const filename = document.getElementById('f-filename').value.trim();
+      if (!filename) return toast('请填写文件名', 'error');
+      data.filename = filename;
+      res = await fetch(`${API}/api/articles`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify(data),
+      });
+    }
+    const result = await res.json();
+    if (res.ok) {
+      toast('保存成功，Vercel 将自动部署', 'success');
+      showDeployNotice();
+      cancelEdit();
+      await loadArticles();
+    } else {
+      toast(result.error || '保存失败', 'error');
+    }
+  } catch {
+    toast('网络错误', 'error');
+  }
+}
+
+function cancelEdit() {
+  editingId = null;
+  document.getElementById('editorView').style.display = 'none';
+  document.getElementById('listView').style.display = 'block';
+}
+
+function showDeleteModal(id, title) {
+  deletingId = id;
+  document.getElementById('deleteTitle').textContent = title;
+  document.getElementById('deleteModal').classList.add('show');
+}
+
+function closeDeleteModal() {
+  deletingId = null;
+  document.getElementById('deleteModal').classList.remove('show');
+}
+
+async function confirmDelete() {
+  if (!deletingId) return;
+  const title = document.getElementById('deleteTitle').textContent;
+  try {
+    const res = await fetch(`${API}/api/articles/${encodeURIComponent(deletingId)}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify({ title }),
+    });
+    if (res.ok) {
+      toast('已删除，Vercel 将自动部署', 'success');
+      showDeployNotice();
+      closeDeleteModal();
+      await loadArticles();
+    } else {
+      toast('删除失败', 'error');
+    }
+  } catch {
+    toast('网络错误', 'error');
+  }
+}
+
+function showDeployNotice() {
+  const el = document.getElementById('deployIndicator');
+  el.textContent = '已保存，Vercel 部署中...';
+  el.className = 'build-indicator building';
+  el.style.display = 'inline-block';
+  setTimeout(() => {
+    el.textContent = '部署完成（约30秒）';
+    el.className = 'build-indicator success';
+    setTimeout(() => { el.style.display = 'none'; }, 5000);
+  }, 30000);
+}
+
+function toast(msg, type = 'success') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = `toast ${type} show`;
+  setTimeout(() => el.classList.remove('show'), 2500);
+}
+</script>
+</body>
+</html>
