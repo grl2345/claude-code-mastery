@@ -321,18 +321,95 @@ footer {
 
 /* === Responsive === */
 @media (max-width: 900px) {
-  .hero { grid-template-columns: 1fr; gap: 48px; padding: 120px 24px 60px; }
-  .hero h1 { font-size: 32px; }
-  .hero-terminal { transform: none; }
-  .stats { grid-template-columns: repeat(2, 1fr); }
-  .course-grid { grid-template-columns: 1fr; }
-  .phil-grid { grid-template-columns: 1fr; }
-  .section { padding: 60px 24px; }
-  .section-title { font-size: 26px; }
-  .nav-links { display: none; }
+  /* Nav mobile menu */
+  .nav-inner { padding: 0 20px; }
+  .nav-links {
+    display: none; flex-direction: column; gap: 0;
+    position: absolute; top: 64px; left: 0; right: 0;
+    background: var(--paper); border-bottom: 1px solid var(--gray-200);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .08);
+    padding: 8px 0;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links li { width: 100%; }
+  .nav-links a {
+    display: block; padding: 14px 24px; font-size: 15px;
+  }
+  .nav-links a::after { display: none; }
+  .nav-links a:hover { background: var(--gray-100); }
+  .nav-cta {
+    margin: 8px 20px 12px; text-align: center;
+    border-radius: 8px !important; padding: 12px 20px !important;
+  }
   .nav-hamburger { display: flex; }
-  .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
-  .cta-section h2 { font-size: 28px; }
-  .article-item { grid-template-columns: 1fr; gap: 8px; }
+  .nav-hamburger.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+  .nav-hamburger span { transition: all .3s; }
+
+  /* Hero */
+  .hero { grid-template-columns: 1fr; gap: 40px; padding: 110px 20px 50px; }
+  .hero h1 { font-size: 30px; line-height: 1.25; }
+  .hero-desc { font-size: 16px; line-height: 1.7; margin-bottom: 28px; }
+  .hero-actions { flex-direction: column; gap: 12px; }
+  .hero-actions .btn-primary,
+  .hero-actions .btn-secondary {
+    width: 100%; justify-content: center; padding: 14px 24px;
+  }
+  .hero-terminal { transform: none; }
+
+  /* Stats */
+  .stats { grid-template-columns: repeat(2, 1fr); margin-bottom: 40px; padding: 0 20px; }
+  .stat-item { padding: 24px 16px; }
+  .stat-number { font-size: 28px; }
+
+  /* Sections */
+  .section { padding: 50px 20px; }
+  .section-title { font-size: 24px; }
+  .section-desc { font-size: 15px; }
+  .course-grid { grid-template-columns: 1fr; }
+  .course-card { padding: 28px; }
+  .phil-grid { grid-template-columns: 1fr; }
+  .phil-card { padding: 28px; }
+
+  /* Article list */
+  .article-item { grid-template-columns: 1fr; gap: 8px; padding: 20px; }
   .a-num, .a-arrow { display: none; }
+
+  /* CTA */
+  .cta-section { padding: 60px 20px; }
+  .cta-section h2 { font-size: 26px; }
+  .cta-section p { font-size: 15px; }
+
+  /* Footer */
+  .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
+  footer { padding: 36px 20px; }
+}
+
+/* === Small screens === */
+@media (max-width: 480px) {
+  .hero { padding: 100px 16px 40px; }
+  .hero h1 { font-size: 26px; letter-spacing: 0; }
+  .hero-badge { font-size: 12px; padding: 5px 12px; }
+  .hero-desc { font-size: 15px; }
+  .stats { grid-template-columns: 1fr 1fr; }
+  .stat-number { font-size: 24px; }
+  .stat-label { font-size: 12px; }
+  .section { padding: 40px 16px; }
+  .section-title { font-size: 22px; }
+  .section-label { font-size: 11px; letter-spacing: 1.5px; }
+  .course-card { padding: 24px 20px; }
+  .course-card h3 { font-size: 19px; }
+  .course-card p { font-size: 14px; }
+  .phil-num { font-size: 36px; }
+  .phil-card h3 { font-size: 18px; }
+  .a-info h4 { font-size: 16px; }
+  .cta-section h2 { font-size: 24px; }
+  .btn-primary, .btn-secondary { font-size: 14px; padding: 12px 20px; }
+  footer { padding: 32px 16px; }
+  .footer-links { gap: 20px; flex-wrap: wrap; justify-content: center; }
 }

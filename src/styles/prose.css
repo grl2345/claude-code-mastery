@@ -177,6 +177,32 @@
   .mod-main { padding: 32px 24px 80px; }
 }
 @media (max-width: 900px) {
-  .lesson-header h1 { font-size: 28px; }
+  .lesson-header h1 { font-size: 26px; letter-spacing: 0; }
+  .lesson-meta { flex-wrap: wrap; gap: 12px; }
   .pagination { grid-template-columns: 1fr; }
+  .prose { font-size: 15.5px; line-height: 1.8; }
+  .prose h2 { font-size: 22px; margin-top: 44px; }
+  .prose h3 { font-size: 18px; margin-top: 32px; }
+  .prose pre {
+    margin-left: -24px; margin-right: -24px;
+    border-radius: 0; padding: 16px; font-size: 12.5px;
+  }
+  .prose table { font-size: 13px; display: block; overflow-x: auto; }
+  .prose th, .prose td { padding: 10px 12px; white-space: nowrap; }
+  .prose blockquote { padding: 14px 18px; margin: 20px 0; }
+  .callout { padding: 16px 18px; font-size: 14px; }
+  .breadcrumb { font-size: 12px; margin-bottom: 24px; }
+  .mod-main { padding: 28px 20px 60px; }
+  .sidebar { padding: 20px; }
+  .sb-item { font-size: 13px; padding: 8px 10px; }
+}
+@media (max-width: 480px) {
+  .lesson-header h1 { font-size: 23px; }
+  .lesson-meta { font-size: 12px; }
+  .prose { font-size: 15px; }
+  .prose h2 { font-size: 20px; }
+  .prose h3 { font-size: 17px; }
+  .prose pre { font-size: 11.5px; padding: 14px; }
+  .pg-link { padding: 18px; }
+  .pg-title { font-size: 14px; }
 }
