@@ -1,4 +1,4 @@
-module.exports = function handler(req, res) {
+export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -8,7 +8,14 @@ module.exports = function handler(req, res) {
 
   try {
     const password = process.env.ADMIN_PASSWORD || 'cc-admin-2026';
-    const { password: inputPw } = req.body || {};
+
+    let body = req.body;
+    if (typeof body === 'string') {
+      try { body = JSON.parse(body); } catch { body = {}; }
+    }
+    if (!body) body = {};
+
+    const inputPw = body.password;
 
     if (!inputPw) {
       return res.status(400).json({ error: '请输入密码' });
@@ -18,6 +25,6 @@ module.exports = function handler(req, res) {
     }
     return res.status(200).json({ token: password });
   } catch (e) {
-    return res.status(500).json({ error: String(e) });
+    return res.status(500).json({ error: e.message || String(e) });
   }
-};
+}
