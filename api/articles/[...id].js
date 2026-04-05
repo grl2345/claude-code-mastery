@@ -64,7 +64,13 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(204).end();
   if (!checkAuth(req)) return res.status(401).json({ error: '未授权' });
 
-  const articleId = Array.isArray(req.query.id) ? req.query.id.join('/') : req.query.id;
+  // Parse article ID from URL path (fallback from req.query for rewrite compatibility)
+  let articleId = Array.isArray(req.query.id) ? req.query.id.join('/') : req.query.id;
+  if (!articleId) {
+    const urlPath = req.url.split('?')[0];
+    const match = urlPath.match(/\/api\/articles\/(.+)/);
+    if (match) articleId = decodeURIComponent(match[1]);
+  }
   if (!articleId) return res.status(400).json({ error: '缺少文章 ID' });
 
   const path = `content/${articleId}.md`;
