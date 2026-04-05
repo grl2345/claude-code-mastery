@@ -2,6 +2,7 @@
   "buildCommand": "npx astro build",
   "outputDirectory": "dist",
   "rewrites": [
+    { "source": "/api/articles/:path+", "destination": "/api/articles/[...id]" },
     { "source": "/admin", "destination": "/admin/index.html" }
   ]
 }
