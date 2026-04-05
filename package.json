@@ -10,7 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "admin": "node admin/server.mjs"
+    "admin": "node admin/server.mjs",
+    "start": "node admin/server.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",

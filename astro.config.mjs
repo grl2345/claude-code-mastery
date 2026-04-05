@@ -4,6 +4,6 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://claude-code-mastery.com',
+  site: 'https://www.claudecode-ai.com',
   integrations: [sitemap()],
 });
