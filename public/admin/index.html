@@ -441,7 +441,7 @@ function renderList() {
 
 async function editArticle(id) {
   try {
-    const res = await fetch(`${API}/api/articles/${encodeURIComponent(id)}`, {
+    const res = await fetch(`${API}/api/articles/${id}`, {
       headers: { 'Authorization': `Bearer ${token}` }
     });
     if (!res.ok) return toast('加载文章失败', 'error');
@@ -501,7 +501,7 @@ async function saveArticle() {
   try {
     let res;
     if (editingId) {
-      res = await fetch(`${API}/api/articles/${encodeURIComponent(editingId)}`, {
+      res = await fetch(`${API}/api/articles/${editingId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(data),
@@ -551,7 +551,7 @@ async function confirmDelete() {
   if (!deletingId) return;
   const title = document.getElementById('deleteTitle').textContent;
   try {
-    const res = await fetch(`${API}/api/articles/${encodeURIComponent(deletingId)}`, {
+    const res = await fetch(`${API}/api/articles/${deletingId}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
       body: JSON.stringify({ title }),
