@@ -1,0 +1,15 @@
+---
+import { getCollection } from 'astro:content';
+import ModuleLayout from '../../layouts/ModuleLayout.astro';
+
+const allLessons = await getCollection('lessons', ({ data }) => !data.draft && data.module === 'm3-practice');
+const sorted = allLessons.sort((a, b) => a.data.order - b.data.order);
+---
+
+<ModuleLayout
+  moduleId="m3-practice"
+  moduleName="实战篇"
+  moduleDesc="真实项目的完整开发复盘。从零搭建项目、重构巨型组件、排查线上 Bug、多文件协作——每篇都带完整的踩坑和修复过程，附 CLAUDE.md 模板和提示词库。"
+  moduleColor="#2b6cc4"
+  lessons={sorted.map(l => ({ slug: l.id, data: l.data }))}
+/>

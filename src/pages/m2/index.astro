@@ -1,0 +1,15 @@
+---
+import { getCollection } from 'astro:content';
+import ModuleLayout from '../../layouts/ModuleLayout.astro';
+
+const allLessons = await getCollection('lessons', ({ data }) => !data.draft && data.module === 'm2-thinking');
+const sorted = allLessons.sort((a, b) => a.data.order - b.data.order);
+---
+
+<ModuleLayout
+  moduleId="m2-thinking"
+  moduleName="思维篇"
+  moduleDesc="工具只是放大器，思维才是核心。任务拆解、上下文管理、代码审查、错误恢复、架构决策——这些软件工程的基本功，在和 AI 协作时变得更加关键。"
+  moduleColor="#c44b2b"
+  lessons={sorted.map(l => ({ slug: l.id, data: l.data }))}
+/>

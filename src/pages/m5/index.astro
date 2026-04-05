@@ -1,0 +1,15 @@
+---
+import { getCollection } from 'astro:content';
+import ModuleLayout from '../../layouts/ModuleLayout.astro';
+
+const allLessons = await getCollection('lessons', ({ data }) => !data.draft && data.module === 'm5-compare');
+const sorted = allLessons.sort((a, b) => a.data.order - b.data.order);
+---
+
+<ModuleLayout
+  moduleId="m5-compare"
+  moduleName="工具对比"
+  moduleDesc="Claude Code、Cursor、Copilot、Windsurf……AI 编程工具越来越多，到底该选哪个？这里有客观的横向评测、模型选型指南和行业动态跟踪。"
+  moduleColor="#d97706"
+  lessons={sorted.map(l => ({ slug: l.id, data: l.data }))}
+/>
