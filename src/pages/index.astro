@@ -40,25 +40,18 @@ const moduleData = modules.map(mod => {
 <!-- Hero -->
 <section class="hero-banner">
   <div class="hero-inner">
-    <div class="hero-main">
-      <h1><span class="hero-hl">Claude Code</span> 精通之路</h1>
-      <p class="hero-tagline">从入门到实战的 AI 编程完整教程 · 共 <strong>{totalCount}</strong> 篇 · 持续更新中</p>
-      <div class="hero-row">
-        <a class="btn-primary btn-hero" href="/m1">从零开始学 &rarr;</a>
-        <span class="hero-divider"></span>
-        {recentTwo.map((lesson, i) => (
-          <a class="hero-recent-item" href={lessonUrl(lesson.id)}>
-            {i === 0 && <span class="hero-new-badge">NEW</span>}
-            <span class="hero-recent-title">{lesson.data.title}</span>
-            <span class="hero-recent-arrow">&rarr;</span>
-          </a>
-        ))}
-      </div>
-    </div>
-    <div class="hero-wechat">
-      <img src="/wechat-qr.jpg" alt="微信公众号二维码" width="80" height="80" />
-      <span class="hero-wechat-name">小高聊AI</span>
-      <span class="hero-wechat-desc">扫码关注</span>
+    <h1><span class="hero-hl">Claude Code</span> 精通之路</h1>
+    <p class="hero-tagline">从入门到实战的 AI 编程完整教程 · 共 <strong>{totalCount}</strong> 篇 · 持续更新中</p>
+    <div class="hero-row">
+      <a class="btn-primary btn-hero" href="/m1">从零开始学 &rarr;</a>
+      <span class="hero-divider"></span>
+      {recentTwo.map((lesson, i) => (
+        <a class="hero-recent-item" href={lessonUrl(lesson.id)}>
+          {i === 0 && <span class="hero-new-badge">NEW</span>}
+          <span class="hero-recent-title">{lesson.data.title}</span>
+          <span class="hero-recent-arrow">&rarr;</span>
+        </a>
+      ))}
     </div>
   </div>
 </section>
@@ -137,11 +130,20 @@ const moduleData = modules.map(mod => {
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section fade-in">
-  <h2>从第一篇开始读</h2>
-  <p>不需要任何 AI 编程经验。从安装 Claude Code 开始，一步步带你搭建自己的 AI 编程工作流。所有内容免费，随时可以开始。</p>
-  <a class="btn-primary" style="font-size: 16px; padding: 16px 36px;" href="/m1">阅读入门篇 &rarr;</a>
+<!-- Wechat + CTA -->
+<section class="bottom-cta fade-in">
+  <div class="bottom-cta-inner">
+    <div class="bottom-cta-left">
+      <h2>从第一篇开始读</h2>
+      <p>不需要任何 AI 编程经验。从安装 Claude Code 开始，一步步带你搭建自己的 AI 编程工作流。</p>
+      <a class="btn-primary" href="/m1">阅读入门篇 &rarr;</a>
+    </div>
+    <div class="bottom-cta-wechat">
+      <img src="/wechat-qr.jpg" alt="微信公众号二维码" width="96" height="96" />
+      <span class="bottom-cta-wechat-name">小高聊AI</span>
+      <span class="bottom-cta-wechat-desc">关注公众号获取更新</span>
+    </div>
+  </div>
 </section>
 
 </BaseLayout>
@@ -198,15 +200,9 @@ const moduleData = modules.map(mod => {
     max-width: 1100px;
     margin: 0 auto;
     padding: 48px 40px 40px;
-    display: flex;
-    align-items: center;
-    gap: 40px;
-  }
-  .hero-main {
-    flex: 1;
     text-align: center;
   }
-  .hero-main h1 {
+  .hero-inner h1 {
     font-family: var(--serif);
     font-size: 36px;
     font-weight: 800;
@@ -281,29 +277,55 @@ const moduleData = modules.map(mod => {
     font-size: 12px;
   }
 
-  /* Hero wechat */
-  .hero-wechat {
+  /* ========== Bottom CTA + Wechat ========== */
+  .bottom-cta {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+  }
+  .bottom-cta-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    background: linear-gradient(135deg, var(--ink) 0%, #2a2520 100%);
+    border-radius: 16px;
+    padding: 48px 56px;
+    color: #fff;
+  }
+  .bottom-cta-left h2 {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .bottom-cta-left p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+    margin-bottom: 24px;
+    max-width: 440px;
+  }
+  .bottom-cta-wechat {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     flex-shrink: 0;
     text-align: center;
   }
-  .hero-wechat img {
-    border-radius: 8px;
+  .bottom-cta-wechat img {
+    border-radius: 10px;
     display: block;
   }
-  .hero-wechat-name {
-    font-size: 13px;
+  .bottom-cta-wechat-name {
+    font-size: 15px;
     font-weight: 700;
-    color: rgba(255,255,255,0.85);
   }
-  .hero-wechat-desc {
-    font-size: 11px;
-    color: rgba(255,255,255,0.35);
+  .bottom-cta-wechat-desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
   }
-
 
   /* ========== Directory Section ========== */
   .dir-section {
@@ -529,8 +551,19 @@ const moduleData = modules.map(mod => {
     .rank-grid {
       grid-template-columns: repeat(2, 1fr);
     }
-    .hero-wechat {
-      display: none;
+    .bottom-cta-inner {
+      flex-direction: column;
+      text-align: center;
+      padding: 40px 32px;
+      gap: 28px;
+    }
+    .bottom-cta-left p {
+      max-width: 100%;
+    }
+    .bottom-cta-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
   }
 
@@ -553,7 +586,7 @@ const moduleData = modules.map(mod => {
     .hero-inner {
       padding: 32px 20px 28px;
     }
-    .hero-main h1 {
+    .hero-inner h1 {
       font-size: 26px;
     }
     .hero-tagline {
@@ -570,6 +603,15 @@ const moduleData = modules.map(mod => {
       width: 100%;
       text-align: center;
       justify-content: center;
+    }
+    .bottom-cta {
+      padding: 0 16px 60px;
+    }
+    .bottom-cta-inner {
+      padding: 32px 24px;
+    }
+    .bottom-cta-left h2 {
+      font-size: 22px;
     }
     .rank-item-tag {
       display: none;
