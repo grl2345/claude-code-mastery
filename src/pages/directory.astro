@@ -5,26 +5,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const allLessons = await getCollection('lessons', ({ data }) => !data.draft);
 
 const modules = [
-  { id: 'm1-basics',   name: '入门篇',   color: '#2d8a56', prefix: 'm1' },
-  { id: 'm2-thinking', name: '思维篇',   color: '#c44b2b', prefix: 'm2' },
-  { id: 'm3-practice', name: '实战篇',   color: '#2b6cc4', prefix: 'm3' },
-  { id: 'm4-advanced', name: '进阶篇',   color: '#7c3aed', prefix: 'm4' },
-  { id: 'm5-compare',  name: '工具对比', color: '#c44b2b', prefix: 'm5' },
-  { id: 'm6-sidebiz',  name: '副业指南', color: '#2d8a56', prefix: 'm6' },
+  { id: 'm1-basics',   name: '入门篇',   icon: '01', color: '#2d8a56', prefix: 'm1' },
+  { id: 'm2-thinking', name: '思维篇',   icon: '02', color: '#c44b2b', prefix: 'm2' },
+  { id: 'm3-practice', name: '实战篇',   icon: '03', color: '#2b6cc4', prefix: 'm3' },
+  { id: 'm4-advanced', name: '进阶篇',   icon: '04', color: '#7c3aed', prefix: 'm4' },
+  { id: 'm5-compare',  name: '工具对比', icon: '05', color: '#d97706', prefix: 'm5' },
+  { id: 'm6-sidebiz',  name: '副业指南', icon: '06', color: '#0891b2', prefix: 'm6' },
 ];
 
-// Group lessons by module, then by group, sorted by order
 const moduleData = modules.map(mod => {
   const lessons = allLessons
     .filter(l => l.data.module === mod.id)
     .sort((a, b) => a.data.order - b.data.order);
-  const groups = new Map<string, typeof lessons>();
-  for (const lesson of lessons) {
-    const group = lesson.data.group || '目录';
-    if (!groups.has(group)) groups.set(group, []);
-    groups.get(group)!.push(lesson);
-  }
-  return { ...mod, lessons, groups };
+  return { ...mod, lessons };
 });
 
 const totalCount = allLessons.length;
@@ -46,135 +39,71 @@ function lessonUrl(slug: string): string {
       <div class="dir-header-inner">
         <a class="dir-back" href="/">&larr; 返回首页</a>
         <h1>全部文章目录</h1>
-        <p class="dir-subtitle">共 {totalCount} 篇文章，涵盖从入门到进阶的完整学习路径</p>
-      </div>
-    </div>
-
-    <!-- Filter bar -->
-    <div class="dir-filter-bar">
-      <div class="dir-filter-inner">
-        <div class="dir-tabs" id="dir-tabs">
-          <button class="dir-tab active" data-module="all">全部</button>
-          {modules.map(mod => (
-            <button class="dir-tab" data-module={mod.prefix} style={`--tab-color: ${mod.color}`}>
-              {mod.name}
-            </button>
-          ))}
-        </div>
+        <p class="dir-subtitle">共 <strong>{totalCount}</strong> 篇文章 · 6 大模块 · 涵盖入门到进阶的完整路径</p>
+        <!-- Search -->
         <div class="dir-search-wrap">
+          <svg class="dir-search-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
           <input type="text" class="dir-search" id="dir-search" placeholder="搜索文章标题..." />
         </div>
       </div>
     </div>
 
-    <!-- Article listing -->
-    <div class="dir-body">
-      {moduleData.map(mod => (
-        <div class="dir-module" data-module={mod.prefix}>
-          <div class="dir-module-header">
-            <span class="dir-module-badge" style={`background: ${mod.color}`}>{mod.prefix.toUpperCase()}</span>
-            <h2>{mod.name}</h2>
-            <span class="dir-module-count">{mod.lessons.length} 篇</span>
+    <!-- Ranking grid -->
+    <div class="dir-grid">
+      {moduleData.map((mod, mi) => (
+        <div class="rank-card" data-module={mod.prefix} style={`--card-color: ${mod.color}`}>
+          <div class="rank-header">
+            <a class="rank-title-link" href={`/${mod.prefix}`}>
+              <span class="rank-icon">{mod.icon}</span>
+              <h2>{mod.name}</h2>
+              <span class="rank-count">{mod.lessons.length} 篇</span>
+            </a>
           </div>
-
-          {[...mod.groups.entries()].map(([groupName, groupLessons]) => (
-            <div class="dir-group">
-              <div class="dir-group-label">{groupName}</div>
-              <div class="dir-group-list">
-                {groupLessons.map(lesson => (
-                  <a class="dir-item" href={lessonUrl(lesson.id)} data-title={lesson.data.title}>
-                    <span class="dir-item-num">{String(lesson.data.order).padStart(2, '0')}</span>
-                    <span class="dir-item-title">{lesson.data.title}</span>
-                    <span class="dir-item-meta">
-                      <span class="dir-item-level">{lesson.data.level}</span>
-                      <span class="dir-item-duration">{lesson.data.duration}</span>
-                    </span>
-                    <span class="dir-item-arrow">&rarr;</span>
-                  </a>
-                ))}
-              </div>
-            </div>
-          ))}
+          <div class="rank-list">
+            {mod.lessons.map((lesson, i) => (
+              <a class="rank-item" href={lessonUrl(lesson.id)} data-title={lesson.data.title}>
+                <span class={`rank-num ${i < 3 ? 'top' : ''}`}>{i + 1}</span>
+                <span class="rank-item-title">{lesson.data.title}</span>
+                <span class="rank-item-tag">{lesson.data.level}</span>
+              </a>
+            ))}
+          </div>
         </div>
       ))}
+    </div>
 
-      <!-- Empty state -->
-      <div class="dir-empty" id="dir-empty" style="display:none;">
-        <p>没有找到匹配的文章</p>
-      </div>
+    <!-- Empty state -->
+    <div class="dir-empty" id="dir-empty" style="display:none;">
+      <p>没有找到匹配的文章</p>
     </div>
   </div>
 </BaseLayout>
 
 <script>
-  const tabs = document.querySelectorAll<HTMLButtonElement>('.dir-tab');
-  const modules = document.querySelectorAll<HTMLElement>('.dir-module');
   const searchInput = document.getElementById('dir-search') as HTMLInputElement;
+  const cards = document.querySelectorAll<HTMLElement>('.rank-card');
   const emptyState = document.getElementById('dir-empty')!;
 
-  let activeModule = 'all';
-  let searchQuery = '';
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.trim().toLowerCase();
+    let totalVisible = 0;
 
-  function applyFilters() {
-    let visibleCount = 0;
-
-    modules.forEach(mod => {
-      const moduleId = mod.dataset.module!;
-      const moduleMatch = activeModule === 'all' || moduleId === activeModule;
-
-      if (!moduleMatch) {
-        mod.style.display = 'none';
-        return;
-      }
-
-      mod.style.display = '';
-      const items = mod.querySelectorAll<HTMLElement>('.dir-item');
-      const groups = mod.querySelectorAll<HTMLElement>('.dir-group');
-
-      // Track visible items per group
-      const groupVisibility = new Map<HTMLElement, number>();
-      groups.forEach(g => groupVisibility.set(g, 0));
+    cards.forEach(card => {
+      const items = card.querySelectorAll<HTMLElement>('.rank-item');
+      let cardVisible = 0;
 
       items.forEach(item => {
         const title = (item.dataset.title || '').toLowerCase();
-        const match = !searchQuery || title.includes(searchQuery);
+        const match = !query || title.includes(query);
         item.style.display = match ? '' : 'none';
-        if (match) {
-          visibleCount++;
-          const parentGroup = item.closest('.dir-group') as HTMLElement;
-          if (parentGroup) {
-            groupVisibility.set(parentGroup, (groupVisibility.get(parentGroup) || 0) + 1);
-          }
-        }
+        if (match) cardVisible++;
       });
 
-      // Hide groups with no visible items
-      groupVisibility.forEach((count, group) => {
-        group.style.display = count > 0 ? '' : 'none';
-      });
-
-      // Hide entire module if no items visible
-      const moduleVisible = Array.from(items).some(i => i.style.display !== 'none');
-      if (!moduleVisible) mod.style.display = 'none';
+      card.style.display = cardVisible > 0 ? '' : 'none';
+      totalVisible += cardVisible;
     });
 
-    emptyState.style.display = visibleCount === 0 ? '' : 'none';
-  }
-
-  // Tab click
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      activeModule = tab.dataset.module!;
-      applyFilters();
-    });
-  });
-
-  // Search input
-  searchInput.addEventListener('input', () => {
-    searchQuery = searchInput.value.trim().toLowerCase();
-    applyFilters();
+    emptyState.style.display = totalVisible === 0 ? '' : 'none';
   });
 </script>
 
@@ -187,218 +116,198 @@ function lessonUrl(slug: string): string {
   .dir-header {
     background: linear-gradient(135deg, var(--ink) 0%, #2a2520 100%);
     color: #fff;
-    padding: 28px 40px 40px;
+    padding: 28px 40px 36px;
   }
   .dir-header-inner {
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto;
   }
   .dir-back {
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.55);
     font-size: 14px;
     text-decoration: none;
     display: inline-block;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     transition: color 0.2s;
   }
-  .dir-back:hover {
-    color: #fff;
-  }
+  .dir-back:hover { color: #fff; }
   .dir-header h1 {
     font-family: var(--serif);
-    font-size: 32px;
+    font-size: 30px;
     font-weight: 800;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     letter-spacing: -0.02em;
   }
   .dir-subtitle {
-    font-size: 16px;
-    color: rgba(255, 255, 255, 0.6);
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.55);
     line-height: 1.6;
-  }
-
-  /* Filter bar */
-  .dir-filter-bar {
-    position: sticky;
-    top: 64px;
-    z-index: 50;
-    background: rgba(246, 243, 237, 0.95);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--gray-200);
-    padding: 0 40px;
-  }
-  .dir-filter-inner {
-    max-width: 900px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 12px 0;
-  }
-  .dir-tabs {
-    display: flex;
-    gap: 4px;
-    flex-wrap: wrap;
-    flex: 1;
-  }
-  .dir-tab {
-    padding: 6px 14px;
-    border: 1px solid var(--gray-200);
-    border-radius: 6px;
-    background: transparent;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--gray-500);
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: var(--sans);
-    white-space: nowrap;
-  }
-  .dir-tab:hover {
-    border-color: var(--gray-400);
-    color: var(--ink);
-  }
-  .dir-tab.active {
-    background: var(--ink);
-    color: var(--paper);
-    border-color: var(--ink);
-  }
-  .dir-search-wrap {
-    flex-shrink: 0;
-  }
-  .dir-search {
-    padding: 7px 14px;
-    border: 1px solid var(--gray-200);
-    border-radius: 6px;
-    font-size: 13px;
-    background: #fff;
-    color: var(--ink);
-    width: 180px;
-    font-family: var(--sans);
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .dir-search:focus {
-    border-color: var(--accent);
-  }
-  .dir-search::placeholder {
-    color: var(--gray-400);
-  }
-
-  /* Body */
-  .dir-body {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 32px 40px 80px;
-  }
-
-  /* Module section */
-  .dir-module {
-    margin-bottom: 40px;
-  }
-  .dir-module-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 16px;
-  }
-  .dir-module-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 24px;
-    padding: 0 10px;
-    border-radius: 999px;
-    font-size: 11px;
-    font-weight: 700;
-    font-family: var(--mono);
-    color: #fff;
-    letter-spacing: 0.04em;
-    line-height: 1;
-  }
-  .dir-module-header h2 {
-    font-family: var(--serif);
-    font-size: 20px;
-    font-weight: 700;
-  }
-  .dir-module-count {
-    font-size: 13px;
-    color: var(--gray-400);
-  }
-
-  /* Group */
-  .dir-group {
     margin-bottom: 20px;
   }
-  .dir-group-label {
-    font-size: 12px;
+  .dir-subtitle strong {
+    color: rgba(255, 255, 255, 0.85);
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--gray-400);
-    margin-bottom: 8px;
-    padding-left: 4px;
-  }
-  .dir-group-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    background: var(--gray-200);
-    border-radius: 10px;
-    overflow: hidden;
   }
 
-  /* Item row */
-  .dir-item {
+  /* Search in header */
+  .dir-search-wrap {
+    position: relative;
+    max-width: 360px;
+  }
+  .dir-search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    color: rgba(255, 255, 255, 0.4);
+    pointer-events: none;
+  }
+  .dir-search {
+    width: 100%;
+    padding: 9px 14px 9px 36px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    font-family: var(--sans);
+    outline: none;
+    transition: all 0.2s;
+  }
+  .dir-search:focus {
+    border-color: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.12);
+  }
+  .dir-search::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  /* Grid */
+  .dir-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 28px 40px 80px;
     display: grid;
-    grid-template-columns: 36px 1fr auto 24px;
-    gap: 12px;
-    align-items: center;
-    padding: 14px 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  /* Rank card */
+  .rank-card {
     background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--gray-200);
+    transition: box-shadow 0.25s;
+  }
+  .rank-card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Card header */
+  .rank-header {
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .rank-title-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px;
     text-decoration: none;
     color: var(--ink);
     transition: background 0.15s;
   }
-  .dir-item:hover {
+  .rank-title-link:hover {
     background: var(--gray-100);
   }
-  .dir-item:hover .dir-item-arrow {
-    transform: translateX(3px);
-    color: var(--accent);
-  }
-  .dir-item-num {
+  .rank-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: var(--card-color);
+    color: #fff;
     font-family: var(--mono);
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--gray-300);
-    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
   }
-  .dir-item-title {
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 1.4;
+  .rank-header h2 {
+    font-family: var(--serif);
+    font-size: 16px;
+    font-weight: 700;
+    flex: 1;
   }
-  .dir-item-meta {
-    display: flex;
-    gap: 10px;
+  .rank-count {
     font-size: 12px;
     color: var(--gray-400);
-    white-space: nowrap;
-  }
-  .dir-item-level {
-    padding: 2px 8px;
-    background: var(--gray-100);
-    border-radius: 4px;
-    font-weight: 500;
-  }
-  .dir-item-arrow {
-    font-size: 14px;
-    color: var(--gray-300);
-    transition: all 0.2s;
+    flex-shrink: 0;
   }
 
-  /* Empty state */
+  /* List */
+  .rank-list {
+    padding: 6px 0;
+  }
+
+  /* Item */
+  .rank-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 18px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: background 0.12s;
+  }
+  .rank-item:hover {
+    background: var(--gray-100);
+  }
+
+  /* Rank number */
+  .rank-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gray-400);
+    background: var(--gray-100);
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .rank-num.top {
+    background: var(--card-color);
+    color: #fff;
+  }
+
+  /* Title */
+  .rank-item-title {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 450;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Tag */
+  .rank-item-tag {
+    font-size: 11px;
+    color: var(--gray-400);
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  /* Empty */
   .dir-empty {
     text-align: center;
     padding: 60px 20px;
@@ -406,46 +315,40 @@ function lessonUrl(slug: string): string {
     font-size: 15px;
   }
 
-  /* Mobile */
-  @media (max-width: 768px) {
+  /* ---- Responsive ---- */
+
+  /* Tablet: 2 columns */
+  @media (max-width: 960px) {
+    .dir-grid {
+      grid-template-columns: repeat(2, 1fr);
+      padding: 24px 24px 60px;
+    }
+  }
+
+  /* Mobile: 1 column */
+  @media (max-width: 600px) {
     .dir-header {
-      padding: 20px 20px 32px;
+      padding: 20px 20px 28px;
     }
     .dir-header h1 {
       font-size: 24px;
     }
-    .dir-filter-bar {
-      padding: 0 16px;
+    .dir-subtitle {
+      font-size: 14px;
     }
-    .dir-filter-inner {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 8px;
-      padding: 10px 0;
+    .dir-search-wrap {
+      max-width: 100%;
     }
-    .dir-tabs {
-      gap: 4px;
+    .dir-grid {
+      grid-template-columns: 1fr;
+      padding: 16px 16px 60px;
+      gap: 16px;
     }
-    .dir-tab {
-      padding: 5px 10px;
-      font-size: 12px;
+    .rank-item {
+      padding: 8px 14px;
     }
-    .dir-search {
-      width: 100%;
-    }
-    .dir-body {
-      padding: 20px 16px 60px;
-    }
-    .dir-item {
-      grid-template-columns: 28px 1fr 20px;
-      padding: 12px 14px;
-      gap: 8px;
-    }
-    .dir-item-meta {
-      display: none;
-    }
-    .dir-module-header h2 {
-      font-size: 18px;
+    .rank-item-title {
+      font-size: 13px;
     }
   }
 </style>
