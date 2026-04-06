@@ -37,26 +37,35 @@ const moduleData = modules.map(mod => {
   description="最全面的 Claude Code 中文教程站。从入门到实战，工具对比到副业变现，帮你真正掌握 AI 编程。"
 >
 
-<!-- Hero: compact banner -->
+<!-- Hero -->
 <section class="hero-banner">
   <div class="hero-inner">
-    <div class="hero-left">
-      <h1><span class="hero-hl">Claude Code</span> 精通之路</h1>
-      <p class="hero-tagline">从入门到实战的 AI 编程完整教程 · 共 {totalCount} 篇</p>
+    <div class="hero-top">
+      <div>
+        <h1><span class="hero-hl">Claude Code</span> 精通之路</h1>
+        <p class="hero-tagline">从入门到实战的 AI 编程完整教程 · 共 <strong>{totalCount}</strong> 篇</p>
+      </div>
+      <a class="btn-primary btn-sm" href="/m1">从零开始学 &rarr;</a>
     </div>
-    <div class="hero-right">
+    <div class="hero-bottom">
       <div class="hero-recent">
         <span class="hero-recent-label">最近更新</span>
-        {recentTwo.map((lesson, i) => (
-          <a class="hero-recent-item" href={lessonUrl(lesson.id)}>
-            {i === 0 && <span class="hero-new-badge">NEW</span>}
-            <span class="hero-recent-title">{lesson.data.title}</span>
-            <span class="hero-recent-arrow">&rarr;</span>
-          </a>
-        ))}
+        <div class="hero-recent-list">
+          {recentTwo.map((lesson, i) => (
+            <a class="hero-recent-item" href={lessonUrl(lesson.id)}>
+              {i === 0 && <span class="hero-new-badge">NEW</span>}
+              <span class="hero-recent-title">{lesson.data.title}</span>
+              <span class="hero-recent-arrow">&rarr;</span>
+            </a>
+          ))}
+        </div>
       </div>
-      <div class="hero-actions">
-        <a class="btn-primary btn-sm" href="/m1">从零开始学</a>
+      <div class="hero-wechat">
+        <img src="/wechat-qr.jpg" alt="微信公众号二维码" width="56" height="56" />
+        <div class="hero-wechat-text">
+          <span class="hero-wechat-name">小高聊AI</span>
+          <span class="hero-wechat-desc">关注公众号 · 获取更新推送</span>
+        </div>
       </div>
     </div>
   </div>
@@ -196,15 +205,22 @@ const moduleData = modules.map(mod => {
   .hero-inner {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 36px 40px 32px;
+    padding: 40px 40px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  /* Top row: title + CTA */
+  .hero-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 32px;
+    gap: 24px;
   }
-  .hero-left h1 {
+  .hero-top h1 {
     font-family: var(--serif);
-    font-size: 28px;
+    font-size: 30px;
     font-weight: 800;
     letter-spacing: -0.02em;
     margin-bottom: 6px;
@@ -215,38 +231,59 @@ const moduleData = modules.map(mod => {
   }
   .hero-tagline {
     font-size: 14px;
-    color: rgba(255,255,255,0.5);
+    color: rgba(255,255,255,0.45);
   }
-  .hero-right {
+  .hero-tagline strong {
+    color: rgba(255,255,255,0.75);
+  }
+  .btn-sm {
+    padding: 10px 24px !important;
+    font-size: 14px !important;
+    flex-shrink: 0;
+  }
+
+  /* Bottom row: recent + wechat */
+  .hero-bottom {
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  /* Recent updates card */
+  .hero-recent {
+    flex: 1;
+    min-width: 0;
     display: flex;
     align-items: center;
     gap: 16px;
-    flex-shrink: 0;
-  }
-  .hero-recent {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+    background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 10px;
-    padding: 10px 14px;
-    background: rgba(255,255,255,0.04);
+    padding: 12px 20px;
   }
   .hero-recent-label {
-    font-size: 11px;
-    font-weight: 600;
-    color: rgba(255,255,255,0.35);
-    letter-spacing: 0.5px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent-light);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .hero-recent-list {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    gap: 6px 24px;
+    flex-wrap: wrap;
   }
   .hero-recent-item {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     text-decoration: none;
-    color: rgba(255,255,255,0.7);
-    font-size: 13px;
-    padding: 4px 0;
+    color: rgba(255,255,255,0.65);
+    font-size: 14px;
     transition: color 0.15s;
+    white-space: nowrap;
   }
   .hero-recent-item:hover {
     color: #fff;
@@ -264,23 +301,46 @@ const moduleData = modules.map(mod => {
     line-height: 1.4;
   }
   .hero-recent-title {
-    flex: 1;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
   .hero-recent-arrow {
     flex-shrink: 0;
-    opacity: 0.4;
+    opacity: 0.35;
     font-size: 12px;
   }
-  .hero-actions {
+
+  /* Wechat card */
+  .hero-wechat {
     display: flex;
-    gap: 8px;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 10px 16px;
+    flex-shrink: 0;
+    text-decoration: none;
+    color: #fff;
   }
-  .btn-sm {
-    padding: 9px 20px !important;
-    font-size: 13px !important;
+  .hero-wechat img {
+    border-radius: 6px;
+    display: block;
+  }
+  .hero-wechat-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .hero-wechat-name {
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .hero-wechat-desc {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    white-space: nowrap;
   }
 
   /* ========== Directory Section ========== */
@@ -508,18 +568,16 @@ const moduleData = modules.map(mod => {
       grid-template-columns: repeat(2, 1fr);
     }
     .hero-inner {
-      flex-direction: column;
-      align-items: flex-start;
       padding: 28px 24px 24px;
-      gap: 16px;
+      gap: 20px;
     }
-    .hero-right {
-      width: 100%;
-      flex-wrap: wrap;
+    .hero-bottom {
+      flex-direction: column;
+      gap: 10px;
     }
-    .hero-recent {
-      flex: 1;
-      min-width: 0;
+    .hero-recent-list {
+      flex-direction: column;
+      gap: 4px;
     }
   }
 
@@ -539,19 +597,27 @@ const moduleData = modules.map(mod => {
       grid-template-columns: 1fr;
       gap: 14px;
     }
-    .hero-left h1 {
+    .hero-top {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .hero-top h1 {
       font-size: 22px;
     }
-    .hero-recent {
-      max-width: 100%;
-    }
-    .hero-actions {
+    .btn-sm {
       width: 100%;
-    }
-    .hero-actions .btn-sm {
-      flex: 1;
       text-align: center;
       justify-content: center;
+    }
+    .hero-recent {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .hero-wechat img {
+      width: 44px;
+      height: 44px;
     }
     .rank-item-tag {
       display: none;
