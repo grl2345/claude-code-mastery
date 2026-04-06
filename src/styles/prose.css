@@ -1,7 +1,10 @@
 /* === Article Prose Styles === */
 .prose {
   font-size: 16.5px; line-height: 1.85; color: #2c2c2c;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
+.prose p, .prose li, .prose h2, .prose h3 { overflow-wrap: break-word; }
 .prose h2 {
   font-family: var(--serif); font-size: 24px; font-weight: 700;
   margin-top: 56px; margin-bottom: 20px; padding-top: 32px;
@@ -242,9 +245,9 @@
   .lesson-header h1 { font-size: 26px; letter-spacing: 0; }
   .lesson-meta { flex-wrap: wrap; gap: 12px; }
   .pagination { grid-template-columns: 1fr; }
-  .prose { font-size: 15.5px; line-height: 1.8; }
-  .prose h2 { font-size: 22px; margin-top: 44px; }
-  .prose h3 { font-size: 18px; margin-top: 32px; }
+  .prose { font-size: 15px; line-height: 1.78; }
+  .prose h2 { font-size: 21px; margin-top: 40px; }
+  .prose h3 { font-size: 17px; margin-top: 30px; }
   .prose pre {
     margin-left: -24px; margin-right: -24px;
     border-radius: 0; padding: 16px; font-size: 12.5px;
@@ -261,9 +264,9 @@
 @media (max-width: 480px) {
   .lesson-header h1 { font-size: 23px; }
   .lesson-meta { font-size: 12px; }
-  .prose { font-size: 15px; }
-  .prose h2 { font-size: 20px; }
-  .prose h3 { font-size: 17px; }
+  .prose { font-size: 14px; line-height: 1.75; }
+  .prose h2 { font-size: 19px; margin-top: 36px; }
+  .prose h3 { font-size: 16px; margin-top: 26px; }
   .prose pre { font-size: 11.5px; padding: 14px; }
   .pg-link { padding: 18px; }
   .pg-title { font-size: 14px; }
