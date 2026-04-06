@@ -7,11 +7,7 @@ const allLessons = await getCollection('lessons', ({ data }) => !data.draft);
 const totalCount = allLessons.length;
 
 const sortedByDate = [...allLessons].sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
-const newest = sortedByDate[0];
-function newestUrl(slug: string): string {
-  const parts = slug.split('/');
-  return `/${parts[0].split('-')[0]}/${parts[1]}`;
-}
+const recentTwo = sortedByDate.slice(0, 2);
 
 function lessonUrl(slug: string): string {
   const parts = slug.split('/');
@@ -49,13 +45,16 @@ const moduleData = modules.map(mod => {
       <p class="hero-tagline">从入门到实战的 AI 编程完整教程 · 共 {totalCount} 篇</p>
     </div>
     <div class="hero-right">
-      {newest && (
-        <a class="hero-new" href={newestUrl(newest.id)}>
-          <span class="hero-new-badge">NEW</span>
-          <span class="hero-new-title">{newest.data.title}</span>
-          <span class="hero-new-arrow">&rarr;</span>
-        </a>
-      )}
+      <div class="hero-recent">
+        <span class="hero-recent-label">最近更新</span>
+        {recentTwo.map((lesson, i) => (
+          <a class="hero-recent-item" href={lessonUrl(lesson.id)}>
+            {i === 0 && <span class="hero-new-badge">NEW</span>}
+            <span class="hero-recent-title">{lesson.data.title}</span>
+            <span class="hero-recent-arrow">&rarr;</span>
+          </a>
+        ))}
+      </div>
       <div class="hero-actions">
         <a class="btn-primary btn-sm" href="/m1">从零开始学</a>
       </div>
@@ -224,22 +223,33 @@ const moduleData = modules.map(mod => {
     gap: 16px;
     flex-shrink: 0;
   }
-  .hero-new {
-    display: inline-flex;
+  .hero-recent {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.04);
+  }
+  .hero-recent-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.5px;
+  }
+  .hero-recent-item {
+    display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 13px;
-    color: rgba(255,255,255,0.7);
     text-decoration: none;
-    padding: 8px 14px;
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 8px;
-    transition: all 0.2s;
-    max-width: 280px;
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+    padding: 4px 0;
+    transition: color 0.15s;
   }
-  .hero-new:hover {
-    border-color: rgba(255,255,255,0.3);
-    background: rgba(255,255,255,0.05);
+  .hero-recent-item:hover {
+    color: #fff;
   }
   .hero-new-badge {
     font-family: var(--mono);
@@ -251,15 +261,18 @@ const moduleData = modules.map(mod => {
     border-radius: 4px;
     padding: 2px 6px;
     flex-shrink: 0;
+    line-height: 1.4;
   }
-  .hero-new-title {
+  .hero-recent-title {
+    flex: 1;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .hero-new-arrow {
+  .hero-recent-arrow {
     flex-shrink: 0;
-    opacity: 0.5;
+    opacity: 0.4;
+    font-size: 12px;
   }
   .hero-actions {
     display: flex;
@@ -504,7 +517,7 @@ const moduleData = modules.map(mod => {
       width: 100%;
       flex-wrap: wrap;
     }
-    .hero-new {
+    .hero-recent {
       flex: 1;
       min-width: 0;
     }
@@ -529,7 +542,7 @@ const moduleData = modules.map(mod => {
     .hero-left h1 {
       font-size: 22px;
     }
-    .hero-new {
+    .hero-recent {
       max-width: 100%;
     }
     .hero-actions {
