@@ -4,6 +4,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://www.claudecode-ai.com',
+  // 须与实际访问域名一致（含 www / 裸域），否则 canonical、sitemap、OG 会错
+  site: 'https://xiaogao-ai.com',
   integrations: [sitemap()],
 });

@@ -1,12 +1,12 @@
 ---
 layout: ../layouts/PageLayout.astro
 title: "隐私政策"
-description: "Claude Code 精通之路的隐私政策，说明我们如何收集、使用和保护你的个人信息。"
+description: "xiaogao-ai.com（Claude Code 精通之路）隐私政策：说明我们如何收集、使用和保护你的个人信息。"
 ---
 
 **最后更新日期：2026 年 4 月 5 日**
 
-欢迎访问 Claude Code 精通之路（以下简称"本站"）。本隐私政策说明了我们在你访问本站时如何收集、使用、存储和保护你的信息。
+欢迎访问 **xiaogao-ai.com** 上的「Claude Code 精通之路」（以下简称「本站」）。本隐私政策说明了我们在你访问本站时如何收集、使用、存储和保护你的信息。
 
 ## 信息收集
 
