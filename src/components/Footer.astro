@@ -1,4 +1,4 @@
-<footer>
+<footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
@@ -6,64 +6,83 @@
           <div class="footer-logo-icon">CC</div>
           <span class="footer-logo-text">Claude Code 精通之路</span>
         </div>
-        <p class="footer-tagline">一个开发者的 AI 编程实战笔记</p>
+        <p class="footer-tagline">一个开发者的 AI 编程实战笔记，从入门到实战，帮你真正掌握 AI 编程。</p>
       </div>
-      <div class="footer-columns">
-        <div class="footer-col">
-          <h4>教程</h4>
-          <ul>
-            <li><a href="/m1">入门篇</a></li>
-            <li><a href="/m2">思维篇</a></li>
-            <li><a href="/m3">实战篇</a></li>
-            <li><a href="/m4">进阶篇</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>更多</h4>
-          <ul>
-            <li><a href="/m5">工具对比</a></li>
-            <li><a href="/m6">副业指南</a></li>
-            <li><a href="/about">关于本站</a></li>
-            <li><a href="/rss.xml">RSS 订阅</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>链接</h4>
-          <ul>
-            <li><a href="https://github.com/grl2345/claude-code-mastery" target="_blank" rel="noopener">GitHub</a></li>
-            <li><a href="/privacy">隐私政策</a></li>
-            <li><a href="/terms">服务条款</a></li>
-            <li><a href="/contact">联系方式</a></li>
-            <li><a href="/cookie">Cookie 声明</a></li>
-          </ul>
+
+      <div class="footer-col">
+        <h4>教程</h4>
+        <ul>
+          <li><a href="/m1">入门篇</a></li>
+          <li><a href="/m2">思维篇</a></li>
+          <li><a href="/m3">实战篇</a></li>
+          <li><a href="/m4">进阶篇</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>更多</h4>
+        <ul>
+          <li><a href="/m5">工具对比</a></li>
+          <li><a href="/m6">副业指南</a></li>
+          <li><a href="/about">关于本站</a></li>
+          <li><a href="https://github.com/grl2345/claude-code-mastery" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-wechat">
+        <h4>关注公众号</h4>
+        <div class="footer-wechat-card">
+          <img src="/wechat-qr.jpg" alt="小高聊AI微信公众号二维码" width="80" height="80" />
+          <div>
+            <p class="fw-name">小高聊AI</p>
+            <p class="fw-desc">每周更新 AI 编程干货</p>
+          </div>
         </div>
       </div>
     </div>
+
     <div class="footer-bottom">
-      <span>&copy; 2025-2026 Claude Code 精通之路. All rights reserved.</span>
+      <p class="footer-meta" role="navigation" aria-label="版权与法律链接">
+        <span class="footer-meta-copy">&copy; 2025-2026 Claude Code 精通之路 · 保留所有权利</span>
+        <span class="footer-meta-sep" aria-hidden="true">·</span>
+        <a href="/contact">联系我们</a>
+        <span class="footer-meta-sep" aria-hidden="true">·</span>
+        <a href="/privacy">隐私政策</a>
+        <span class="footer-meta-sep" aria-hidden="true">·</span>
+        <a href="/terms">服务条款</a>
+        <span class="footer-meta-sep" aria-hidden="true">·</span>
+        <a href="/cookie">Cookie 声明</a>
+      </p>
     </div>
   </div>
 </footer>
 
 <style>
-  footer {
+  .site-footer {
     background: var(--ink);
-    color: rgba(255,255,255,.6);
-    padding: 60px 40px 32px;
-    margin-top: 0;
+    color: var(--gray-400);
+    font-family: var(--sans);
+    padding: 48px 40px 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    -webkit-font-smoothing: antialiased;
   }
+
   .footer-inner {
-    max-width: 1000px;
+    max-width: 1120px;
     margin: 0 auto;
+    display: block;
   }
+
   .footer-top {
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 48px;
-    padding-bottom: 32px;
-    border-bottom: 1px solid rgba(255,255,255,.1);
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.35fr);
+    gap: 36px 40px;
+    align-items: start;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
-  .footer-brand { }
+
+  /* 品牌区：标题用衬线，正文与链接同字号体系 */
   .footer-logo {
     display: flex;
     align-items: center;
@@ -80,66 +99,153 @@
     align-items: center;
     justify-content: center;
     font-size: 13px;
-    font-weight: 800;
+    font-weight: 700;
     font-family: var(--mono);
+    flex-shrink: 0;
   }
   .footer-logo-text {
-    color: #fff;
-    font-weight: 600;
-    font-size: 15px;
+    font-family: var(--serif);
+    color: var(--paper);
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
   }
   .footer-tagline {
-    font-size: 13px;
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--gray-400);
+    max-width: 28em;
   }
-  .footer-columns {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-  }
-  .footer-col h4 {
-    color: #fff;
-    font-size: 13px;
+
+  .footer-col h4,
+  .footer-wechat h4 {
+    font-family: var(--sans);
+    color: var(--paper);
+    font-size: 12px;
     font-weight: 600;
-    margin-bottom: 14px;
-    letter-spacing: 1px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 0 0 14px;
   }
+
   .footer-col ul {
     list-style: none;
     padding: 0;
+    margin: 0;
   }
   .footer-col li {
     margin-bottom: 8px;
   }
+  .footer-col li:last-child {
+    margin-bottom: 0;
+  }
   .footer-col a {
-    color: rgba(255,255,255,.5);
+    color: var(--gray-400);
     text-decoration: none;
-    font-size: 13px;
-    transition: color .2s;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    transition: color 0.2s;
+    word-break: keep-all;
   }
   .footer-col a:hover {
-    color: #fff;
+    color: var(--paper);
   }
+
+  .footer-wechat-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .footer-wechat-card img {
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+  .fw-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--paper);
+    margin: 0 0 4px;
+    line-height: 1.35;
+  }
+  .fw-desc {
+    font-size: 13px;
+    color: var(--gray-400);
+    margin: 0;
+    line-height: 1.45;
+  }
+
   .footer-bottom {
-    padding-top: 24px;
-    font-size: 12px;
-    color: rgba(255,255,255,.3);
+    padding-top: 22px;
+  }
+
+  /* 版权与法律链接同一行，用「·」分隔（窄屏允许自然换行，但不拆词） */
+  .footer-meta {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0 4px;
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--gray-400);
+    text-align: center;
+  }
+  .footer-meta-copy {
+    white-space: nowrap;
+  }
+  .footer-meta-sep {
+    color: var(--gray-600);
+    margin: 0 6px;
+    user-select: none;
+  }
+  .footer-meta a {
+    color: var(--gray-400);
+    text-decoration: none;
+    white-space: nowrap;
+    word-break: keep-all;
+    transition: color 0.2s;
+  }
+  .footer-meta a:hover {
+    color: var(--paper);
+  }
+
+  @media (max-width: 960px) {
+    .footer-top {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px 28px;
+    }
+    .footer-brand {
+      grid-column: 1 / -1;
+    }
+    .footer-wechat {
+      grid-column: 1 / -1;
+    }
   }
 
   @media (max-width: 768px) {
-    footer { padding: 40px 20px 24px; }
+    .site-footer {
+      padding: 36px 20px 24px;
+    }
     .footer-top {
       grid-template-columns: 1fr;
-      gap: 32px;
+      gap: 28px;
     }
-    .footer-columns {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+    .footer-meta {
+      justify-content: flex-start;
+      text-align: left;
+      row-gap: 6px;
     }
   }
+
   @media (max-width: 480px) {
-    .footer-columns {
-      grid-template-columns: 1fr 1fr;
+    .site-footer {
+      padding: 32px 16px 20px;
+    }
+    .footer-meta-sep {
+      margin: 0 4px;
     }
   }
 </style>

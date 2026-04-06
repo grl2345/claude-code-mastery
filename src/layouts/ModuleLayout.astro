@@ -39,8 +39,10 @@ function lessonUrl(slug: string): string {
   <div class="mod-index">
     <div class="mod-index-header" style={`--mod-color: ${moduleColor}`}>
       <div class="mod-index-inner">
-        <a class="mod-back" href="/">← 返回首页</a>
-        <div class="mod-index-badge" style={`background: ${moduleColor}`}>{moduleId.split('-')[0].toUpperCase()}</div>
+        <div class="mod-top-row">
+          <a class="mod-back" href="/">← 返回首页</a>
+          <span class="mod-index-badge" style={`background: ${moduleColor}`}>{moduleId.split('-')[0].toUpperCase()}</span>
+        </div>
         <h1>{moduleName}</h1>
         <p class="mod-index-desc">{moduleDesc}</p>
         <div class="mod-index-stats">
@@ -78,40 +80,63 @@ function lessonUrl(slug: string): string {
 </BaseLayout>
 
 <style>
+  .mod-index {
+    padding-top: 64px;
+  }
   .mod-index-header {
     background: linear-gradient(135deg, var(--ink) 0%, #2a2520 100%);
     color: #fff;
-    padding: 60px 40px 50px;
+    padding: 28px 40px 48px;
   }
   .mod-index-inner {
     max-width: 800px;
     margin: 0 auto;
   }
-  .mod-back {
-    color: rgba(255,255,255,.6);
-    font-size: 14px;
-    text-decoration: none;
-    display: inline-block;
-    margin-bottom: 24px;
-    transition: color .2s;
+  .mod-top-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    margin-bottom: 20px;
+    min-height: 32px;
   }
-  .mod-back:hover { color: #fff; }
+  .mod-back {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 14px;
+    font-family: var(--sans);
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+  .mod-back:hover {
+    color: #fff;
+  }
   .mod-index-badge {
-    display: inline-block;
-    padding: 4px 14px;
-    border-radius: 6px;
-    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    padding: 0 12px;
+    border-radius: 999px;
+    font-size: 12px;
     font-weight: 700;
     font-family: var(--mono);
     color: #fff;
-    margin-bottom: 16px;
-    letter-spacing: 1px;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+    line-height: 1;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   }
   .mod-index-header h1 {
+    font-family: var(--serif);
     font-size: 32px;
     font-weight: 800;
     margin-bottom: 12px;
-    line-height: 1.3;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
   }
   .mod-index-desc {
     font-size: 16px;
@@ -206,7 +231,10 @@ function lessonUrl(slug: string): string {
 
   @media (max-width: 768px) {
     .mod-index-header {
-      padding: 40px 20px 36px;
+      padding: 20px 20px 36px;
+    }
+    .mod-top-row {
+      margin-bottom: 16px;
     }
     .mod-index-header h1 {
       font-size: 24px;

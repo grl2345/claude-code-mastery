@@ -287,28 +287,7 @@ nav.scrolled { box-shadow: 0 2px 20px rgba(0, 0, 0, .06); }
   max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.7;
 }
 
-/* === Footer === */
-footer {
-  background: var(--ink); color: var(--gray-400); padding: 48px 40px;
-}
-.footer-inner {
-  max-width: 1200px; margin: 0 auto;
-  display: flex; justify-content: space-between; align-items: center;
-}
-.footer-logo { display: flex; align-items: center; gap: 10px; }
-.footer-logo-icon {
-  width: 28px; height: 28px; background: var(--accent); border-radius: 6px;
-  display: flex; align-items: center; justify-content: center;
-  color: #fff; font-family: var(--mono); font-size: 12px; font-weight: 600;
-}
-.footer-logo-text {
-  font-family: var(--serif); font-weight: 700; font-size: 16px; color: var(--paper);
-}
-.footer-links { display: flex; gap: 28px; list-style: none; }
-.footer-links a {
-  color: var(--gray-400); text-decoration: none; font-size: 14px; transition: color .2s;
-}
-.footer-links a:hover { color: var(--paper); }
+/* === Footer === 布局与样式由 Footer.astro（.site-footer）负责，避免与 .footer-inner 栅格冲突 */
 
 /* === Animations === */
 @keyframes fadeInUp {
@@ -386,9 +365,6 @@ footer {
   .cta-section h2 { font-size: 26px; }
   .cta-section p { font-size: 15px; }
 
-  /* Footer */
-  .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
-  footer { padding: 36px 20px; }
 }
 
 /* === Small screens === */
@@ -411,6 +387,4 @@ footer {
   .a-info h4 { font-size: 16px; }
   .cta-section h2 { font-size: 24px; }
   .btn-primary, .btn-secondary { font-size: 14px; padding: 12px 20px; }
-  footer { padding: 32px 16px; }
-  .footer-links { gap: 20px; flex-wrap: wrap; justify-content: center; }
 }

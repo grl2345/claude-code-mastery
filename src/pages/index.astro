@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Terminal from '../components/Terminal.astro';
-import WechatCTA from '../components/WechatCTA.astro';
 import '../styles/terminal.css';
 import { getCollection } from 'astro:content';
 
@@ -30,12 +29,6 @@ const moduleNames: Record<string, string> = {
   'm6-sidebiz': '副业指南',
 };
 
-const modules = [
-  { id: 'm1-basics', name: '入门篇', desc: '新手从 0 到 1', detail: '安装配置、核心命令、Prompt 写法、MCP 入门、费用攻略——零基础也能跟上。', color: '#2d8a56', href: '/m1' },
-  { id: 'm3-practice', name: '实战篇', desc: '深度项目案例', detail: '从零搭建项目、重构复盘、线上排查、数据工程、CI/CD 自动化——每篇都是完整记录。', color: '#2b6cc4', href: '/m3' },
-  { id: 'm5-compare', name: '工具对比', desc: '横评与选型', detail: 'Claude Code vs Cursor vs Copilot vs Windsurf，模型选型、API vs 订阅——帮你做出最优选择。', color: '#d97706', href: '/m5' },
-  { id: 'm6-sidebiz', name: '副业指南', desc: 'AI 赚钱实操方法论', detail: '搭建副业网站、AdSense 变现、AI 接单提效、公众号运营——用 AI 开启技术变现之路。', color: '#059669', href: '/m6' },
-];
 ---
 
 <BaseLayout
@@ -70,46 +63,79 @@ const modules = [
   </Terminal>
 </section>
 
-<!-- Module Cards -->
+<!-- Learning Path -->
 <section class="section fade-in">
-  <div class="section-label">教程目录</div>
-  <h2 class="section-title">选择你的学习路径</h2>
-  <p class="section-desc">四大板块，覆盖从入门到变现的完整链路。每个板块独立成篇，按需阅读。</p>
-  <div class="course-grid">
-    {modules.map((mod, i) => (
-      <a class="course-card" href={mod.href}>
-        <div class="course-icon" style={`background: ${mod.color}`}>{String(i + 1).padStart(2, '0')}</div>
-        <div class="tag" style={`color: ${mod.color}; border-color: ${mod.color}`}>{mod.name}</div>
-        <h3>{mod.desc}</h3>
-        <p>{mod.detail}</p>
-        <div class="course-meta">
-          <span>{moduleCounts[mod.id] || 0} 篇</span>
-          <span>持续更新</span>
-        </div>
-      </a>
-    ))}
-  </div>
-</section>
+  <div class="section-label">学习路径</div>
+  <h2 class="section-title">六步掌握 AI 编程</h2>
+  <p class="section-desc">按顺序学效果最好，也可以按需跳读。每个板块独立成篇。</p>
+  <div class="path-grid">
 
-<!-- More Modules -->
-<section class="section fade-in" style="padding-top: 0;">
-  <div class="more-modules">
-    <a class="more-module-card" href="/m2">
-      <div class="mmc-badge" style="background: #c44b2b">思维篇</div>
-      <div class="mmc-info">
-        <h4>软件工程思维与协作策略</h4>
-        <p>任务拆解、上下文管理、代码审查、架构决策——{moduleCounts['m2-thinking'] || 0} 篇深度内容</p>
+    <a class="path-card" href="/m1" style="--c: #2d8a56">
+      <div class="path-step">STEP 01</div>
+      <div class="path-label">新手必读</div>
+      <h3>入门篇</h3>
+      <p>安装配置、核心命令、Prompt 写法、MCP 入门——从零开始，零基础也能跟上。</p>
+      <div class="path-foot">
+        <span>{moduleCounts['m1-basics'] || 0} 篇</span>
+        <span class="path-arrow">→</span>
       </div>
-      <span class="mmc-arrow">&rarr;</span>
     </a>
-    <a class="more-module-card" href="/m4">
-      <div class="mmc-badge" style="background: #8b5cf6">进阶篇</div>
-      <div class="mmc-info">
-        <h4>自动化与深度集成</h4>
-        <p>Headless 模式、管道操作、Git Hook 集成——{moduleCounts['m4-advanced'] || 0} 篇进阶内容</p>
+
+    <a class="path-card" href="/m2" style="--c: #c44b2b">
+      <div class="path-step">STEP 02</div>
+      <div class="path-label">思维建立</div>
+      <h3>思维篇</h3>
+      <p>任务拆解、上下文管理、代码审查、架构决策——建立与 AI 协作的工程思维。</p>
+      <div class="path-foot">
+        <span>{moduleCounts['m2-thinking'] || 0} 篇</span>
+        <span class="path-arrow">→</span>
       </div>
-      <span class="mmc-arrow">&rarr;</span>
     </a>
+
+    <a class="path-card" href="/m3" style="--c: #2b6cc4">
+      <div class="path-step">STEP 03</div>
+      <div class="path-label">动手实战</div>
+      <h3>实战篇</h3>
+      <p>从零搭建项目、重构复盘、线上排查、CI/CD 自动化——每篇都是完整的真实案例。</p>
+      <div class="path-foot">
+        <span>{moduleCounts['m3-practice'] || 0} 篇</span>
+        <span class="path-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="path-card" href="/m4" style="--c: #8b5cf6">
+      <div class="path-step">STEP 04</div>
+      <div class="path-label">深度集成</div>
+      <h3>进阶篇</h3>
+      <p>Headless 模式、管道操作、Git Hook 集成——把 Claude Code 真正接入工程体系。</p>
+      <div class="path-foot">
+        <span>{moduleCounts['m4-advanced'] || 0} 篇</span>
+        <span class="path-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="path-card" href="/m5" style="--c: #d97706">
+      <div class="path-step">STEP 05</div>
+      <div class="path-label">选型参考</div>
+      <h3>工具对比</h3>
+      <p>Claude Code vs Cursor vs Copilot，模型选型、API vs 订阅——帮你做出最优选择。</p>
+      <div class="path-foot">
+        <span>{moduleCounts['m5-compare'] || 0} 篇</span>
+        <span class="path-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="path-card" href="/m6" style="--c: #059669">
+      <div class="path-step">STEP 06</div>
+      <div class="path-label">技术变现</div>
+      <h3>副业指南</h3>
+      <p>搭建副业网站、AdSense 变现、AI 接单提效——用 AI 开启技术变现之路。</p>
+      <div class="path-foot">
+        <span>{moduleCounts['m6-sidebiz'] || 0} 篇</span>
+        <span class="path-arrow">→</span>
+      </div>
+    </a>
+
   </div>
 </section>
 
@@ -158,38 +184,6 @@ const modules = [
   </div>
 </section>
 
-<!-- WeChat CTA -->
-<section class="section fade-in" style="padding-bottom: 0;">
-  <WechatCTA variant="banner" />
-</section>
-
-<!-- Cross-platform -->
-<section class="section fade-in">
-  <div class="section-label">跨平台联动</div>
-  <h2 class="section-title">在这些地方也能找到我</h2>
-  <div class="platform-grid">
-    <a class="platform-card" href="/m1" title="网站 SEO 优化内容">
-      <div class="platform-icon" style="background: #c44b2b;">SEO</div>
-      <h4>网站内容</h4>
-      <p>47 篇原创教程，持续更新中</p>
-    </a>
-    <a class="platform-card" href="/m6/04-wechat-growth" title="公众号">
-      <div class="platform-icon" style="background: #07c160;">公众号</div>
-      <h4>CC精通之路</h4>
-      <p>每周推送 AI 编程干货</p>
-    </a>
-    <a class="platform-card" href="https://github.com/grl2345/claude-code-mastery" target="_blank" rel="noopener" title="GitHub 开源">
-      <div class="platform-icon" style="background: #24292f;">Git</div>
-      <h4>GitHub 开源</h4>
-      <p>所有代码和教程源码</p>
-    </a>
-    <a class="platform-card" href="/rss.xml" title="RSS 订阅">
-      <div class="platform-icon" style="background: #f97316;">RSS</div>
-      <h4>RSS 订阅</h4>
-      <p>第一时间获取新文章</p>
-    </a>
-  </div>
-</section>
 
 <!-- CTA -->
 <section class="cta-section fade-in">
@@ -201,118 +195,80 @@ const modules = [
 </BaseLayout>
 
 <style>
-  .more-modules {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    background: var(--gray-200);
-    border-radius: 12px;
-    overflow: hidden;
-  }
-  .more-module-card {
+  .path-grid {
     display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 16px;
-    align-items: center;
-    padding: 20px 24px;
-    background: var(--paper);
-    text-decoration: none;
-    color: var(--ink);
-    transition: background .2s;
-  }
-  .more-module-card:hover {
-    background: #faf8f4;
-  }
-  .more-module-card:hover .mmc-arrow {
-    transform: translateX(4px);
-    color: var(--accent);
-  }
-  .mmc-badge {
-    color: #fff;
-    font-size: 13px;
-    font-weight: 600;
-    padding: 6px 14px;
-    border-radius: 8px;
-    white-space: nowrap;
-  }
-  .mmc-info h4 {
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-  .mmc-info p {
-    font-size: 13px;
-    color: var(--gray);
-  }
-  .mmc-arrow {
-    font-size: 18px;
-    color: var(--gray-300);
-    transition: all .2s;
-  }
-  .course-icon {
-    color: #fff;
-    font-family: var(--mono);
-    font-weight: 700;
-  }
-  .tag {
-    border: 1.5px solid;
-    background: transparent;
-  }
-
-  .platform-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
   }
-  .platform-card {
+  .path-card {
+    position: relative;
     background: var(--paper);
     border: 1.5px solid var(--gray-200);
+    border-left: 3px solid var(--c);
     border-radius: 12px;
-    padding: 24px 20px;
-    text-align: center;
+    padding: 24px;
     text-decoration: none;
     color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     transition: all .2s;
   }
-  .platform-card:hover {
-    border-color: var(--gray-300);
+  .path-card:hover {
+    border-color: var(--c);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,.06);
+    box-shadow: 0 6px 20px rgba(0,0,0,.07);
   }
-  .platform-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    color: #fff;
-    font-size: 13px;
-    font-weight: 800;
+  .path-step {
+    font-size: 11px;
+    font-weight: 700;
     font-family: var(--mono);
+    color: var(--c);
+    letter-spacing: 1px;
+  }
+  .path-label {
+    font-size: 11px;
+    color: var(--gray);
+    font-weight: 500;
+  }
+  .path-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0;
+  }
+  .path-card p {
+    font-size: 13px;
+    color: var(--gray);
+    line-height: 1.7;
+    flex: 1;
+  }
+  .path-foot {
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin: 0 auto 12px;
-  }
-  .platform-card h4 {
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-  .platform-card p {
-    font-size: 12px;
+    justify-content: space-between;
+    margin-top: 4px;
+    font-size: 13px;
     color: var(--gray);
   }
+  .path-arrow {
+    color: var(--c);
+    font-size: 16px;
+    transition: transform .2s;
+  }
+  .path-card:hover .path-arrow {
+    transform: translateX(4px);
+  }
+
 
   @media (max-width: 768px) {
-    .more-module-card {
-      grid-template-columns: 1fr auto;
-      padding: 16px;
-    }
-    .mmc-badge {
-      display: none;
-    }
-    .platform-grid {
-      grid-template-columns: repeat(2, 1fr);
+    .path-grid {
+      grid-template-columns: 1fr 1fr;
       gap: 12px;
+    }
+    .platform-row {
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
     }
   }
 </style>

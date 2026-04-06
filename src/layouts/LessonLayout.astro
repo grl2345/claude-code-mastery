@@ -2,7 +2,6 @@
 import BaseLayout from './BaseLayout.astro';
 import Sidebar from '../components/Sidebar.astro';
 import Pagination from '../components/Pagination.astro';
-import WechatCTA from '../components/WechatCTA.astro';
 import '../styles/prose.css';
 
 interface Props {
@@ -86,8 +85,6 @@ const currentSlug = Astro.url.pathname;
       <div class="prose">
         <slot />
       </div>
-
-      <WechatCTA variant="inline" />
 
       <Pagination prev={prev} next={next} />
     </div>
