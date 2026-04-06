@@ -31,6 +31,16 @@ const currentPath = Astro.url.pathname;
     publishedAt={publishedAt}
     updatedAt={updatedAt}
   />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DN0V60B0XN" is:inline></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-DN0V60B0XN');
+  </script>
 </head>
 <body>
   <Nav currentPath={currentPath} />
