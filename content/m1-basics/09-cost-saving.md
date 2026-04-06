@@ -1,8 +1,8 @@
 ---
 title: "费用与省钱攻略"
 module: "m1-basics"
-order: 9
-group: "实用指南"
+order: 8
+group: "参考手册"
 description: "全面解析 Claude Code 的计费模式, 对比 API 与订阅方案, 提供 7 个经过验证的省钱技巧"
 duration: "20 分钟"
 level: "零基础可读"

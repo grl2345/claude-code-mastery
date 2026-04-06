@@ -1,8 +1,8 @@
 ---
 title: "MCP 入门指南"
 module: "m1-basics"
-order: 10
-group: "实用指南"
+order: 9
+group: "参考手册"
 description: "理解 Model Context Protocol 的核心概念, 学会配置 MCP Server, 用实际案例演示如何扩展 Claude Code 的能力"
 duration: "25 分钟"
 level: "零基础可读"

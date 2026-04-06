@@ -1,7 +1,7 @@
 ---
 title: "文件读写与项目感知"
 module: m1-basics
-order: 6
+order: 5
 group: "核心概念"
 description: "理解 Claude Code 如何感知你的项目，以及如何利用现有代码作为模板。"
 duration: "15 分钟"

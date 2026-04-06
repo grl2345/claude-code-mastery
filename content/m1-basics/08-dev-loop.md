@@ -1,7 +1,7 @@
 ---
 title: "建立你的第一个开发循环"
 module: m1-basics
-order: 8
+order: 7
 group: "日常工作流"
 description: "把零散知识串成完整的工作流：规划→实现→审查→测试→提交。"
 duration: "20 分钟"

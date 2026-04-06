@@ -1,7 +1,7 @@
 ---
 title: "理解对话上下文"
 module: m1-basics
-order: 4
+order: 3
 group: "核心概念"
 description: "什么是上下文窗口，它如何被消耗，以及基本的管理策略。"
 duration: "15 分钟"

@@ -1,8 +1,8 @@
 ---
 title: "常见报错排查"
 module: "m1-basics"
-order: 11
-group: "实用指南"
+order: 10
+group: "参考手册"
 description: "收录 20+ 个 Claude Code 常见错误及其解决方案, 覆盖安装、认证、网络、运行时等各类问题"
 duration: "15 分钟"
 level: "零基础可读"

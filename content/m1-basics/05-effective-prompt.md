@@ -1,7 +1,7 @@
 ---
 title: "你的第一个有效 Prompt"
 module: m1-basics
-order: 5
+order: 4
 group: "核心概念"
 description: "Prompt 不是咒语，而是任务描述。掌握好 Prompt 的四个要素。"
 duration: "12 分钟"

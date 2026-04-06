@@ -1,7 +1,7 @@
 ---
 title: "CLI 常用命令速查"
 module: m1-basics
-order: 7
+order: 6
 group: "日常工作流"
 description: "Claude Code CLI 的启动方式、斜杠命令、管道操作和常用参数速查。"
 duration: "10 分钟"
