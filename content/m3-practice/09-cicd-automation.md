@@ -1,23 +1,23 @@
 ---
-title: "CI/CD 自动化实战"
+title: "如何将 Claude Code 集成到 CI/CD 流水线？GitHub Actions 自动化实战"
 module: "m3-practice"
 order: 9
 group: "进阶实战"
-description: "将 Claude Code 集成到 GitHub Actions 工作流, 实现自动化代码审查、测试生成和部署流程"
+description: "**将 Claude Code 集成到 GitHub Actions，可实现 PR 自动审查、测试自动生成、安全扫描和变更日志生成。** 提供完整的 YAML 配置模板，覆盖非交互模式运行、成本控制、安全注意事项和常见问题排查，推荐从 PR 自动审查开始（最容易、价值最高）。"
 duration: "30 分钟"
 level: "需编程基础"
 publishedAt: "2026-04-05"
 ---
 
-# CI/CD 自动化实战
+## Claude Code 在 CI/CD 中能做什么？
 
-Claude Code 不仅可以在本地终端使用, 还能集成到 CI/CD 流水线中, 实现自动化的代码审查、测试生成和质量检查。本文以 GitHub Actions 为主, 演示如何将 Claude Code 融入自动化工作流。
+**Claude Code 能为传统 CI/CD 流水线增加 AI 代码审查、自动测试生成、安全扫描和变更日志生成等环节，将人工审查工作自动化。** 它不仅可以在本地终端使用, 还能集成到 CI/CD 流水线中。本文以 GitHub Actions 为主, 演示如何将 Claude Code 融入自动化工作流。
 
 ---
 
-## 一、Claude Code 在 CI/CD 中的定位
+### 传统 CI/CD vs AI 增强 CI/CD
 
-### 1.1 传统 CI/CD vs AI 增强 CI/CD
+**AI 增强后的流水线在代码提交和 lint 之间增加了 AI 代码审查，在测试前增加了 AI 测试生成，在部署前增加了 AI 结果分析。** 对比：
 
 传统 CI/CD 流水线:
 
@@ -32,7 +32,7 @@ AI 增强后的 CI/CD 流水线:
 -> 编译构建 -> 运行测试 -> AI 分析测试结果 -> 部署
 ```
 
-### 1.2 适合自动化的场景
+### 适合自动化的场景
 
 | 场景 | 自动化价值 | 复杂度 |
 |------|-----------|--------|
@@ -45,11 +45,11 @@ AI 增强后的 CI/CD 流水线:
 
 ---
 
-## 二、GitHub Actions 集成
+## 如何在 GitHub Actions 中配置 Claude Code？
 
-### 2.1 基础配置
+### 基础配置
 
-Claude Code 提供了 GitHub Actions 的官方集成方式。首先, 在仓库中设置 API Key:
+**第一步是将 Anthropic API Key 存入 GitHub Secrets，然后在工作流中用 `-p` 标志以非交互模式运行 Claude Code。** 具体步骤：
 
 ```
 Settings -> Secrets and variables -> Actions -> New repository secret
@@ -144,7 +144,7 @@ claude -p "分析代码" --output-format json
 
 ---
 
-## 三、自动化测试生成
+## 如何用 Claude Code 在 CI 中自动生成测试？
 
 ### 3.1 为新代码自动生成测试
 
@@ -226,7 +226,7 @@ jobs:
 
 ---
 
-## 四、自动化代码质量检查
+## 如何用 Claude Code 自动做代码质量和安全检查？
 
 ### 4.1 安全审查
 
@@ -343,7 +343,7 @@ jobs:
 
 ---
 
-## 五、高级自动化场景
+## Claude Code 还能实现哪些高级 CI/CD 自动化？
 
 ### 5.1 自动修复 Lint 错误
 
@@ -467,11 +467,11 @@ jobs:
 
 ---
 
-## 六、成本与安全考量
+## CI 中使用 Claude Code 的成本和安全问题怎么控制？
 
-### 6.1 控制 CI 中的 API 成本
+### 控制 CI 中的 API 成本
 
-CI 环境中需要特别注意成本控制:
+**通过限制触发条件（仅 PR 创建时）、使用 Sonnet 模型、限制 diff 大小和设置月度预算来控制成本。**
 
 ```yaml
 # 限制只在特定条件下触发 AI 审查
@@ -525,7 +525,7 @@ permissions:
 
 ---
 
-## 七、调试 CI 中的 Claude Code
+## CI 中的 Claude Code 出问题怎么排查？
 
 ### 7.1 常见问题
 
@@ -563,9 +563,9 @@ Claude Code 处理大型代码库可能较慢:
 
 ---
 
-## 八、总结
+## Claude Code CI/CD 集成应该按什么优先级推进？
 
-将 Claude Code 集成到 CI/CD 的核心原则:
+**推荐从 PR 自动审查开始（最容易、价值最高），然后逐步加入变更日志、测试覆盖率、安全扫描，最后考虑自动修复。** 核心原则：
 
 1. 从简单场景开始 -- 先做 PR 评论, 再做自动修复
 2. 控制成本 -- 限制触发条件, 使用经济型模型

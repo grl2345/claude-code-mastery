@@ -1,27 +1,25 @@
 ---
-title: "用 Claude Code 参与开源项目贡献"
+title: "如何用 Claude Code 参与开源项目贡献？3 次 PR 被合并的完整经验"
 module: "m3-practice"
 order: 10
 group: "进阶实战"
-description: "从找到合适的 Issue 到提交被合并的 PR，记录用 Claude Code 完成三次开源贡献的完整过程。"
+description: "**Claude Code 最大的价值是帮你几分钟内理解陌生代码库，将开源贡献的门槛大幅降低。** 完整记录 3 次 PR 被合并的过程：文档修复（2 天合并）、日期选择器边界 Bug 修复（经一轮修改合并）、CLI 新功能添加（被评为"最规范的社区 PR"），附找 Issue、理解代码库、写 PR 的全流程方法。"
 duration: "20 分钟"
 level: "需编程基础"
 publishedAt: "2026-04-05"
 ---
 
-## 为什么要参与开源
+## 为什么 Claude Code 让开源贡献变容易了？
 
-我一直想参与开源项目，但每次打开一个大型仓库就被劝退了——几百个文件、复杂的构建系统、看不懂的代码组织方式。光是搞清楚"这个函数从哪里被调用"就要花半天。
-
-Claude Code 改变了这个局面。它最擅长的事情之一，就是帮你快速理解一个陌生的代码库。
+**因为 Claude Code 最擅长的事之一就是帮你快速理解陌生代码库——原来花半天的事现在几分钟就能完成。** 我一直想参与开源项目，但每次打开一个大型仓库就被劝退了——几百个文件、复杂的构建系统、看不懂的代码组织方式。Claude Code 改变了这个局面。
 
 这篇文章记录了我在三个开源项目中提交 PR 并被合并的完整过程。
 
 ---
 
-## 第一步：找到合适的 Issue
+## 怎么找到适合新手的开源 Issue？
 
-不要一上来就挑大功能。新手参与开源，最好从以下类型的 Issue 入手：
+**搜索带有 `good first issue` 或 `help wanted` 标签的 Issue，优先选择最近 3 个月有活跃合并记录且维护者 7 天内会响应的项目。** 不要一上来就挑大功能。新手参与开源，最好从以下类型的 Issue 入手：
 
 **适合新手的 Issue 标签：**
 - `good first issue`
@@ -46,9 +44,9 @@ label:"good first issue" language:TypeScript is:open
 
 ---
 
-## 第二步：用 Claude Code 理解代码库
+## 怎么用 Claude Code 快速理解陌生代码库？
 
-这是 Claude Code 最大的价值所在。克隆项目后，第一件事不是看代码，而是让 Claude Code 帮你建立全局认知。
+**克隆项目后，先让 Claude Code 阅读 README、CONTRIBUTING.md 和配置文件来建立全局认知，再针对具体 Issue 定位相关代码。** 这是 Claude Code 最大的价值所在。
 
 ### 2.1 项目概览
 
@@ -86,7 +84,9 @@ label:"good first issue" language:TypeScript is:open
 
 ---
 
-## 实战案例一：修复文档中的代码示例
+## 用 Claude Code 修复开源文档有多简单？（案例一）
+
+**文档类 PR 是最好的入门方式——门槛低、风险小、维护者通常很欢迎，这次 2 天就被合并。**
 
 **项目**：一个 Node.js 工具库（约 5k star）
 
@@ -112,7 +112,9 @@ label:"good first issue" language:TypeScript is:open
 
 ---
 
-## 实战案例二：修复一个边界 Bug
+## Claude Code 能帮忙定位开源项目的边界 Bug 吗？（案例二）
+
+**可以，Claude Code 能快速定位到具体函数和行号，并生成修复代码和测试用例，但注释风格等项目约定仍需人工检查。**
 
 **项目**：一个 React 组件库（约 12k star）
 
@@ -148,7 +150,9 @@ label:"good first issue" language:TypeScript is:open
 
 ---
 
-## 实战案例三：添加新功能
+## 用 Claude Code 给开源项目加新功能可行吗？（案例三）
+
+**完全可行——让 Claude Code 参照项目现有功能的实现方式来写新功能，再做一轮自审确保符合编码规范，PR 质量会很高。**
 
 **项目**：一个 CLI 工具（约 3k star）
 
@@ -193,7 +197,9 @@ label:"good first issue" language:TypeScript is:open
 
 ---
 
-## PR 被接受的关键要素
+## 怎么提高开源 PR 被接受的概率？
+
+**核心是遵循项目规范、写好 PR 描述、保持改动范围小、及时响应 Review。** 让 Claude Code 帮你逐条检查 CONTRIBUTING.md 的要求。
 
 ### 1. 遵循项目规范
 
@@ -226,7 +232,9 @@ label:"good first issue" language:TypeScript is:open
 
 ---
 
-## 常见踩坑
+## 开源贡献新手最容易踩哪些坑？
+
+**最常见的 5 个错误包括忘记 fork、分支名不规范、commit 信息不规范、没跑 lint 和提交了不该提交的文件。**
 
 1. **忘记 fork**：直接在原仓库创建分支。要先 fork 到自己账号下。
 
@@ -240,9 +248,9 @@ label:"good first issue" language:TypeScript is:open
 
 ---
 
-## 总结
+## 用 Claude Code 参与开源的核心优势是什么？
 
-用 Claude Code 参与开源的核心优势：
+**快速理解陌生代码库（几分钟而非几小时）、自动检查项目规范、AI 生成 + 人工审查的高质量组合。** 具体优势：
 
 - **快速理解陌生代码库**：几分钟而不是几小时
 - **遵循项目规范**：让 AI 帮你检查是否符合所有要求

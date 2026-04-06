@@ -1,19 +1,22 @@
 ---
-title: "安装与环境配置（CLI 篇）"
+title: "如何安装 Claude Code CLI？完整环境配置指南"
 module: m1-basics
 order: 2
 group: "准备工作"
-description: "从零开始安装 Claude Code CLI，配置开发环境，创建你的第一个 CLAUDE.md。"
+description: "三步完成 Claude Code CLI 安装：确认 Node.js 18+、npm 全局安装、浏览器认证。附 CLAUDE.md 项目配置模板和权限问题解决方案。"
 duration: "12 分钟"
 level: "零基础"
 publishedAt: 2026-03-16
 ---
 
-## 前置条件
+## 安装 Claude Code 需要什么前置条件？
 
-在开始之前，你需要确认两件事。
+安装 Claude Code CLI 前需要准备两样东西：
 
-首先是 Node.js 环境。Claude Code 需要 Node.js 18 或更高版本：
+1. **Node.js 18 或更高版本**
+2. **Anthropic 账号**（console.anthropic.com 注册，支持 Claude Pro/Max 订阅或 API 付费）
+
+检查 Node.js 版本：
 
 ```bash
 $ node --version
@@ -28,11 +31,9 @@ $ node --version
 v20.11.0
 ```
 
-其次是 Anthropic 账号。去 console.anthropic.com 注册就行，支持 Claude Pro/Max 订阅或 API 付费。
+## 如何一行命令安装 Claude Code？
 
-## 安装 Claude Code
-
-安装本身非常简单，一行命令搞定：
+**运行 `npm install -g @anthropic-ai/claude-code` 即可完成全局安装。**
 
 ```bash
 $ npm install -g @anthropic-ai/claude-code
@@ -42,9 +43,9 @@ claude-code v1.x.x
 
 > 遇到权限问题的话，不要用 sudo npm install——这是个常见的坑。正确做法是修复 npm 全局目录权限，或者直接用 nvm 安装的 Node.js，就不会有这个问题。
 
-## 首次认证
+## 安装后如何完成首次认证？
 
-安装完成后，直接在终端输入 `claude` 就会启动认证流程：
+安装完成后，**在终端输入 `claude` 会自动启动浏览器认证流程**：
 
 ```bash
 $ claude
@@ -54,11 +55,13 @@ Press Enter to open the browser for login...
 ✓ Authentication successful
 ```
 
-整个过程会自动打开浏览器，登录后回到终端就能用了。我的经验是这一步基本不会出问题，非常顺滑。
+整个过程会自动打开浏览器，登录后回到终端就能用了。这一步基本不会出问题，非常顺滑。
 
-## 项目级配置
+## 为什么要创建 CLAUDE.md？如何配置？
 
-这一步很多人会跳过，但我建议你从一开始就养成习惯——在项目根目录创建一个 `CLAUDE.md` 文件：
+**CLAUDE.md 是你给 Claude Code 的「项目入职文档」。** 它让 Claude Code 了解你的技术栈、代码规范和目录结构，从而产出更精准的代码。
+
+在项目根目录创建 `CLAUDE.md` 文件：
 
 ```markdown
 # 项目说明
@@ -78,6 +81,4 @@ Press Enter to open the browser for login...
 - tests/ — 测试文件
 ```
 
-为什么这个文件重要？还记得第一课说的吗——Claude Code 是那个「对你业务一无所知的新同事」。CLAUDE.md 就是你给他的入职文档。写得越清楚，它干活越靠谱。
-
-我自己每个项目都会维护这个文件，哪怕只是几行简单的技术栈说明，也比什么都没有强太多。我们会在思维篇第 6 课深入讲解如何写好它。
+很多人会跳过这一步，但我建议从一开始就养成习惯。哪怕只是几行简单的技术栈说明，也比什么都没有强太多。写得越清楚，Claude Code 干活越靠谱。我们会在思维篇第 6 课深入讲解如何写好它。

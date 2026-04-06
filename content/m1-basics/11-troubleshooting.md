@@ -1,23 +1,23 @@
 ---
-title: "常见报错排查"
+title: "Claude Code 报错怎么办？26 个常见错误与解决方案速查"
 module: "m1-basics"
 order: 11
 group: "实用指南"
-description: "收录 20+ 个 Claude Code 常见错误及其解决方案, 覆盖安装、认证、网络、运行时等各类问题"
+description: "Claude Code 常见报错速查表：覆盖安装权限、API Key 无效、上下文超限、MCP 启动失败等 26 个高频错误。每个错误附原因分析和复制可用的修复命令。"
 duration: "15 分钟"
 level: "零基础可读"
 publishedAt: "2026-04-05"
 ---
 
-# 常见报错排查
+# Claude Code 报错怎么办？26 个常见错误与解决方案速查
 
-使用 Claude Code 过程中遇到报错是正常现象。本文整理了 20 多个高频错误, 按类别分组, 每个错误都给出原因分析和解决步骤。建议收藏本文, 遇到问题时直接搜索错误关键词。
+**本文整理了 26 个 Claude Code 高频错误，按类别分组，每个错误附原因分析和可复制的修复命令。** 建议收藏本文，遇到问题时直接搜索错误关键词。
 
 ---
 
-## 一、安装类错误
+## 安装类错误
 
-### 错误 1: npm install 权限不足
+### npm install 权限不足（EACCES）
 
 ```
 Error: EACCES: permission denied, mkdir '/usr/local/lib/node_modules'
@@ -40,7 +40,7 @@ source ~/.bashrc
 npm install -g @anthropic-ai/claude-code
 ```
 
-### 错误 2: Node.js 版本过低
+### Node.js 版本过低
 
 ```
 Error: Claude Code requires Node.js >= 18.0.0
@@ -62,7 +62,7 @@ nvm use 20
 # https://nodejs.org/
 ```
 
-### 错误 3: 网络超时导致安装失败
+### 安装 网络超时导致安装失败
 
 ```
 npm ERR! network timeout at: https://registry.npmjs.org/...
@@ -85,9 +85,9 @@ npm config set registry https://registry.npmjs.org
 
 ---
 
-## 二、认证类错误
+## 认证类错误
 
-### 错误 4: API Key 无效
+### API Key 无效
 
 ```
 Error: Invalid API key provided
@@ -107,7 +107,7 @@ Error: Invalid API key provided
 claude config set apiKey sk-ant-xxxxxxxxxxxx
 ```
 
-### 错误 5: 认证过期
+### 认证过期（Authentication expired）
 
 ```
 Error: Authentication expired. Please log in again.
@@ -125,7 +125,7 @@ claude login
 claude login --method browser
 ```
 
-### 错误 6: 账户余额不足
+### 余额不足（Insufficient credits） 账户余额不足
 
 ```
 Error: Insufficient credits. Please add credits to your account.
@@ -140,7 +140,7 @@ Error: Insufficient credits. Please add credits to your account.
 3. 充值或设置自动充值
 4. 如果已设置消费上限, 考虑提高上限
 
-### 错误 7: 速率限制
+### 速率限制（Rate limit exceeded）
 
 ```
 Error: Rate limit exceeded. Please try again in X seconds.
@@ -157,9 +157,9 @@ Error: Rate limit exceeded. Please try again in X seconds.
 
 ---
 
-## 三、网络类错误
+## 网络类错误
 
-### 错误 8: 连接被拒绝
+### 连接被拒绝（ECONNREFUSED）
 
 ```
 Error: connect ECONNREFUSED 127.0.0.1:443
@@ -180,7 +180,7 @@ unset HTTP_PROXY
 unset HTTPS_PROXY
 ```
 
-### 错误 9: SSL 证书错误
+### SSL 证书错误
 
 ```
 Error: unable to verify the first certificate
@@ -198,7 +198,7 @@ export NODE_EXTRA_CA_CERTS=/path/to/company-ca.pem
 export NODE_TLS_REJECT_UNAUTHORIZED=0
 ```
 
-### 错误 10: DNS 解析失败
+### DNS 解析失败（ENOTFOUND）
 
 ```
 Error: getaddrinfo ENOTFOUND api.anthropic.com
@@ -221,7 +221,7 @@ networksetup -setdnsservers Wi-Fi 8.8.8.8 8.8.4.4
 echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
 ```
 
-### 错误 11: 请求超时
+### 请求超时（Request timed out）
 
 ```
 Error: Request timed out after 60000ms
@@ -238,9 +238,9 @@ Error: Request timed out after 60000ms
 
 ---
 
-## 四、运行时错误
+## 运行时错误
 
-### 错误 12: 上下文长度超限
+### 上下文长度超限（Maximum context length exceeded）
 
 ```
 Error: Maximum context length exceeded
@@ -264,7 +264,7 @@ Error: Maximum context length exceeded
 - 避免在一个对话中处理太多任务
 - 不要让 Claude Code 一次读取过大的文件
 
-### 错误 13: 工具执行失败
+### 工具执行失败（Tool execution failed）
 
 ```
 Error: Tool execution failed: command exited with code 1
@@ -279,7 +279,7 @@ Error: Tool execution failed: command exited with code 1
 - 检查文件路径是否正确
 - 检查权限是否足够
 
-### 错误 14: 文件读取失败
+### 文件读取失败（ENOENT）
 
 ```
 Error: ENOENT: no such file or directory, open 'path/to/file'
@@ -298,7 +298,7 @@ Error: ENOENT: no such file or directory, open 'path/to/file'
 pwd
 ```
 
-### 错误 15: 权限被拒绝
+### 权限被拒绝（EACCES）
 
 ```
 Error: EACCES: permission denied, open '/etc/some-config'
@@ -314,9 +314,9 @@ Error: EACCES: permission denied, open '/etc/some-config'
 
 ---
 
-## 五、MCP 相关错误
+## MCP 相关错误
 
-### 错误 16: MCP Server 启动失败
+### MCP Server 启动失败
 
 ```
 Error: MCP server 'github' failed to start
@@ -337,7 +337,7 @@ cat .mcp.json
 echo $GITHUB_TOKEN
 ```
 
-### 错误 17: MCP 工具调用超时
+### MCP 工具调用超时
 
 ```
 Error: MCP tool call timed out
@@ -351,7 +351,7 @@ Error: MCP tool call timed out
 - 检查网络连接
 - 简化查询或操作
 
-### 错误 18: MCP Server 连接断开
+### MCP Server 连接断开
 
 ```
 Error: MCP server 'postgres' disconnected unexpectedly
@@ -373,9 +373,9 @@ df -h    # 磁盘
 
 ---
 
-## 六、配置类错误
+## 配置类错误
 
-### 错误 19: CLAUDE.md 解析错误
+### CLAUDE.md 解析错误
 
 ```
 Warning: Failed to parse CLAUDE.md
@@ -389,7 +389,7 @@ Warning: Failed to parse CLAUDE.md
 - 确保文件编码是 UTF-8
 - 移除可能导致解析问题的特殊字符
 
-### 错误 20: 配置文件损坏
+### 配置文件损坏（JSON 格式错误）
 
 ```
 Error: Failed to read configuration file
@@ -408,7 +408,7 @@ rm ~/.claude/settings.json
 # 重新启动 Claude Code 会生成默认配置
 ```
 
-### 错误 21: Git 仓库未初始化
+### Git 仓库未初始化
 
 ```
 Warning: Not in a git repository. Some features may be limited.
@@ -428,9 +428,9 @@ cd /path/to/your/project
 
 ---
 
-## 七、模型相关错误
+## 模型相关错误
 
-### 错误 22: 模型不可用
+### 模型不可用
 
 ```
 Error: Model 'claude-opus-4-20250901' is not available
@@ -448,7 +448,7 @@ Error: Model 'claude-opus-4-20250901' is not available
 claude models
 ```
 
-### 错误 23: 输出被截断
+### 输出被截断（Response truncated）
 
 ```
 [Response truncated due to max token limit]
@@ -466,7 +466,7 @@ claude models
 先实现前 3 个函数, 剩余的下一步再写
 ```
 
-### 错误 24: 内容被安全过滤
+### 内容被安全过滤（Response blocked）
 
 ```
 Error: Response blocked by safety filters
@@ -482,9 +482,9 @@ Error: Response blocked by safety filters
 
 ---
 
-## 八、系统环境错误
+## 系统环境错误
 
-### 错误 25: 内存不足
+### 内存不足（JavaScript heap out of memory）
 
 ```
 FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - JavaScript heap out of memory
@@ -500,7 +500,7 @@ export NODE_OPTIONS="--max-old-space-size=4096"
 claude
 ```
 
-### 错误 26: 磁盘空间不足
+### 磁盘空间不足（ENOSPC）
 
 ```
 Error: ENOSPC: no space left on device
@@ -523,15 +523,13 @@ npm prune
 
 ---
 
-## 九、排查通用流程
+## 遇到未知错误怎么排查？七步通用流程
 
-遇到未列出的错误时, 按以下步骤排查:
+**按以下步骤排查，90% 的问题都能在 5 分钟内解决：**
 
-**第一步: 阅读完整错误信息**
+**第一步：阅读完整错误信息。** 不要只看第一行，完整的 stack trace 通常包含关键线索。
 
-不要只看第一行, 完整的 stack trace 通常包含关键线索。
-
-**第二步: 检查基础环境**
+**第二步：检查基础环境**
 
 ```bash
 node --version      # 确认 Node.js 版本
@@ -539,13 +537,13 @@ npm --version       # 确认 npm 版本
 claude --version    # 确认 Claude Code 版本
 ```
 
-**第三步: 更新到最新版本**
+**第三步：更新到最新版本**
 
 ```bash
 npm update -g @anthropic-ai/claude-code
 ```
 
-**第四步: 清理缓存和配置**
+**第四步：清理缓存和配置**
 
 ```bash
 # 清理 npm 缓存
@@ -555,7 +553,7 @@ npm cache clean --force
 rm -rf ~/.claude/cache
 ```
 
-**第五步: 检查网络**
+**第五步：检查网络**
 
 ```bash
 # 测试 API 连通性
@@ -565,7 +563,7 @@ curl -I https://api.anthropic.com
 nslookup api.anthropic.com
 ```
 
-**第六步: 查看日志**
+**第六步：查看日志**
 
 ```bash
 # Claude Code 的日志目录
@@ -575,7 +573,7 @@ ls ~/.claude/logs/
 cat ~/.claude/logs/latest.log
 ```
 
-**第七步: 搜索社区**
+**第七步：搜索社区**
 
 - GitHub Issues: https://github.com/anthropics/claude-code/issues
 - Anthropic Discord 社区
@@ -583,13 +581,15 @@ cat ~/.claude/logs/latest.log
 
 ---
 
-## 十、总结
+## Claude Code 报错的四大类型总结
 
-大多数 Claude Code 的报错都可以归结为以下几类:
+**大多数报错都可以归结为以下四类：**
 
-1. 环境问题 -- 升级 Node.js, 检查权限
-2. 认证问题 -- 重新登录, 检查 API Key
-3. 网络问题 -- 检查代理、DNS、防火墙
-4. 资源问题 -- 上下文过长, 内存不足, 磁盘满
+| 类型 | 解决方向 |
+|------|---------|
+| **环境问题** | 升级 Node.js，检查权限 |
+| **认证问题** | 重新登录，检查 API Key |
+| **网络问题** | 检查代理、DNS、防火墙 |
+| **资源问题** | 上下文过长，内存不足，磁盘满 |
 
-遇到报错不要慌, 按照错误分类对号入座, 90% 的问题都能在 5 分钟内解决。把本文加入书签, 下次遇到问题时直接搜索关键词。
+遇到报错不要慌，按照错误分类对号入座，90% 的问题都能在 5 分钟内解决。

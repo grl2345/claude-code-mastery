@@ -1,17 +1,17 @@
 ---
-title: "Headless 模式：让 Claude Code 在后台替你干活"
+title: "Claude Code Headless 模式怎么用？后台自动化编程完整指南"
 module: m4-advanced
 order: 1
 group: "自动化"
-description: "用 --print 和管道把 Claude Code 嵌入脚本和工作流，实现代码审查自动化、批量文件处理和 Git Hook 集成。"
+description: "Claude Code 的 --print 参数和管道操作可实现后台自动化编程。本文覆盖 4 大场景：代码审查自动化、批量文件处理、Git Hook 集成和日志分析，附完整脚本和实测数据（日省 20-30 分钟）。"
 duration: "20 分钟"
 level: "需编程基础"
 publishedAt: 2026-04-05
 ---
 
-## 什么是 Headless 模式
+## 什么是 Claude Code 的 Headless 模式？
 
-到目前为止，我们讲的都是"交互式"用法——你打开终端，和 Claude Code 一问一答地对话。但 Claude Code 还有另一种用法：**不需要你坐在电脑前，它自己在后台跑。**
+**Headless 模式是 Claude Code 的非交互运行方式，通过 `--print` 参数和管道操作，让 AI 在后台自动执行编程任务。** 到目前为止，我们讲的都是"交互式"用法——你打开终端，和 Claude Code 一问一答地对话。但 Claude Code 还有另一种用法：不需要你坐在电脑前，它自己在后台跑。
 
 这就是 Headless 模式。核心是两个参数：
 
@@ -22,9 +22,9 @@ publishedAt: 2026-04-05
 
 我自己用得最多的场景有三个：自动化代码审查、批量文件处理、Git 工作流集成。下面逐个说。
 
-## 场景一：自动化代码审查
+## 如何用 Headless 模式实现自动化代码审查？
 
-这是我每天都在用的功能。每次 commit 之前，让 Claude Code 自动审查变更：
+**用 `git diff --staged | claude -p` 命令组合，可以在每次 commit 前自动审查代码变更，几秒钟完成，无需人工交互。** 这是我每天都在用的功能：
 
 ```bash
 $ git diff --staged | claude -p "审查这段代码变更：
@@ -94,9 +94,9 @@ exit 1
 
 **一个重要的注意事项**：`--no-verify` 是跳过 Hook 的逃生门，一定要保留。有些时候你明确知道代码没问题（比如只改了注释或文档），不需要等 AI 审查。另外，Claude Code 有时候会误报，你需要一个覆盖机制。
 
-## 场景二：批量文件处理
+## Headless 模式能做批量文件处理吗？
 
-Headless 模式的另一个强项是批量处理。比如你要给项目里所有的 TypeScript 函数加上 JSDoc 注释：
+**可以，Headless 模式非常擅长批量处理，比如给所有文件加注释、迁移 API 调用等，实测 23 个文件的 axios 转 fetch 迁移仅需 50 分钟（纯手动约 4-5 小时）。** 比如你要给项目里所有的 TypeScript 函数加上 JSDoc 注释：
 
 ```bash
 $ find src/utils -name "*.ts" | while read f; do
@@ -151,9 +151,9 @@ $ grep -rl "import axios" src/ | while read f; do
 
 总耗时约 50 分钟，如果纯手动改估计要 4-5 小时。效率提升很明显，但审查环节不能省。
 
-## 场景三：Commit Message 生成
+## 怎么用 Headless 模式自动生成 Commit Message？
 
-这是最简单也最实用的 Headless 用法：
+**将 `git diff --staged` 通过管道传给 `claude -p`，可以自动生成符合 Conventional Commits 格式的中文 commit message，封装成 shell 函数后只需一个命令。** 这是最简单也最实用的 Headless 用法：
 
 ```bash
 $ git diff --staged | claude -p "根据这段代码变更生成一条 commit message。
@@ -181,9 +181,9 @@ cm() {
 
 注意：我特意加了确认步骤，不会自动 commit。因为 AI 生成的 message 有时候抓不准重点——比如你改了一个 bug 顺便重命名了一个变量，它可能把 message 写成"重命名变量"而不是"修复 XX bug"。人工确认一下只要 2 秒，但能避免产生误导性的 commit 历史。
 
-## 场景四：日志分析
+## 能用 Headless 模式分析生产日志吗？
 
-生产环境报错时，可以把日志直接喂给 Claude Code 分析：
+**可以，用 `tail` 配合管道将错误日志传给 Claude Code，它能自动分类错误类型、识别关联性并给出排查方向，适合紧急排障场景。** 生产环境报错时，可以把日志直接喂给 Claude Code 分析：
 
 ```bash
 $ tail -100 /var/log/app/error.log | claude -p "分析这些错误日志：
@@ -204,7 +204,7 @@ $ tail -100 /var/log/app/error.log \
   | claude -p "分析错误日志..."
 ```
 
-## 使用 Headless 模式的注意事项
+## 使用 Headless 模式有哪些注意事项？
 
 ### 成本意识
 
@@ -226,9 +226,9 @@ if [ $? -ne 0 ] || [ -z "$result" ]; then
 fi
 ```
 
-## 我现在的 Headless 工作流
+## 日常 Headless 工作流是什么样的？
 
-总结一下我日常在用的几个自动化：
+**我的日常 Headless 工作流包含 4 个自动化任务，累计每天节省 20-30 分钟。** 总结一下我日常在用的几个自动化：
 
 1. **`review`**：commit 前自动审查暂存变更（每天 3-5 次）
 2. **`cm`**：自动生成 commit message + 人工确认（每天 5-8 次）

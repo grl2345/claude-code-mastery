@@ -1,19 +1,19 @@
 ---
-title: "Claude Code 最佳 CLAUDE.md 模板合集"
+title: "CLAUDE.md 怎么写最有效？12 个实战模板拿来即用"
 module: "m3-practice"
 order: 6
 group: "资源合集"
-description: "12 个经过实战验证的 CLAUDE.md 模板，覆盖前端、后端、全栈、开源项目等场景，拿来即用。"
+description: "**好的 CLAUDE.md 能减少 40% 以上的纠正次数。** 提供 12 个经过实战验证的模板，覆盖 React、Node.js、Next.js、Python、Vue、Go、Flutter、Astro、Rust、微信小程序、开源项目和 Monorepo 等场景，复制修改即可使用。"
 duration: "20 分钟"
 level: "零基础可读"
 publishedAt: "2026-04-05"
 ---
 
-## 为什么 CLAUDE.md 这么重要
+## 为什么 CLAUDE.md 对 Claude Code 效率影响这么大？
 
-CLAUDE.md 是你和 Claude Code 之间的「契约书」。没有它，Claude Code 每次都在猜你的意图；有了它，Claude Code 从第一轮对话就知道你的项目规范、技术栈、代码风格。
+**因为 CLAUDE.md 相当于你和 Claude Code 之间的「契约书」，一份好的 CLAUDE.md 能减少 40% 以上的纠正次数。** 没有它，Claude Code 每次都在猜你的意图；有了它，Claude Code 从第一轮对话就知道你的项目规范、技术栈、代码风格。
 
-我在实际使用中发现，一份好的 CLAUDE.md 能减少 40% 以上的纠正次数。下面是我收集整理的 12 个模板，全部经过实战验证。
+下面是我收集整理的 12 个模板，全部经过实战验证。
 
 ---
 
@@ -489,7 +489,9 @@ packages/
 
 ---
 
-## 使用建议
+## CLAUDE.md 模板使用的最佳实践是什么？
+
+**最重要的原则是"越具体越好"和"加入禁止项"——告诉 Claude Code 不该做什么往往比告诉它该做什么更有效。**
 
 1. **不要照搬**：模板是起点，根据你的实际项目调整细节
 2. **持续更新**：项目演进时同步更新 CLAUDE.md
