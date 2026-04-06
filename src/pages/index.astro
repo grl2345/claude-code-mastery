@@ -48,7 +48,7 @@ const moduleData = modules.map(mod => {
       <div class="hero-recent-col">
         {recentTwo.map((lesson, i) => (
           <a class="hero-recent-item" href={lessonUrl(lesson.id)}>
-            {i === 0 && <span class="hero-new-badge">NEW</span>}
+            <span class={`hero-new-badge ${i > 0 ? 'invisible' : ''}`}>NEW</span>
             <span class="hero-recent-title">{lesson.data.title}</span>
             <span class="hero-recent-date">{lesson.data.publishedAt.toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit' })}</span>
           </a>
@@ -263,6 +263,9 @@ const moduleData = modules.map(mod => {
     display: flex;
     flex-direction: column;
     gap: 6px;
+  }
+  .hero-new-badge.invisible {
+    visibility: hidden;
   }
   .hero-recent-title {
     overflow: hidden;
