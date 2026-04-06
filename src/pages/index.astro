@@ -39,7 +39,15 @@ const moduleNames: Record<string, string> = {
 <!-- Hero -->
 <section class="hero">
   <div>
-    <div class="hero-badge">持续更新 · {totalCount} 篇原创教程</div>
+    <div class="hero-meta-row">
+      <div class="hero-badge">持续更新 · {totalCount} 篇原创教程</div>
+      <a class="hero-update-link" href="/m4/02-claude-code-source-walkthrough">
+        <span class="hero-update-new">NEW</span>
+        <span class="hero-update-label">最近更新</span>
+        <span class="hero-update-title">Claude Code 源码拆解手册</span>
+        <span class="hero-update-date">04-06</span>
+      </a>
+    </div>
     <h1>用 <span class="hl">Claude Code</span><br>做真实项目的实战记录</h1>
     <p class="hero-desc">从安装配置到项目实战，从工具选型到副业变现。不讲花哨技巧，只写工程实践中真正有用的东西。</p>
     <div class="hero-actions">
@@ -260,6 +268,69 @@ const moduleNames: Record<string, string> = {
     transform: translateX(4px);
   }
 
+  .hero-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: nowrap;
+    margin-bottom: 14px;
+  }
+  .hero-meta-row .hero-badge {
+    margin-bottom: 0;
+    min-height: 44px;
+    padding: 0 16px;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+  }
+  .hero-update-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #9a3412;
+    text-decoration: none;
+    min-height: 44px;
+    padding: 0 12px;
+    border: 1px solid #f3c2ad;
+    border-radius: 999px;
+    background: #fff3ec;
+    max-width: 100%;
+    box-shadow: 0 1px 0 rgba(196, 75, 43, 0.08);
+  }
+  .hero-update-link:hover {
+    color: #9a3412;
+    border-color: #efb19a;
+    background: #ffece3;
+  }
+  .hero-update-new {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #fff;
+    background: #c44b2b;
+    border-radius: 999px;
+    padding: 2px 6px;
+    line-height: 1.4;
+  }
+  .hero-update-label {
+    color: #c44b2b;
+    white-space: nowrap;
+    font-weight: 600;
+  }
+  .hero-update-title {
+    color: #9a3412;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .hero-update-date {
+    color: #c44b2b;
+    font-family: var(--mono);
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
 
   @media (max-width: 768px) {
     .path-grid {
@@ -269,6 +340,20 @@ const moduleNames: Record<string, string> = {
     .platform-row {
       grid-template-columns: 1fr 1fr;
       gap: 10px;
+    }
+    .hero-meta-row { margin-bottom: 10px; gap: 8px; flex-wrap: wrap; }
+    .hero-update-link {
+      font-size: 11px;
+      padding: 6px 8px;
+      gap: 6px;
+      width: 100%;
+      justify-content: flex-start;
+    }
+    .hero-update-new { font-size: 9px; padding: 1px 5px; }
+    .hero-update-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 </style>

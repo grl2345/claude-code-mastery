@@ -64,29 +64,78 @@ const currentSlug = Astro.url.pathname;
       lessons={moduleLessons}
       currentSlug={currentSlug}
     />
-    <div class="mod-main">
-      <div class="breadcrumb">
-        <a href="/">首页</a>
-        <span>/</span>
-        <a href={`/${module.split('-')[0]}`}>{moduleName}</a>
-        <span>/</span>
-        <span>第 {String(order).padStart(2, '0')} 篇</span>
-      </div>
-
-      <div class="lesson-header">
-        <h1>{title}</h1>
-        <div class="lesson-meta">
-          <span>{moduleName} · 第 {order} 篇</span>
-          <span>{duration}</span>
-          <span>{level}</span>
+    <div class="article-content">
+      <div class="mod-main">
+        <div class="breadcrumb">
+          <a href="/">首页</a>
+          <span>/</span>
+          <a href={`/${module.split('-')[0]}`}>{moduleName}</a>
+          <span>/</span>
+          <span>第 {String(order).padStart(2, '0')} 篇</span>
         </div>
+
+        <div class="lesson-header">
+          <h1>{title}</h1>
+          <div class="lesson-meta">
+            <span>{moduleName} · 第 {order} 篇</span>
+            <span>{duration}</span>
+            <span>{level}</span>
+          </div>
+        </div>
+
+        <div class="prose">
+          <slot />
+        </div>
+
+        <Pagination prev={prev} next={next} />
       </div>
 
-      <div class="prose">
-        <slot />
-      </div>
-
-      <Pagination prev={prev} next={next} />
+      <aside class="article-toc" aria-label="本页目录">
+        <div class="toc-card">
+          <div class="toc-title">本页导航</div>
+          <ul id="article-toc-list" class="toc-list"></ul>
+        </div>
+      </aside>
     </div>
   </div>
 </BaseLayout>
+
+<script>
+  const tocList = document.getElementById('article-toc-list');
+  const proseRoot = document.querySelector('.prose');
+
+  if (tocList && proseRoot) {
+    const headings = Array.from(proseRoot.querySelectorAll('h2, h3'));
+    const slugify = (text) =>
+      text
+        .trim()
+        .toLowerCase()
+        .replace(/[^\w\u4e00-\u9fa5\s-]/g, '')
+        .replace(/\s+/g, '-');
+
+    headings.forEach((heading, idx) => {
+      if (!heading.id) heading.id = `${slugify(heading.textContent || `section-${idx + 1}`)}-${idx + 1}`;
+      const li = document.createElement('li');
+      li.className = heading.tagName.toLowerCase() === 'h3' ? 'toc-item toc-item-sub' : 'toc-item';
+      const a = document.createElement('a');
+      a.href = `#${heading.id}`;
+      a.textContent = heading.textContent || '';
+      li.appendChild(a);
+      tocList.appendChild(li);
+    });
+
+    const links = Array.from(tocList.querySelectorAll('a'));
+    const headingById = new Map(headings.map((h) => [h.id, h]));
+    const setActive = () => {
+      let activeId = '';
+      for (const heading of headings) {
+        const top = heading.getBoundingClientRect().top;
+        if (top <= 120) activeId = heading.id;
+      }
+      links.forEach((link) => link.classList.toggle('active', link.getAttribute('href') === `#${activeId}`));
+    };
+
+    setActive();
+    window.addEventListener('scroll', setActive, { passive: true });
+  }
+</script>

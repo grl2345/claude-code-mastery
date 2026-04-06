@@ -125,6 +125,7 @@ nav.scrolled { box-shadow: 0 2px 20px rgba(0, 0, 0, .06); }
   background: var(--accent-glow); border: 1px solid rgba(196, 75, 43, .2);
   padding: 6px 16px; border-radius: 100px;
   font-size: 13px; font-weight: 500; color: var(--accent);
+  white-space: nowrap;
   margin-bottom: 28px; animation: fadeInUp .8s ease both;
 }
 .hero-badge::before {

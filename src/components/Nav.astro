@@ -17,6 +17,7 @@ const { currentPath = '/' } = Astro.props;
       <li><a href="/m1" class={currentPath.startsWith('/m1') ? 'active' : ''}>入门篇</a></li>
       <li><a href="/m2" class={currentPath.startsWith('/m2') ? 'active' : ''}>思维篇</a></li>
       <li><a href="/m3" class={currentPath.startsWith('/m3') ? 'active' : ''}>实战篇</a></li>
+      <li><a href="/m4" class={currentPath.startsWith('/m4') ? 'active' : ''}>进阶篇</a></li>
       <li><a href="/m5" class={currentPath.startsWith('/m5') ? 'active' : ''}>工具对比</a></li>
       <li><a href="/m6" class={currentPath.startsWith('/m6') ? 'active' : ''}>副业指南</a></li>
       <li><a href="/about" class={currentPath === '/about' || currentPath.startsWith('/privacy') || currentPath.startsWith('/terms') || currentPath.startsWith('/contact') || currentPath.startsWith('/cookie') ? 'active' : ''}>关于</a></li>
