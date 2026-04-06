@@ -5,8 +5,6 @@ import '../styles/terminal.css';
 import { getCollection } from 'astro:content';
 
 const allLessons = await getCollection('lessons', ({ data }) => !data.draft);
-const sortedLessons = allLessons.sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
-const recentLessons = sortedLessons.slice(0, 8);
 const totalCount = allLessons.length;
 
 const moduleCounts: Record<string, number> = {};
@@ -20,14 +18,22 @@ function lessonUrl(slug: string): string {
   return `/${modulePrefix}/${parts[1]}`;
 }
 
-const moduleNames: Record<string, string> = {
-  'm1-basics': '入门篇',
-  'm2-thinking': '思维篇',
-  'm3-practice': '实战篇',
-  'm4-advanced': '进阶篇',
-  'm5-compare': '工具对比',
-  'm6-sidebiz': '副业指南',
-};
+// Module data for ranking cards
+const modules = [
+  { id: 'm1-basics',   name: '入门篇',   icon: '01', color: '#2d8a56', prefix: 'm1' },
+  { id: 'm2-thinking', name: '思维篇',   icon: '02', color: '#c44b2b', prefix: 'm2' },
+  { id: 'm3-practice', name: '实战篇',   icon: '03', color: '#2b6cc4', prefix: 'm3' },
+  { id: 'm4-advanced', name: '进阶篇',   icon: '04', color: '#7c3aed', prefix: 'm4' },
+  { id: 'm5-compare',  name: '工具对比', icon: '05', color: '#d97706', prefix: 'm5' },
+  { id: 'm6-sidebiz',  name: '副业指南', icon: '06', color: '#0891b2', prefix: 'm6' },
+];
+
+const moduleData = modules.map(mod => {
+  const lessons = allLessons
+    .filter(l => l.data.module === mod.id)
+    .sort((a, b) => a.data.order - b.data.order);
+  return { ...mod, lessons };
+});
 
 ---
 
@@ -173,21 +179,31 @@ const moduleNames: Record<string, string> = {
   </div>
 </section>
 
-<!-- Recent Articles -->
-<section class="section fade-in">
-  <div class="section-label">最近更新</div>
-  <h2 class="section-title">最新发布的文章</h2>
-  <p class="section-desc">按发布时间倒序排列，点击标题直接阅读。</p>
-  <div class="article-list">
-    {recentLessons.map((lesson, i) => (
-      <a class="article-item" href={lessonUrl(lesson.id)}>
-        <span class="a-num">{String(i + 1).padStart(2, '0')}</span>
-        <div class="a-info">
-          <h4>{lesson.data.title}</h4>
-          <p>{moduleNames[lesson.data.module]} / {lesson.data.duration}</p>
+<!-- All Articles Directory -->
+<section class="section fade-in" id="directory">
+  <div class="section-label">全部文章</div>
+  <h2 class="section-title">文章目录</h2>
+  <p class="section-desc">共 {totalCount} 篇，按模块分类，点击标题直接阅读。</p>
+  <div class="rank-grid">
+    {moduleData.map(mod => (
+      <div class="rank-card" style={`--card-color: ${mod.color}`}>
+        <div class="rank-header">
+          <a class="rank-title-link" href={`/${mod.prefix}`}>
+            <span class="rank-icon">{mod.icon}</span>
+            <h3>{mod.name}</h3>
+            <span class="rank-count">{mod.lessons.length} 篇</span>
+          </a>
         </div>
-        <span class="a-arrow">&rarr;</span>
-      </a>
+        <div class="rank-list">
+          {mod.lessons.map((lesson, i) => (
+            <a class="rank-item" href={lessonUrl(lesson.id)}>
+              <span class={`rank-num ${i < 3 ? 'top' : ''}`}>{i + 1}</span>
+              <span class="rank-item-title">{lesson.data.title}</span>
+              <span class="rank-item-tag">{lesson.data.level}</span>
+            </a>
+          ))}
+        </div>
+      </div>
     ))}
   </div>
 </section>
@@ -332,6 +348,119 @@ const moduleNames: Record<string, string> = {
   }
 
 
+  /* Ranking cards */
+  .rank-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .rank-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--gray-200);
+    transition: box-shadow 0.25s;
+  }
+  .rank-card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  }
+  .rank-header {
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .rank-title-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: background 0.15s;
+  }
+  .rank-title-link:hover {
+    background: var(--gray-100);
+  }
+  .rank-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: var(--card-color);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .rank-header h3 {
+    font-family: var(--serif);
+    font-size: 16px;
+    font-weight: 700;
+    flex: 1;
+    margin: 0;
+  }
+  .rank-count {
+    font-size: 12px;
+    color: var(--gray-400);
+    flex-shrink: 0;
+  }
+  .rank-list {
+    padding: 6px 0;
+  }
+  .rank-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 18px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: background 0.12s;
+  }
+  .rank-item:hover {
+    background: var(--gray-100);
+  }
+  .rank-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gray-400);
+    background: var(--gray-100);
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .rank-num.top {
+    background: var(--card-color);
+    color: #fff;
+  }
+  .rank-item-title {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 450;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .rank-item-tag {
+    font-size: 11px;
+    color: var(--gray-400);
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 960px) {
+    .rank-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
   @media (max-width: 768px) {
     .path-grid {
       grid-template-columns: 1fr 1fr;
@@ -354,6 +483,13 @@ const moduleNames: Record<string, string> = {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+    .rank-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .rank-item-tag {
+      display: none;
     }
   }
 </style>
