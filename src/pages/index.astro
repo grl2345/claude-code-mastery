@@ -40,33 +40,18 @@ const moduleData = modules.map(mod => {
 <!-- Hero -->
 <section class="hero-banner">
   <div class="hero-inner">
-    <div class="hero-top">
-      <div>
-        <h1><span class="hero-hl">Claude Code</span> 精通之路</h1>
-        <p class="hero-tagline">从入门到实战的 AI 编程完整教程 · 共 <strong>{totalCount}</strong> 篇</p>
-      </div>
-      <a class="btn-primary btn-sm" href="/m1">从零开始学 &rarr;</a>
-    </div>
-    <div class="hero-bottom">
-      <div class="hero-recent">
-        <span class="hero-recent-label">最近更新</span>
-        <div class="hero-recent-list">
-          {recentTwo.map((lesson, i) => (
-            <a class="hero-recent-item" href={lessonUrl(lesson.id)}>
-              {i === 0 && <span class="hero-new-badge">NEW</span>}
-              <span class="hero-recent-title">{lesson.data.title}</span>
-              <span class="hero-recent-arrow">&rarr;</span>
-            </a>
-          ))}
-        </div>
-      </div>
-      <div class="hero-wechat">
-        <img src="/wechat-qr.jpg" alt="微信公众号二维码" width="56" height="56" />
-        <div class="hero-wechat-text">
-          <span class="hero-wechat-name">小高聊AI</span>
-          <span class="hero-wechat-desc">关注公众号 · 获取更新推送</span>
-        </div>
-      </div>
+    <h1><span class="hero-hl">Claude Code</span> 精通之路</h1>
+    <p class="hero-tagline">从入门到实战的 AI 编程完整教程 · 共 <strong>{totalCount}</strong> 篇 · 持续更新中</p>
+    <div class="hero-row">
+      <a class="btn-primary btn-hero" href="/m1">从零开始学 &rarr;</a>
+      <span class="hero-divider"></span>
+      {recentTwo.map((lesson, i) => (
+        <a class="hero-recent-item" href={lessonUrl(lesson.id)}>
+          {i === 0 && <span class="hero-new-badge">NEW</span>}
+          <span class="hero-recent-title">{lesson.data.title}</span>
+          <span class="hero-recent-arrow">&rarr;</span>
+        </a>
+      ))}
     </div>
   </div>
 </section>
@@ -145,11 +130,20 @@ const moduleData = modules.map(mod => {
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section fade-in">
-  <h2>从第一篇开始读</h2>
-  <p>不需要任何 AI 编程经验。从安装 Claude Code 开始，一步步带你搭建自己的 AI 编程工作流。所有内容免费，随时可以开始。</p>
-  <a class="btn-primary" style="font-size: 16px; padding: 16px 36px;" href="/m1">阅读入门篇</a>
+<!-- Wechat + CTA -->
+<section class="bottom-cta fade-in">
+  <div class="bottom-cta-inner">
+    <div class="bottom-cta-left">
+      <h2>从第一篇开始读</h2>
+      <p>不需要任何 AI 编程经验。从安装 Claude Code 开始，一步步带你搭建自己的 AI 编程工作流。</p>
+      <a class="btn-primary" href="/m1">阅读入门篇 &rarr;</a>
+    </div>
+    <div class="bottom-cta-wechat">
+      <img src="/wechat-qr.jpg" alt="微信公众号二维码" width="96" height="96" />
+      <span class="bottom-cta-wechat-name">小高聊AI</span>
+      <span class="bottom-cta-wechat-desc">关注公众号获取更新</span>
+    </div>
+  </div>
 </section>
 
 </BaseLayout>
@@ -205,82 +199,54 @@ const moduleData = modules.map(mod => {
   .hero-inner {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 40px 40px 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
+    padding: 48px 40px 40px;
+    text-align: center;
   }
-
-  /* Top row: title + CTA */
-  .hero-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-  }
-  .hero-top h1 {
+  .hero-inner h1 {
     font-family: var(--serif);
-    font-size: 30px;
+    font-size: 36px;
     font-weight: 800;
     letter-spacing: -0.02em;
-    margin-bottom: 6px;
+    margin-bottom: 10px;
     line-height: 1.3;
   }
   .hero-hl {
     color: var(--accent-light);
   }
   .hero-tagline {
-    font-size: 14px;
+    font-size: 15px;
     color: rgba(255,255,255,0.45);
+    margin-bottom: 28px;
   }
   .hero-tagline strong {
-    color: rgba(255,255,255,0.75);
-  }
-  .btn-sm {
-    padding: 10px 24px !important;
-    font-size: 14px !important;
-    flex-shrink: 0;
+    color: rgba(255,255,255,0.8);
   }
 
-  /* Bottom row: recent + wechat */
-  .hero-bottom {
-    display: flex;
-    align-items: stretch;
-    gap: 16px;
-  }
-
-  /* Recent updates card */
-  .hero-recent {
-    flex: 1;
-    min-width: 0;
-    display: flex;
+  /* Hero row: button + recent links */
+  .hero-row {
+    display: inline-flex;
     align-items: center;
-    gap: 16px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 10px;
-    padding: 12px 20px;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
-  .hero-recent-label {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--accent-light);
-    white-space: nowrap;
+  .btn-hero {
+    padding: 12px 28px !important;
+    font-size: 15px !important;
     flex-shrink: 0;
   }
-  .hero-recent-list {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    gap: 6px 24px;
-    flex-wrap: wrap;
+  .hero-divider {
+    width: 1px;
+    height: 24px;
+    background: rgba(255,255,255,0.15);
+    flex-shrink: 0;
   }
   .hero-recent-item {
     display: inline-flex;
     align-items: center;
     gap: 6px;
     text-decoration: none;
-    color: rgba(255,255,255,0.65);
+    color: rgba(255,255,255,0.6);
     font-size: 14px;
     transition: color 0.15s;
     white-space: nowrap;
@@ -311,36 +277,54 @@ const moduleData = modules.map(mod => {
     font-size: 12px;
   }
 
-  /* Wechat card */
-  .hero-wechat {
+  /* ========== Bottom CTA + Wechat ========== */
+  .bottom-cta {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+  }
+  .bottom-cta-inner {
     display: flex;
     align-items: center;
-    gap: 12px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 10px;
-    padding: 10px 16px;
-    flex-shrink: 0;
-    text-decoration: none;
+    justify-content: space-between;
+    gap: 40px;
+    background: linear-gradient(135deg, var(--ink) 0%, #2a2520 100%);
+    border-radius: 16px;
+    padding: 48px 56px;
     color: #fff;
   }
-  .hero-wechat img {
-    border-radius: 6px;
-    display: block;
+  .bottom-cta-left h2 {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 12px;
   }
-  .hero-wechat-text {
+  .bottom-cta-left p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+    margin-bottom: 24px;
+    max-width: 440px;
+  }
+  .bottom-cta-wechat {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    text-align: center;
   }
-  .hero-wechat-name {
-    font-size: 14px;
+  .bottom-cta-wechat img {
+    border-radius: 10px;
+    display: block;
+  }
+  .bottom-cta-wechat-name {
+    font-size: 15px;
     font-weight: 700;
   }
-  .hero-wechat-desc {
-    font-size: 11px;
+  .bottom-cta-wechat-desc {
+    font-size: 12px;
     color: rgba(255,255,255,0.4);
-    white-space: nowrap;
   }
 
   /* ========== Directory Section ========== */
@@ -567,17 +551,19 @@ const moduleData = modules.map(mod => {
     .rank-grid {
       grid-template-columns: repeat(2, 1fr);
     }
-    .hero-inner {
-      padding: 28px 24px 24px;
-      gap: 20px;
-    }
-    .hero-bottom {
+    .bottom-cta-inner {
       flex-direction: column;
-      gap: 10px;
+      text-align: center;
+      padding: 40px 32px;
+      gap: 28px;
     }
-    .hero-recent-list {
+    .bottom-cta-left p {
+      max-width: 100%;
+    }
+    .bottom-cta-left {
+      display: flex;
       flex-direction: column;
-      gap: 4px;
+      align-items: center;
     }
   }
 
@@ -597,27 +583,35 @@ const moduleData = modules.map(mod => {
       grid-template-columns: 1fr;
       gap: 14px;
     }
-    .hero-top {
+    .hero-inner {
+      padding: 32px 20px 28px;
+    }
+    .hero-inner h1 {
+      font-size: 26px;
+    }
+    .hero-tagline {
+      font-size: 14px;
+    }
+    .hero-row {
       flex-direction: column;
-      align-items: flex-start;
-      gap: 16px;
+      gap: 12px;
     }
-    .hero-top h1 {
-      font-size: 22px;
+    .hero-divider {
+      display: none;
     }
-    .btn-sm {
+    .btn-hero {
       width: 100%;
       text-align: center;
       justify-content: center;
     }
-    .hero-recent {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 8px;
+    .bottom-cta {
+      padding: 0 16px 60px;
     }
-    .hero-wechat img {
-      width: 44px;
-      height: 44px;
+    .bottom-cta-inner {
+      padding: 32px 24px;
+    }
+    .bottom-cta-left h2 {
+      font-size: 22px;
     }
     .rank-item-tag {
       display: none;
