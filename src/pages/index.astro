@@ -89,13 +89,18 @@ const moduleData = modules.map(mod => {
           </a>
           <div class="rank-list">
             {mod.lessons.map((lesson, i) => (
-              <a class="rank-item" href={lessonUrl(lesson.id)} data-title={lesson.data.title}>
+              <a class="rank-item" href={lessonUrl(lesson.id)} data-title={lesson.data.title} style={i >= 10 ? 'display:none' : ''} data-extra={i >= 10 ? 'true' : undefined}>
                 <span class={`rank-num ${i < 3 ? 'top' : ''}`}>{i + 1}</span>
                 <span class="rank-item-title">{lesson.data.title}</span>
                 <span class="rank-item-tag">{lesson.data.level}</span>
               </a>
             ))}
           </div>
+          {mod.lessons.length > 10 && (
+            <button class="rank-expand" data-target={mod.prefix}>
+              展开全部 {mod.lessons.length} 篇
+            </button>
+          )}
         </div>
       ))}
     </div>
@@ -166,6 +171,19 @@ const moduleData = modules.map(mod => {
     });
 
     emptyState.style.display = totalVisible === 0 ? '' : 'none';
+  });
+
+  // Expand button
+  document.querySelectorAll<HTMLButtonElement>('.rank-expand').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.target!;
+      const card = document.querySelector<HTMLElement>(`.rank-card[data-module="${target}"]`);
+      if (!card) return;
+      card.querySelectorAll<HTMLElement>('.rank-item[data-extra]').forEach(item => {
+        item.style.display = '';
+      });
+      btn.remove();
+    });
   });
 </script>
 
@@ -450,6 +468,25 @@ const moduleData = modules.map(mod => {
     color: var(--gray-400);
     flex-shrink: 0;
     white-space: nowrap;
+  }
+
+  /* Expand button */
+  .rank-expand {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: none;
+    border: none;
+    border-top: 1px solid var(--gray-200);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--card-color);
+    cursor: pointer;
+    font-family: var(--sans);
+    transition: background 0.15s;
+  }
+  .rank-expand:hover {
+    background: var(--gray-100);
   }
 
   /* ========== Responsive ========== */
