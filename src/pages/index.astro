@@ -1,16 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Terminal from '../components/Terminal.astro';
 import '../styles/terminal.css';
 import { getCollection } from 'astro:content';
 
 const allLessons = await getCollection('lessons', ({ data }) => !data.draft);
 const totalCount = allLessons.length;
 
-const moduleCounts: Record<string, number> = {};
-allLessons.forEach(l => {
-  moduleCounts[l.data.module] = (moduleCounts[l.data.module] || 0) + 1;
-});
+const sortedByDate = [...allLessons].sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+const newest = sortedByDate[0];
+function newestUrl(slug: string): string {
+  const parts = slug.split('/');
+  return `/${parts[0].split('-')[0]}/${parts[1]}`;
+}
 
 function lessonUrl(slug: string): string {
   const parts = slug.split('/');
@@ -18,14 +19,13 @@ function lessonUrl(slug: string): string {
   return `/${modulePrefix}/${parts[1]}`;
 }
 
-// Module data for ranking cards
 const modules = [
-  { id: 'm1-basics',   name: '入门篇',   icon: '01', color: '#2d8a56', prefix: 'm1' },
-  { id: 'm2-thinking', name: '思维篇',   icon: '02', color: '#c44b2b', prefix: 'm2' },
-  { id: 'm3-practice', name: '实战篇',   icon: '03', color: '#2b6cc4', prefix: 'm3' },
-  { id: 'm4-advanced', name: '进阶篇',   icon: '04', color: '#7c3aed', prefix: 'm4' },
-  { id: 'm5-compare',  name: '工具对比', icon: '05', color: '#d97706', prefix: 'm5' },
-  { id: 'm6-sidebiz',  name: '副业指南', icon: '06', color: '#0891b2', prefix: 'm6' },
+  { id: 'm1-basics',   name: '入门篇',   desc: '安装配置 · 核心命令 · Prompt 写法',   icon: '01', color: '#2d8a56', prefix: 'm1' },
+  { id: 'm2-thinking', name: '思维篇',   desc: '任务拆解 · 上下文管理 · 架构决策',    icon: '02', color: '#c44b2b', prefix: 'm2' },
+  { id: 'm3-practice', name: '实战篇',   desc: '建项目 · 重构 · 调试 · CI/CD',        icon: '03', color: '#2b6cc4', prefix: 'm3' },
+  { id: 'm4-advanced', name: '进阶篇',   desc: 'Headless 模式 · 源码解读',             icon: '04', color: '#7c3aed', prefix: 'm4' },
+  { id: 'm5-compare',  name: '工具对比', desc: 'vs Cursor · vs Copilot · 选型指南',    icon: '05', color: '#d97706', prefix: 'm5' },
+  { id: 'm6-sidebiz',  name: '副业指南', desc: 'AI 建站 · AdSense · 接单变现',         icon: '06', color: '#0891b2', prefix: 'm6' },
 ];
 
 const moduleData = modules.map(mod => {
@@ -34,7 +34,6 @@ const moduleData = modules.map(mod => {
     .sort((a, b) => a.data.order - b.data.order);
   return { ...mod, lessons };
 });
-
 ---
 
 <BaseLayout
@@ -42,118 +41,73 @@ const moduleData = modules.map(mod => {
   description="最全面的 Claude Code 中文教程站。从入门到实战，工具对比到副业变现，帮你真正掌握 AI 编程。"
 >
 
-<!-- Hero -->
-<section class="hero">
-  <div>
-    <div class="hero-meta-row">
-      <div class="hero-badge">持续更新 · {totalCount} 篇原创教程</div>
-      <a class="hero-update-link" href="/m4/02-claude-code-source-walkthrough">
-        <span class="hero-update-new">NEW</span>
-        <span class="hero-update-label">最近更新</span>
-        <span class="hero-update-title">Claude Code 源码拆解手册</span>
-        <span class="hero-update-date">04-06</span>
-      </a>
+<!-- Hero: compact banner -->
+<section class="hero-banner">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <h1><span class="hero-hl">Claude Code</span> 精通之路</h1>
+      <p class="hero-tagline">从入门到实战的 AI 编程完整教程 · 共 {totalCount} 篇</p>
     </div>
-    <h1>用 <span class="hl">Claude Code</span><br>做真实项目的实战记录</h1>
-    <p class="hero-desc">从安装配置到项目实战，从工具选型到副业变现。不讲花哨技巧，只写工程实践中真正有用的东西。</p>
-    <div class="hero-actions">
-      <a class="btn-primary" href="/m1">从零开始学</a>
-      <a class="btn-secondary" href="/m3">直接看实战</a>
+    <div class="hero-right">
+      {newest && (
+        <a class="hero-new" href={newestUrl(newest.id)}>
+          <span class="hero-new-badge">NEW</span>
+          <span class="hero-new-title">{newest.data.title}</span>
+          <span class="hero-new-arrow">&rarr;</span>
+        </a>
+      )}
+      <div class="hero-actions">
+        <a class="btn-primary btn-sm" href="/m1">从零开始学</a>
+        <a class="btn-secondary btn-sm" href="#directory">浏览目录</a>
+      </div>
     </div>
-  </div>
-  <Terminal>
-    <div><span class="t-comment"># 真实场景：重构一个认证模块</span></div>
-    <div><span class="t-green">$ </span><span class="t-blue">claude</span> <span class="t-orange">"重构 auth 模块，</span></div>
-    <div><span class="t-orange">&nbsp;&nbsp;拆分为 login / register / token</span></div>
-    <div><span class="t-orange">&nbsp;&nbsp;三个独立服务，保持现有接口不变"</span></div><br>
-    <div><span class="t-purple">-- 分析现有代码结构</span></div>
-    <div><span class="t-purple">-- 识别 12 个内部依赖</span></div>
-    <div><span class="t-purple">-- 生成重构方案</span></div>
-    <div><span class="t-purple">-- 拆分为 3 个服务模块</span></div>
-    <div><span class="t-purple">-- 同步更新 8 个测试用例</span></div><br>
-    <div><span class="t-comment"># prompt 写得再花哨也没用</span></div>
-    <div><span class="t-comment"># 关键是你自己先把需求想清楚</span></div><br>
-    <div><span class="t-green">$ </span><span class="cursor-blink"></span></div>
-  </Terminal>
-</section>
-
-<!-- Learning Path -->
-<section class="section fade-in">
-  <div class="section-label">学习路径</div>
-  <h2 class="section-title">六步掌握 AI 编程</h2>
-  <p class="section-desc">按顺序学效果最好，也可以按需跳读。每个板块独立成篇。</p>
-  <div class="path-grid">
-
-    <a class="path-card" href="/m1" style="--c: #2d8a56">
-      <div class="path-step">STEP 01</div>
-      <div class="path-label">新手必读</div>
-      <h3>入门篇</h3>
-      <p>安装配置、核心命令、Prompt 写法、MCP 入门——从零开始，零基础也能跟上。</p>
-      <div class="path-foot">
-        <span>{moduleCounts['m1-basics'] || 0} 篇</span>
-        <span class="path-arrow">→</span>
-      </div>
-    </a>
-
-    <a class="path-card" href="/m2" style="--c: #c44b2b">
-      <div class="path-step">STEP 02</div>
-      <div class="path-label">思维建立</div>
-      <h3>思维篇</h3>
-      <p>任务拆解、上下文管理、代码审查、架构决策——建立与 AI 协作的工程思维。</p>
-      <div class="path-foot">
-        <span>{moduleCounts['m2-thinking'] || 0} 篇</span>
-        <span class="path-arrow">→</span>
-      </div>
-    </a>
-
-    <a class="path-card" href="/m3" style="--c: #2b6cc4">
-      <div class="path-step">STEP 03</div>
-      <div class="path-label">动手实战</div>
-      <h3>实战篇</h3>
-      <p>从零搭建项目、重构复盘、线上排查、CI/CD 自动化——每篇都是完整的真实案例。</p>
-      <div class="path-foot">
-        <span>{moduleCounts['m3-practice'] || 0} 篇</span>
-        <span class="path-arrow">→</span>
-      </div>
-    </a>
-
-    <a class="path-card" href="/m4" style="--c: #8b5cf6">
-      <div class="path-step">STEP 04</div>
-      <div class="path-label">深度集成</div>
-      <h3>进阶篇</h3>
-      <p>Headless 模式、管道操作、Git Hook 集成——把 Claude Code 真正接入工程体系。</p>
-      <div class="path-foot">
-        <span>{moduleCounts['m4-advanced'] || 0} 篇</span>
-        <span class="path-arrow">→</span>
-      </div>
-    </a>
-
-    <a class="path-card" href="/m5" style="--c: #d97706">
-      <div class="path-step">STEP 05</div>
-      <div class="path-label">选型参考</div>
-      <h3>工具对比</h3>
-      <p>Claude Code vs Cursor vs Copilot，模型选型、API vs 订阅——帮你做出最优选择。</p>
-      <div class="path-foot">
-        <span>{moduleCounts['m5-compare'] || 0} 篇</span>
-        <span class="path-arrow">→</span>
-      </div>
-    </a>
-
-    <a class="path-card" href="/m6" style="--c: #059669">
-      <div class="path-step">STEP 06</div>
-      <div class="path-label">技术变现</div>
-      <h3>副业指南</h3>
-      <p>搭建副业网站、AdSense 变现、AI 接单提效——用 AI 开启技术变现之路。</p>
-      <div class="path-foot">
-        <span>{moduleCounts['m6-sidebiz'] || 0} 篇</span>
-        <span class="path-arrow">→</span>
-      </div>
-    </a>
-
   </div>
 </section>
 
-<!-- Why This Site -->
+<!-- Main: Article Directory -->
+<section class="dir-section" id="directory">
+  <div class="dir-inner">
+    <div class="dir-top">
+      <div class="dir-heading">
+        <h2>全部文章</h2>
+        <span class="dir-total">{totalCount} 篇 · 6 个模块</span>
+      </div>
+      <div class="dir-search-wrap">
+        <svg class="dir-search-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <input type="text" class="dir-search" id="dir-search" placeholder="搜索文章标题..." />
+      </div>
+    </div>
+
+    <div class="rank-grid">
+      {moduleData.map(mod => (
+        <div class="rank-card" data-module={mod.prefix} style={`--card-color: ${mod.color}`}>
+          <a class="rank-header" href={`/${mod.prefix}`}>
+            <span class="rank-icon">{mod.icon}</span>
+            <div class="rank-header-text">
+              <h3>{mod.name}<span class="rank-count">{mod.lessons.length}</span></h3>
+              <p class="rank-desc">{mod.desc}</p>
+            </div>
+          </a>
+          <div class="rank-list">
+            {mod.lessons.map((lesson, i) => (
+              <a class="rank-item" href={lessonUrl(lesson.id)} data-title={lesson.data.title}>
+                <span class={`rank-num ${i < 3 ? 'top' : ''}`}>{i + 1}</span>
+                <span class="rank-item-title">{lesson.data.title}</span>
+                <span class="rank-item-tag">{lesson.data.level}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="dir-empty" id="dir-empty" style="display:none;">
+      没有找到匹配的文章
+    </div>
+  </div>
+</section>
+
+<!-- Why This Site (compact) -->
 <section class="philosophy-bg">
   <div class="section fade-in">
     <div class="section-label" style="color: var(--accent-light)">写作初衷</div>
@@ -179,36 +133,6 @@ const moduleData = modules.map(mod => {
   </div>
 </section>
 
-<!-- All Articles Directory -->
-<section class="section fade-in" id="directory">
-  <div class="section-label">全部文章</div>
-  <h2 class="section-title">文章目录</h2>
-  <p class="section-desc">共 {totalCount} 篇，按模块分类，点击标题直接阅读。</p>
-  <div class="rank-grid">
-    {moduleData.map(mod => (
-      <div class="rank-card" style={`--card-color: ${mod.color}`}>
-        <div class="rank-header">
-          <a class="rank-title-link" href={`/${mod.prefix}`}>
-            <span class="rank-icon">{mod.icon}</span>
-            <h3>{mod.name}</h3>
-            <span class="rank-count">{mod.lessons.length} 篇</span>
-          </a>
-        </div>
-        <div class="rank-list">
-          {mod.lessons.map((lesson, i) => (
-            <a class="rank-item" href={lessonUrl(lesson.id)}>
-              <span class={`rank-num ${i < 3 ? 'top' : ''}`}>{i + 1}</span>
-              <span class="rank-item-title">{lesson.data.title}</span>
-              <span class="rank-item-tag">{lesson.data.level}</span>
-            </a>
-          ))}
-        </div>
-      </div>
-    ))}
-  </div>
-</section>
-
-
 <!-- CTA -->
 <section class="cta-section fade-in">
   <h2>从第一篇开始读</h2>
@@ -218,141 +142,189 @@ const moduleData = modules.map(mod => {
 
 </BaseLayout>
 
+<script>
+  const searchInput = document.getElementById('dir-search') as HTMLInputElement;
+  const cards = document.querySelectorAll<HTMLElement>('.rank-card');
+  const emptyState = document.getElementById('dir-empty')!;
+
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.trim().toLowerCase();
+    let totalVisible = 0;
+
+    cards.forEach(card => {
+      const items = card.querySelectorAll<HTMLElement>('.rank-item');
+      let cardVisible = 0;
+
+      items.forEach(item => {
+        const title = (item.dataset.title || '').toLowerCase();
+        const match = !query || title.includes(query);
+        item.style.display = match ? '' : 'none';
+        if (match) cardVisible++;
+      });
+
+      card.style.display = cardVisible > 0 ? '' : 'none';
+      totalVisible += cardVisible;
+    });
+
+    emptyState.style.display = totalVisible === 0 ? '' : 'none';
+  });
+</script>
+
 <style>
-  .path-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+  /* ========== Hero Banner ========== */
+  .hero-banner {
+    padding-top: 64px;
+    background: linear-gradient(135deg, var(--ink) 0%, #2a2520 100%);
+    color: #fff;
   }
-  .path-card {
-    position: relative;
-    background: var(--paper);
-    border: 1.5px solid var(--gray-200);
-    border-left: 3px solid var(--c);
-    border-radius: 12px;
-    padding: 24px;
-    text-decoration: none;
-    color: var(--ink);
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    transition: all .2s;
-  }
-  .path-card:hover {
-    border-color: var(--c);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0,0,0,.07);
-  }
-  .path-step {
-    font-size: 11px;
-    font-weight: 700;
-    font-family: var(--mono);
-    color: var(--c);
-    letter-spacing: 1px;
-  }
-  .path-label {
-    font-size: 11px;
-    color: var(--gray);
-    font-weight: 500;
-  }
-  .path-card h3 {
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 1.3;
-    margin: 0;
-  }
-  .path-card p {
-    font-size: 13px;
-    color: var(--gray);
-    line-height: 1.7;
-    flex: 1;
-  }
-  .path-foot {
+  .hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 36px 40px 32px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 4px;
-    font-size: 13px;
-    color: var(--gray);
+    gap: 32px;
   }
-  .path-arrow {
-    color: var(--c);
-    font-size: 16px;
-    transition: transform .2s;
+  .hero-left h1 {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+    line-height: 1.3;
   }
-  .path-card:hover .path-arrow {
-    transform: translateX(4px);
+  .hero-hl {
+    color: var(--accent-light);
   }
-
-  .hero-meta-row {
+  .hero-tagline {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+  }
+  .hero-right {
     display: flex;
     align-items: center;
-    gap: 12px;
-    flex-wrap: nowrap;
-    margin-bottom: 14px;
+    gap: 16px;
+    flex-shrink: 0;
   }
-  .hero-meta-row .hero-badge {
-    margin-bottom: 0;
-    min-height: 44px;
-    padding: 0 16px;
-    display: inline-flex;
-    align-items: center;
-    line-height: 1;
-  }
-  .hero-update-link {
+  .hero-new {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-size: 12px;
-    color: #9a3412;
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
     text-decoration: none;
-    min-height: 44px;
-    padding: 0 12px;
-    border: 1px solid #f3c2ad;
-    border-radius: 999px;
-    background: #fff3ec;
-    max-width: 100%;
-    box-shadow: 0 1px 0 rgba(196, 75, 43, 0.08);
+    padding: 8px 14px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    transition: all 0.2s;
+    max-width: 280px;
   }
-  .hero-update-link:hover {
-    color: #9a3412;
-    border-color: #efb19a;
-    background: #ffece3;
+  .hero-new:hover {
+    border-color: rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.05);
   }
-  .hero-update-new {
+  .hero-new-badge {
     font-family: var(--mono);
     font-size: 10px;
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     color: #fff;
-    background: #c44b2b;
-    border-radius: 999px;
+    background: var(--accent);
+    border-radius: 4px;
     padding: 2px 6px;
-    line-height: 1.4;
+    flex-shrink: 0;
   }
-  .hero-update-label {
-    color: #c44b2b;
-    white-space: nowrap;
-    font-weight: 600;
-  }
-  .hero-update-title {
-    color: #9a3412;
-    font-weight: 700;
+  .hero-new-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .hero-update-date {
-    color: #c44b2b;
-    font-family: var(--mono);
-    font-size: 11px;
-    white-space: nowrap;
+  .hero-new-arrow {
+    flex-shrink: 0;
+    opacity: 0.5;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 8px;
+  }
+  .btn-sm {
+    padding: 9px 20px !important;
+    font-size: 13px !important;
   }
 
+  /* ========== Directory Section ========== */
+  .dir-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 28px 40px 60px;
+  }
+  .dir-inner {}
+  .dir-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  .dir-heading {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .dir-heading h2 {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 800;
+  }
+  .dir-total {
+    font-size: 13px;
+    color: var(--gray-400);
+  }
+  .dir-search-wrap {
+    position: relative;
+    flex-shrink: 0;
+  }
+  .dir-search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 15px;
+    height: 15px;
+    color: var(--gray-400);
+    pointer-events: none;
+  }
+  .dir-search {
+    padding: 8px 14px 8px 32px;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    font-size: 13px;
+    background: #fff;
+    color: var(--ink);
+    width: 220px;
+    font-family: var(--sans);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .dir-search:focus {
+    border-color: var(--accent);
+  }
+  .dir-search::placeholder {
+    color: var(--gray-400);
+  }
+  .dir-empty {
+    text-align: center;
+    padding: 48px 20px;
+    color: var(--gray-400);
+    font-size: 15px;
+  }
 
-  /* Ranking cards */
+  /* ========== Rank Grid ========== */
   .rank-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 16px;
   }
   .rank-card {
     background: #fff;
@@ -364,55 +336,81 @@ const moduleData = modules.map(mod => {
   .rank-card:hover {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   }
+
+  /* Card header */
   .rank-header {
-    border-bottom: 1px solid var(--gray-200);
-  }
-  .rank-title-link {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 14px 18px;
+    gap: 10px;
+    padding: 14px 16px;
     text-decoration: none;
     color: var(--ink);
+    border-bottom: 2px solid var(--card-color);
     transition: background 0.15s;
   }
-  .rank-title-link:hover {
+  .rank-header:hover {
     background: var(--gray-100);
   }
   .rank-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     border-radius: 8px;
     background: var(--card-color);
     color: #fff;
     font-family: var(--mono);
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
     flex-shrink: 0;
+  }
+  .rank-header-text {
+    flex: 1;
+    min-width: 0;
   }
   .rank-header h3 {
     font-family: var(--serif);
     font-size: 16px;
     font-weight: 700;
-    flex: 1;
     margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
   .rank-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 9px;
+    background: var(--gray-100);
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gray-400);
+    line-height: 1;
+  }
+  .rank-desc {
     font-size: 12px;
     color: var(--gray-400);
-    flex-shrink: 0;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
+
+  /* List */
   .rank-list {
-    padding: 6px 0;
+    padding: 4px 0;
   }
   .rank-item {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 9px 18px;
+    padding: 8px 16px;
     text-decoration: none;
     color: var(--ink);
     transition: background 0.12s;
@@ -455,40 +453,61 @@ const moduleData = modules.map(mod => {
     white-space: nowrap;
   }
 
+  /* ========== Responsive ========== */
   @media (max-width: 960px) {
     .rank-grid {
       grid-template-columns: repeat(2, 1fr);
     }
+    .hero-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 28px 24px 24px;
+      gap: 16px;
+    }
+    .hero-right {
+      width: 100%;
+      flex-wrap: wrap;
+    }
+    .hero-new {
+      flex: 1;
+      min-width: 0;
+    }
   }
 
-  @media (max-width: 768px) {
-    .path-grid {
-      grid-template-columns: 1fr 1fr;
+  @media (max-width: 600px) {
+    .dir-section {
+      padding: 20px 16px 48px;
+    }
+    .dir-top {
+      flex-direction: column;
+      align-items: stretch;
       gap: 12px;
     }
-    .platform-row {
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    .hero-meta-row { margin-bottom: 10px; gap: 8px; flex-wrap: wrap; }
-    .hero-update-link {
-      font-size: 11px;
-      padding: 6px 8px;
-      gap: 6px;
+    .dir-search {
       width: 100%;
-      justify-content: flex-start;
-    }
-    .hero-update-new { font-size: 9px; padding: 1px 5px; }
-    .hero-update-title {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
     }
     .rank-grid {
       grid-template-columns: 1fr;
-      gap: 16px;
+      gap: 14px;
+    }
+    .hero-left h1 {
+      font-size: 22px;
+    }
+    .hero-new {
+      max-width: 100%;
+    }
+    .hero-actions {
+      width: 100%;
+    }
+    .hero-actions .btn-sm {
+      flex: 1;
+      text-align: center;
+      justify-content: center;
     }
     .rank-item-tag {
+      display: none;
+    }
+    .rank-desc {
       display: none;
     }
   }
