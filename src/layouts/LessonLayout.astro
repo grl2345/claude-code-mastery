@@ -105,7 +105,8 @@ const currentSlug = Astro.url.pathname;
   const proseRoot = document.querySelector('.prose');
 
   if (tocList && proseRoot) {
-    const headings = Array.from(proseRoot.querySelectorAll('h2, h3'));
+    // Include chapter-level headings as well (h1/h2/h3 inside article body).
+    const headings = Array.from(proseRoot.querySelectorAll('h1, h2, h3'));
     const slugify = (text) =>
       text
         .trim()
@@ -116,7 +117,13 @@ const currentSlug = Astro.url.pathname;
     headings.forEach((heading, idx) => {
       if (!heading.id) heading.id = `${slugify(heading.textContent || `section-${idx + 1}`)}-${idx + 1}`;
       const li = document.createElement('li');
-      li.className = heading.tagName.toLowerCase() === 'h3' ? 'toc-item toc-item-sub' : 'toc-item';
+      const tag = heading.tagName.toLowerCase();
+      li.className =
+        tag === 'h3'
+          ? 'toc-item toc-item-sub'
+          : tag === 'h2'
+            ? 'toc-item toc-item-mid'
+            : 'toc-item toc-item-top';
       const a = document.createElement('a');
       a.href = `#${heading.id}`;
       a.textContent = heading.textContent || '';
@@ -127,10 +134,12 @@ const currentSlug = Astro.url.pathname;
     const links = Array.from(tocList.querySelectorAll('a'));
     const headingById = new Map(headings.map((h) => [h.id, h]));
     const setActive = () => {
+      // Use a slightly larger threshold so TOC switches closer to what user sees.
+      const threshold = 220;
       let activeId = '';
       for (const heading of headings) {
         const top = heading.getBoundingClientRect().top;
-        if (top <= 120) activeId = heading.id;
+        if (top <= threshold) activeId = heading.id;
       }
       links.forEach((link) => link.classList.toggle('active', link.getAttribute('href') === `#${activeId}`));
     };

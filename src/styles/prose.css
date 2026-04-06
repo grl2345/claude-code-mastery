@@ -9,11 +9,13 @@
   font-family: var(--serif); font-size: 24px; font-weight: 700;
   margin-top: 56px; margin-bottom: 20px; padding-top: 32px;
   border-top: 1px solid var(--gray-200); letter-spacing: -0.3px;
+  scroll-margin-top: 92px;
 }
 .prose h2:first-child { margin-top: 0; padding-top: 0; border-top: none; }
 .prose h3 {
   font-family: var(--serif); font-size: 19px; font-weight: 700;
   margin-top: 40px; margin-bottom: 14px;
+  scroll-margin-top: 92px;
 }
 .prose p { margin-bottom: 20px; }
 .prose strong { font-weight: 600; color: var(--ink); }
@@ -187,6 +189,14 @@
 .toc-item-sub a {
   padding-left: 18px;
   font-size: 12px;
+}
+.toc-item-mid a {
+  padding-left: 12px;
+  font-size: 12.5px;
+}
+.toc-item-top a {
+  font-size: 13px;
+  font-weight: 600;
 }
 
 /* === Breadcrumb === */
