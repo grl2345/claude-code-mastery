@@ -1,6 +1,14 @@
 {
   "buildCommand": "npx astro build",
   "outputDirectory": "dist",
+  "redirects": [
+    {
+      "source": "/:path(.*)",
+      "has": [{ "type": "host", "value": "xiaogao-ai.com" }],
+      "destination": "https://www.xiaogao-ai.com/:path",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/api/articles/:path+", "destination": "/api/articles/[...id]" },
     { "source": "/admin", "destination": "/admin/index.html" }
