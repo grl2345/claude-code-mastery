@@ -16,6 +16,8 @@ publishedAt: 2026-04-06
 > 源码版本：Claude Code v2.1.88（2026-03-31 泄露）及 v2.1.81（Piebald-AI 提取）
 > 提示词提取参考：[Piebald-AI/claude-code-system-prompts](https://github.com/Piebald-AI/claude-code-system-prompts)（直接从编译后源码提取，保证与实际使用一致）
 > 系统提示词泄露参考：[asgeirtj/system_prompts_leaks](https://github.com/asgeirtj/system_prompts_leaks/blob/main/Anthropic/claude-code.md)
+>
+> 📥 离线阅读：[百度网盘下载](https://pan.baidu.com/s/1gU8EMSZ_Nfo1uO65fe4U1Q?pwd=u6h3)（提取码：u6h3）
 
 
 ## 本书导读
