@@ -29,7 +29,11 @@ function lessonUrl(slug: string): string {
 }
 ---
 
-<div class="sidebar">
+<div class="sidebar" id="lesson-sidebar">
+  <button class="sidebar-toggle" id="sidebar-toggle" type="button" aria-expanded="false">
+    <span class="toggle-arrow">▶</span>
+    <span>{moduleName} · {lessons.length} 篇目录</span>
+  </button>
   <a class="sb-back" href="/">← 返回首页</a>
   <div class="sb-title">{moduleName}</div>
   <div class="sb-desc">{lessons.length} 篇</div>
@@ -53,3 +57,15 @@ function lessonUrl(slug: string): string {
     </>
   ))}
 </div>
+
+<script>
+  const toggle = document.getElementById('sidebar-toggle');
+  const sidebar = document.getElementById('lesson-sidebar');
+  if (toggle && sidebar) {
+    toggle.addEventListener('click', () => {
+      const isOpen = sidebar.classList.toggle('mobile-open');
+      toggle.classList.toggle('open', isOpen);
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+  }
+</script>
