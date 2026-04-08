@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" font-family="system-ui, -apple-system, sans-serif">
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0fdf4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ecfdf5;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="arrow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#059669;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10b981;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000020"/>
+    </filter>
+  </defs>
+  <rect width="800" height="420" rx="16" fill="url(#bg1)" stroke="#d1fae5" stroke-width="1"/>
+  <text x="400" y="42" text-anchor="middle" font-size="20" font-weight="700" fill="#065f46">从创作者到创业者的进化路径</text>
+
+  <!-- Step 1 -->
+  <g filter="url(#shadow)">
+    <rect x="40" y="80" width="160" height="130" rx="12" fill="#fff" stroke="#a7f3d0" stroke-width="1.5"/>
+  </g>
+  <text x="120" y="110" text-anchor="middle" font-size="32">🎨</text>
+  <text x="120" y="138" text-anchor="middle" font-size="15" font-weight="700" fill="#065f46">学一门手艺</text>
+  <text x="120" y="160" text-anchor="middle" font-size="12" fill="#6b7280">学 Photoshop、写代码</text>
+  <text x="120" y="178" text-anchor="middle" font-size="12" fill="#6b7280">学设计、学写作……</text>
+  <text x="120" y="198" text-anchor="middle" font-size="11" font-weight="600" fill="#059669">从兴趣出发</text>
+
+  <!-- Arrow 1 -->
+  <path d="M205 145 L235 145" stroke="url(#arrow)" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  <polygon points="235,140 245,145 235,150" fill="#10b981"/>
+
+  <!-- Step 2 -->
+  <g filter="url(#shadow)">
+    <rect x="250" y="80" width="160" height="130" rx="12" fill="#fff" stroke="#a7f3d0" stroke-width="1.5"/>
+  </g>
+  <text x="330" y="110" text-anchor="middle" font-size="32">✍️</text>
+  <text x="330" y="138" text-anchor="middle" font-size="15" font-weight="700" fill="#065f46">持续创作</text>
+  <text x="330" y="160" text-anchor="middle" font-size="12" fill="#6b7280">写教程、做设计</text>
+  <text x="330" y="178" text-anchor="middle" font-size="12" fill="#6b7280">分享过程和经验</text>
+  <text x="330" y="198" text-anchor="middle" font-size="11" font-weight="600" fill="#059669">公开创作</text>
+
+  <!-- Arrow 2 -->
+  <path d="M415 145 L445 145" stroke="url(#arrow)" stroke-width="3" fill="none"/>
+  <polygon points="445,140 455,145 445,150" fill="#10b981"/>
+
+  <!-- Step 3 -->
+  <g filter="url(#shadow)">
+    <rect x="460" y="80" width="160" height="130" rx="12" fill="#fff" stroke="#a7f3d0" stroke-width="1.5"/>
+  </g>
+  <text x="540" y="110" text-anchor="middle" font-size="32">👥</text>
+  <text x="540" y="138" text-anchor="middle" font-size="15" font-weight="700" fill="#065f46">积累信任</text>
+  <text x="540" y="160" text-anchor="middle" font-size="12" fill="#6b7280">回答问题、帮助他人</text>
+  <text x="540" y="178" text-anchor="middle" font-size="12" fill="#6b7280">在社区建立声誉</text>
+  <text x="540" y="198" text-anchor="middle" font-size="11" font-weight="600" fill="#059669">深耕社区</text>
+
+  <!-- Arrow 3 -->
+  <path d="M625 145 L655 145" stroke="url(#arrow)" stroke-width="3" fill="none"/>
+  <polygon points="655,140 665,145 655,150" fill="#10b981"/>
+
+  <!-- Step 4 -->
+  <g filter="url(#shadow)">
+    <rect x="670" y="80" width="100" height="130" rx="12" fill="#059669"/>
+  </g>
+  <text x="720" y="115" text-anchor="middle" font-size="32">💰</text>
+  <text x="720" y="145" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">盈利</text>
+  <text x="720" y="168" text-anchor="middle" font-size="11" fill="#d1fae5">产品自然</text>
+  <text x="720" y="184" text-anchor="middle" font-size="11" fill="#d1fae5">从信任中</text>
+  <text x="720" y="200" text-anchor="middle" font-size="11" fill="#d1fae5">生长出来</text>
+
+  <!-- 7 Traits -->
+  <text x="400" y="260" text-anchor="middle" font-size="16" font-weight="700" fill="#065f46">极简主义创业者的七个关键特征</text>
+
+  <g filter="url(#shadow)">
+    <rect x="30" y="282" width="100" height="56" rx="8" fill="#fff" stroke="#a7f3d0" stroke-width="1"/>
+  </g>
+  <text x="80" y="304" text-anchor="middle" font-size="11" font-weight="600" fill="#059669">💵 盈利优先</text>
+  <text x="80" y="320" text-anchor="middle" font-size="10" fill="#6b7280">第一天就赚钱</text>
+
+  <g filter="url(#shadow)">
+    <rect x="140" y="282" width="100" height="56" rx="8" fill="#fff" stroke="#a7f3d0" stroke-width="1"/>
+  </g>
+  <text x="190" y="304" text-anchor="middle" font-size="11" font-weight="600" fill="#059669">👥 社区着手</text>
+  <text x="190" y="320" text-anchor="middle" font-size="10" fill="#6b7280">先融入再创建</text>
+
+  <g filter="url(#shadow)">
+    <rect x="250" y="282" width="100" height="56" rx="8" fill="#fff" stroke="#a7f3d0" stroke-width="1"/>
+  </g>
+  <text x="300" y="304" text-anchor="middle" font-size="11" font-weight="600" fill="#059669">✂️ 越少越好</text>
+  <text x="300" y="320" text-anchor="middle" font-size="10" fill="#6b7280">只做核心的事</text>
+
+  <g filter="url(#shadow)">
+    <rect x="360" y="282" width="100" height="56" rx="8" fill="#fff" stroke="#a7f3d0" stroke-width="1"/>
+  </g>
+  <text x="410" y="304" text-anchor="middle" font-size="11" font-weight="600" fill="#059669">🎯 前100客户</text>
+  <text x="410" y="320" text-anchor="middle" font-size="10" fill="#6b7280">销售即发现</text>
+
+  <g filter="url(#shadow)">
+    <rect x="470" y="282" width="100" height="56" rx="8" fill="#fff" stroke="#a7f3d0" stroke-width="1"/>
+  </g>
+  <text x="520" y="304" text-anchor="middle" font-size="11" font-weight="600" fill="#059669">🗣️ 真实营销</text>
+  <text x="520" y="320" text-anchor="middle" font-size="10" fill="#6b7280">分享你的故事</text>
+
+  <g filter="url(#shadow)">
+    <rect x="580" y="282" width="100" height="56" rx="8" fill="#fff" stroke="#a7f3d0" stroke-width="1"/>
+  </g>
+  <text x="630" y="304" text-anchor="middle" font-size="11" font-weight="600" fill="#059669">📈 用心成长</text>
+  <text x="630" y="320" text-anchor="middle" font-size="10" fill="#6b7280">量入为出</text>
+
+  <g filter="url(#shadow)">
+    <rect x="690" y="282" width="100" height="56" rx="8" fill="#fff" stroke="#a7f3d0" stroke-width="1"/>
+  </g>
+  <text x="740" y="304" text-anchor="middle" font-size="11" font-weight="600" fill="#059669">🏠 造自己的房</text>
+  <text x="740" y="320" text-anchor="middle" font-size="10" fill="#6b7280">按价值观建企业</text>
+
+  <!-- Bottom note -->
+  <text x="400" y="375" text-anchor="middle" font-size="13" fill="#6b7280" font-style="italic">"你不应先学习，再开始；而要先开始，再学习。"</text>
+  <text x="400" y="398" text-anchor="middle" font-size="12" fill="#9ca3af">—— 萨希尔·拉文吉亚《小而美：持续盈利的经营法则》</text>
+</svg>
