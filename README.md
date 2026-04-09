@@ -5,7 +5,7 @@
 **从入门到精通，最系统的 Claude Code 中文教程**
 
 [![在线阅读](https://img.shields.io/badge/在线阅读-xiaogao--ai.com-blue?style=for-the-badge)](https://www.xiaogao-ai.com/)
-[![文章数量](https://img.shields.io/badge/教程文章-49篇-green?style=for-the-badge)](#课程大纲)
+[![文章数量](https://img.shields.io/badge/教程文章-53篇-green?style=for-the-badge)](#课程大纲)
 [![公众号](https://img.shields.io/badge/公众号-小高聊AI-orange?style=for-the-badge)](#关注我)
 
 > 这不是又一个 AI 工具介绍，而是一套**完整的 AI 编程方法论**。
@@ -72,7 +72,7 @@
 | 13 | 拆解 Claude Code 的源码提示词 | 9 个改变认知的发现 |
 | 14 | Claude Code 提示词完全解读 | 深度源码分析 |
 
-### Module 3 | 实战篇 — 10 篇
+### Module 3 | 实战篇 — 11 篇
 
 真实项目、真实过程、真实踩坑。不是精心编排的教程，而是**原汁原味的开发记录**。
 
@@ -88,6 +88,7 @@
 | 08 | 数据工程与 AI 辅助开发 | 数据领域实战 |
 | 09 | CI/CD 自动化实战 | 自动化流水线 |
 | 10 | 用 Claude Code 参与开源贡献 | 进入开源社区 |
+| 11 | Claude 全能实战：落地页、内容自动化与 AI 应用搭建 | 综合实战 |
 
 ### Module 4 | 进阶篇 — 2 篇
 
@@ -110,7 +111,7 @@
 | 04 | Opus、Sonnet、Haiku 模型选型指南 |
 | 05 | API 按量付费 vs Max 订阅：哪种更划算 |
 
-### Module 6 | 副业指南 — 5 篇
+### Module 6 | 副业指南 — 8 篇
 
 用 AI 编程能力，开启你的副业之路。
 
@@ -121,6 +122,9 @@
 | 03 | AI 接单与自动化：提升接私活效率 |
 | 04 | 从 0 到 1 运营技术公众号 |
 | 05 | 数据工程师的 AI 转型路径 |
+| 06 | 《小而美》创业手册（一）：什么是极简主义创业 |
+| 07 | 《小而美》创业手册（二）：从社区出发找到你的生意 |
+| 08 | 《小而美》创业手册（三）：越少越好，用最少的东西最快开始 |
 
 ---
 
