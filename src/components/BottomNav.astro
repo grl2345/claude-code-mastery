@@ -1,0 +1,97 @@
+---
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '/' } = Astro.props;
+
+const tabs = [
+  { href: '/', label: '首页', icon: 'home', match: (p: string) => p === '/' },
+  { href: '/m1', label: '教程', icon: 'book', match: (p: string) => /^\/(m[1-4])/.test(p) },
+  { href: '/m5', label: '对比', icon: 'compare', match: (p: string) => p.startsWith('/m5') },
+  { href: '/m6', label: '变现', icon: 'money', match: (p: string) => p.startsWith('/m6') },
+  { href: '/about', label: '关于', icon: 'user', match: (p: string) => ['/about','/faq','/contact','/privacy','/terms','/cookie','/disclaimer'].some(s => p.startsWith(s)) },
+];
+---
+
+<nav class="bottom-nav" id="bottom-nav" aria-label="主导航">
+  {tabs.map(tab => (
+    <a
+      class:list={['btab', { active: tab.match(currentPath) }]}
+      href={tab.href}
+    >
+      <svg class="btab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        {tab.icon === 'home' && <><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V19a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1V9.5"/></>}
+        {tab.icon === 'book' && <><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/><path d="M8 7h8M8 11h5"/></>}
+        {tab.icon === 'compare' && <><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></>}
+        {tab.icon === 'money' && <><circle cx="12" cy="12" r="9"/><path d="M14.5 9a2.5 2.5 0 00-5 0c0 2 5 2.5 5 5a2.5 2.5 0 01-5 0"/><path d="M12 6v1.5M12 16.5V18"/></>}
+        {tab.icon === 'user' && <><circle cx="12" cy="8" r="4"/><path d="M5.5 20a6.5 6.5 0 0113 0"/></>}
+      </svg>
+      <span class="btab-label">{tab.label}</span>
+    </a>
+  ))}
+</nav>
+
+<style>
+  .bottom-nav {
+    display: none;
+  }
+
+  @media (max-width: 900px) {
+    .bottom-nav {
+      display: flex;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      background: rgba(246, 243, 237, 0.96);
+      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid #e2ded6;
+      padding: 6px 0 6px;
+      padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px));
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .btab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      padding: 6px 12px;
+      text-decoration: none;
+      color: #9e9890;
+      min-width: 56px;
+      min-height: 44px;
+      justify-content: center;
+      -webkit-tap-highlight-color: transparent;
+      transition: color 0.15s;
+    }
+
+    .btab.active {
+      color: #c44b2b;
+    }
+
+    .btab:active {
+      transform: scale(0.92);
+    }
+
+    .btab-icon {
+      width: 22px;
+      height: 22px;
+    }
+
+    .btab.active .btab-icon {
+      stroke-width: 2.2;
+    }
+
+    .btab-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      line-height: 1;
+    }
+  }
+</style>
