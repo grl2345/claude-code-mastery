@@ -91,6 +91,8 @@ const breadcrumbs = [
             <span>{moduleName} · 第 {order} 篇</span>
             <span>{duration}</span>
             <span>{level}</span>
+            <span>{publishedAt.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+            {updatedAt && <span>更新于 {updatedAt.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}</span>}
           </div>
         </div>
 
