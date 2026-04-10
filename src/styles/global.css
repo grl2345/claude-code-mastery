@@ -40,8 +40,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-overflow-scrolling: touch;
 }
 
 /* === NAV === */
@@ -306,19 +304,38 @@ nav.scrolled { box-shadow: 0 2px 20px rgba(0, 0, 0, .06); }
 
 /* === Responsive === */
 @media (max-width: 900px) {
-  /* Bottom nav: add body padding so content isn't hidden behind it */
-  body {
-    padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+  /* Nav mobile menu */
+  .nav-inner { padding: 0 20px; }
+  .nav-links {
+    display: none; flex-direction: column; gap: 0;
+    position: absolute; top: 64px; left: 0; right: 0;
+    background: var(--paper); border-bottom: 1px solid var(--gray-200);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .08);
+    padding: 8px 0;
   }
-
-  /* Nav: hide links and hamburger, show only logo bar */
-  .nav-inner { padding: 0 16px; height: 52px; }
-  .nav-links { display: none !important; }
-  .nav-hamburger { display: none !important; }
-  .nav-logo-text { font-size: 16px; }
+  .nav-links.open { display: flex; }
+  .nav-links li { width: 100%; }
+  .nav-links a {
+    display: block; padding: 14px 24px; font-size: 15px;
+  }
+  .nav-links a::after { display: none; }
+  .nav-links a:hover { background: var(--gray-100); }
+  .nav-cta {
+    margin: 8px 20px 12px; text-align: center;
+    border-radius: 8px !important; padding: 12px 20px !important;
+  }
+  .nav-hamburger { display: flex; }
+  .nav-hamburger.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+  .nav-hamburger span { transition: all .3s; }
 
   /* Hero */
-  .hero { grid-template-columns: 1fr; gap: 40px; padding: 80px 20px 50px; }
+  .hero { grid-template-columns: 1fr; gap: 40px; padding: 110px 20px 50px; }
   .hero h1 { font-size: 30px; line-height: 1.25; }
   .hero-desc { font-size: 16px; line-height: 1.7; margin-bottom: 28px; }
   .hero-actions { flex-direction: column; gap: 12px; }
