@@ -7,6 +7,7 @@ description: "AI 犯错是常态，关键是快速从错误中恢复的能力。
 duration: "12 分钟"
 level: "需编程基础"
 publishedAt: 2026-03-09
+updatedAt: 2026-04-05
 ---
 
 ## AI 犯错是常态，不是意外

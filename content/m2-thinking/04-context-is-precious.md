@@ -7,6 +7,7 @@ description: "从内存管理的角度理解上下文管理，识别五种上下
 duration: "12 分钟"
 level: "需编程基础"
 publishedAt: 2026-02-24
+updatedAt: 2026-03-20
 ---
 
 ## 从内存管理到上下文管理

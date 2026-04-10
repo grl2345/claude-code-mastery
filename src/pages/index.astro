@@ -87,6 +87,7 @@ const moduleData = modules.map(mod => {
               <a class="rank-item" href={lessonUrl(lesson.id)} data-title={lesson.data.title} style={i >= 10 ? 'display:none' : ''} data-extra={i >= 10 ? 'true' : undefined}>
                 <span class={`rank-num ${i < 3 ? 'top' : ''}`}>{i + 1}</span>
                 <span class="rank-item-title">{lesson.data.title}</span>
+                <span class="rank-item-date">{(lesson.data.updatedAt || lesson.data.publishedAt).toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit' })}</span>
                 <span class="rank-item-tag">{lesson.data.level}</span>
               </a>
             ))}
@@ -472,6 +473,13 @@ const moduleData = modules.map(mod => {
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+  .rank-item-date {
+    font-size: 11px;
+    color: var(--gray-300);
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-family: var(--mono);
+  }
   .rank-item-tag {
     font-size: 11px;
     color: var(--gray-400);
@@ -542,7 +550,8 @@ const moduleData = modules.map(mod => {
       text-align: center;
       justify-content: center;
     }
-    .rank-item-tag {
+    .rank-item-tag,
+    .rank-item-date {
       display: none;
     }
     .rank-desc {

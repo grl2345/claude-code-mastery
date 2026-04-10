@@ -7,6 +7,7 @@ description: "把零散知识串成完整的工作流：规划→实现→审查
 duration: "20 分钟"
 level: "零基础"
 publishedAt: 2026-02-19
+updatedAt: 2026-04-02
 ---
 
 ## 把零散知识串成工作流

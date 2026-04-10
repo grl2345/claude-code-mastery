@@ -7,6 +7,7 @@ description: "从找到合适的 Issue 到提交被合并的 PR，记录用 Clau
 duration: "20 分钟"
 level: "需编程基础"
 publishedAt: 2026-04-01
+updatedAt: 2026-04-08
 ---
 
 ## 为什么要参与开源

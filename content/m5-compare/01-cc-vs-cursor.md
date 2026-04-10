@@ -7,6 +7,7 @@ description: "从架构理念、使用场景、代码质量、上手难度四个
 duration: "20 分钟"
 level: "零基础可读"
 publishedAt: 2026-03-18
+updatedAt: 2026-04-04
 ---
 
 # Claude Code vs Cursor：两种 AI 编程路线的深度对比

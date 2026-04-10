@@ -7,6 +7,7 @@ description: "Prompt 不是咒语，而是任务描述。掌握好 Prompt 的四
 duration: "12 分钟"
 level: "零基础"
 publishedAt: 2026-02-10
+updatedAt: 2026-03-15
 ---
 
 ## Prompt 不是咒语

@@ -7,6 +7,7 @@ description: "从零开始安装 Claude Code（CLI + 桌面版），配置开发
 duration: "15 分钟"
 level: "零基础"
 publishedAt: 2026-02-04
+updatedAt: 2026-03-22
 ---
 
 ## 前置条件

@@ -7,6 +7,7 @@ description: "为什么小步迭代比一步到位更高效，以及如何把握
 duration: "12 分钟"
 level: "需编程基础"
 publishedAt: 2026-03-05
+updatedAt: 2026-04-03
 ---
 
 ## 一步到位的诱惑

@@ -7,6 +7,7 @@ description: "目标层、步骤层、验证层——把模糊需求变成可执
 duration: "15 分钟"
 level: "需编程基础"
 publishedAt: 2026-02-18
+updatedAt: 2026-03-25
 ---
 
 ## 为什么需要一个模型

@@ -7,6 +7,7 @@ description: "把思维篇的方法论沉淀为日常开发习惯，附速查检
 duration: "12 分钟"
 level: "需编程基础"
 publishedAt: 2026-03-15
+updatedAt: 2026-04-05
 ---
 
 ## 方法论不是理论，是肌肉记忆

@@ -7,6 +7,7 @@ description: "把 Claude Code 集成到 GitHub Actions 流水线中，实现 PR 
 duration: "22 分钟"
 level: "进阶"
 publishedAt: 2026-04-06
+updatedAt: 2026-04-10
 ---
 
 ## 为什么把 Claude Code 接入 CI/CD

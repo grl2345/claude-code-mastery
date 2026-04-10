@@ -4,7 +4,7 @@ import '../styles/prose.css';
 
 interface Lesson {
   slug: string;
-  data: { title: string; module: string; order: number; group?: string; description: string; duration: string; level: string };
+  data: { title: string; module: string; order: number; group?: string; description: string; duration: string; level: string; updatedAt?: Date };
 }
 
 interface Props {
@@ -67,6 +67,7 @@ function lessonUrl(slug: string): string {
                   <div class="mod-article-meta">
                     <span>{lesson.data.duration}</span>
                     <span>{lesson.data.level}</span>
+                    {lesson.data.updatedAt && <span>{lesson.data.updatedAt.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' })}更新</span>}
                   </div>
                 </div>
                 <div class="mod-article-arrow">&rarr;</div>

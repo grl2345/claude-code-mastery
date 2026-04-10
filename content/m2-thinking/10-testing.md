@@ -7,6 +7,7 @@ description: "AI 时代的测试策略转变：测试不再是可选项，而是
 duration: "18 分钟"
 level: "需编程基础"
 publishedAt: 2026-03-11
+updatedAt: 2026-04-04
 ---
 
 ## 测试曾经是我最讨厌的环节

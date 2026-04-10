@@ -7,6 +7,7 @@ description: "理解 Claude Code 的子 Agent 机制，学会用多 Agent 并行
 duration: "20 分钟"
 level: "进阶"
 publishedAt: 2026-04-03
+updatedAt: 2026-04-09
 ---
 
 ## 什么是多 Agent 模式

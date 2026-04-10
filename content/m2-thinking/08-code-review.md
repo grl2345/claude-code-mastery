@@ -7,6 +7,7 @@ description: "AI 代码的五类常见问题和一份实用的审查检查清单
 duration: "15 分钟"
 level: "需编程基础"
 publishedAt: 2026-03-07
+updatedAt: 2026-04-02
 ---
 
 ## AI 代码的核心矛盾

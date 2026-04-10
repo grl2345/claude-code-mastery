@@ -7,6 +7,7 @@ description: "理解 Model Context Protocol 的核心概念, 学会配置 MCP Se
 duration: "25 分钟"
 level: "零基础可读"
 publishedAt: 2026-02-25
+updatedAt: 2026-04-03
 ---
 
 # MCP 入门指南
