@@ -232,7 +232,7 @@ function lessonUrl(slug: string): string {
 
   @media (max-width: 768px) {
     .mod-index-header {
-      padding: 20px 20px 36px;
+      padding: 20px 16px 32px;
     }
     .mod-top-row {
       margin-bottom: 16px;
@@ -240,16 +240,26 @@ function lessonUrl(slug: string): string {
     .mod-index-header h1 {
       font-size: 24px;
     }
+    .mod-index-desc {
+      font-size: 14px;
+    }
     .mod-index-body {
-      padding: 24px 16px 60px;
+      padding: 20px 16px 80px;
     }
     .mod-article-card {
       grid-template-columns: 36px 1fr 24px;
-      padding: 16px;
+      padding: 14px 16px;
       gap: 12px;
+    }
+    .mod-article-content h3 {
+      font-size: 15px;
     }
     .mod-article-content p {
       display: none;
+    }
+    .mod-article-meta {
+      font-size: 11px;
+      gap: 8px;
     }
   }
 </style>

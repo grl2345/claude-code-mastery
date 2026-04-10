@@ -329,43 +329,42 @@ nav.scrolled { box-shadow: 0 2px 20px rgba(0, 0, 0, .06); }
   .stat-number { font-size: 28px; }
 
   /* Sections */
-  .section { padding: 50px 20px; }
-  .section-title { font-size: 24px; }
-  .section-desc { font-size: 15px; }
-  .course-grid { grid-template-columns: 1fr; }
-  .course-card { padding: 28px; }
-  .phil-grid { grid-template-columns: 1fr; }
-  .phil-card { padding: 28px; }
-
-  /* Article list */
-  .article-item { grid-template-columns: 1fr; gap: 8px; padding: 20px; }
-  .a-num, .a-arrow { display: none; }
-
-  /* CTA */
-  .cta-section { padding: 60px 20px; }
-  .cta-section h2 { font-size: 26px; }
-  .cta-section p { font-size: 15px; }
-
-}
-
-/* === Small screens === */
-@media (max-width: 480px) {
-  .hero { padding: 100px 16px 40px; }
-  .hero h1 { font-size: 26px; letter-spacing: 0; }
-  .hero-badge { font-size: 12px; padding: 5px 12px; }
-  .hero-desc { font-size: 15px; }
-  .stats { grid-template-columns: 1fr 1fr; }
-  .stat-number { font-size: 24px; }
-  .stat-label { font-size: 12px; }
   .section { padding: 40px 16px; }
   .section-title { font-size: 22px; }
-  .section-label { font-size: 11px; letter-spacing: 1.5px; }
+  .section-desc { font-size: 14px; margin-bottom: 32px; }
+  .course-grid { grid-template-columns: 1fr; }
   .course-card { padding: 24px 20px; }
   .course-card h3 { font-size: 19px; }
   .course-card p { font-size: 14px; }
-  .phil-num { font-size: 36px; }
-  .phil-card h3 { font-size: 18px; }
+  .phil-grid { grid-template-columns: 1fr; gap: 16px; }
+  .phil-card { padding: 24px; }
+  .phil-num { font-size: 32px; margin-bottom: 10px; }
+  .phil-card h3 { font-size: 17px; margin-bottom: 8px; }
+  .phil-card p { font-size: 14px; }
+  .philosophy-bg { margin-top: 40px; }
+
+  /* Article list */
+  .article-item { grid-template-columns: 1fr; gap: 8px; padding: 16px; }
+  .a-num, .a-arrow { display: none; }
   .a-info h4 { font-size: 16px; }
+
+  /* CTA */
+  .cta-section { padding: 48px 20px; }
   .cta-section h2 { font-size: 24px; }
-  .btn-primary, .btn-secondary { font-size: 14px; padding: 12px 20px; }
+  .cta-section p { font-size: 14px; }
+
+  /* Global touch and spacing */
+  .btn-primary, .btn-secondary { font-size: 14px; }
+
+}
+
+/* === Small screens (≤480px) === */
+@media (max-width: 480px) {
+  .hero { padding: 100px 16px 40px; }
+  .hero h1 { font-size: 24px; letter-spacing: 0; }
+  .hero-badge { font-size: 12px; padding: 5px 12px; }
+  .hero-desc { font-size: 14px; }
+  .stats { grid-template-columns: 1fr 1fr; }
+  .stat-number { font-size: 24px; }
+  .stat-label { font-size: 12px; }
 }

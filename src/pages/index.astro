@@ -529,34 +529,21 @@ const moduleData = modules.map(mod => {
     }
   }
 
-  @media (max-width: 600px) {
-    .dir-section {
-      padding: 20px 16px 48px;
-    }
-    .dir-top {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 12px;
-    }
-    .dir-search {
-      width: 100%;
-    }
-    .rank-grid {
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
+  /* ========== Mobile (≤900px) ========== */
+  @media (max-width: 900px) {
     .hero-inner {
-      padding: 32px 20px 28px;
+      padding: 28px 20px 24px;
     }
     .hero-inner h1 {
-      font-size: 26px;
+      font-size: 28px;
     }
     .hero-tagline {
-      font-size: 14px;
+      font-size: 13px;
+      margin-bottom: 20px;
     }
     .hero-row {
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }
     .hero-divider {
       display: none;
@@ -565,6 +552,44 @@ const moduleData = modules.map(mod => {
       width: 100%;
       text-align: center;
       justify-content: center;
+      padding: 14px 28px !important;
+    }
+    .hero-recent-col {
+      width: 100%;
+    }
+    .hero-recent-item {
+      white-space: normal;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .hero-recent-title {
+      white-space: normal;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .dir-section {
+      padding: 20px 16px 48px;
+    }
+    .dir-top {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+    }
+    .dir-heading {
+      flex-direction: column;
+      gap: 4px;
+    }
+    .dir-search {
+      width: 100%;
+    }
+    .rank-grid {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .rank-item {
+      padding: 10px 16px;
     }
     .rank-item-tag,
     .rank-item-date {
