@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import Sidebar from '../components/Sidebar.astro';
 import Pagination from '../components/Pagination.astro';
+import RelatedArticles from '../components/RelatedArticles.astro';
 import '../styles/prose.css';
 
 interface Props {
@@ -15,7 +16,7 @@ interface Props {
   updatedAt?: Date;
   allLessons: Array<{
     slug: string;
-    data: { title: string; module: string; order: number; group?: string };
+    data: { title: string; module: string; order: number; group?: string; description: string; duration: string; level: string };
   }>;
 }
 
@@ -48,6 +49,15 @@ const next = currentIndex < moduleLessons.length - 1 ? moduleLessons[currentInde
 
 // Current slug for sidebar active state
 const currentSlug = Astro.url.pathname;
+
+// Breadcrumb structured data
+const siteUrl = 'https://xiaogao-ai.com';
+const modulePrefix = module.split('-')[0];
+const breadcrumbs = [
+  { name: '首页', url: siteUrl },
+  { name: moduleName, url: `${siteUrl}/${modulePrefix}` },
+  { name: title, url: `${siteUrl}${currentSlug}` },
+];
 ---
 
 <BaseLayout
@@ -56,6 +66,7 @@ const currentSlug = Astro.url.pathname;
   type="article"
   publishedAt={publishedAt}
   updatedAt={updatedAt}
+  breadcrumbs={breadcrumbs}
 >
   <div class="mod-layout">
     <Sidebar
@@ -86,6 +97,12 @@ const currentSlug = Astro.url.pathname;
         <div class="prose">
           <slot />
         </div>
+
+        <RelatedArticles
+          currentModule={module}
+          currentOrder={order}
+          allLessons={allLessons}
+        />
 
         <Pagination prev={prev} next={next} />
       </div>

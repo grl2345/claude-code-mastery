@@ -4,15 +4,21 @@ import Footer from '../components/Footer.astro';
 import SEOHead from '../components/SEOHead.astro';
 import '../styles/global.css';
 
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
 interface Props {
   title: string;
   description: string;
   type?: 'website' | 'article';
   publishedAt?: Date;
   updatedAt?: Date;
+  breadcrumbs?: BreadcrumbItem[];
 }
 
-const { title, description, type = 'website', publishedAt, updatedAt } = Astro.props;
+const { title, description, type = 'website', publishedAt, updatedAt, breadcrumbs } = Astro.props;
 const currentPath = Astro.url.pathname;
 ---
 
@@ -30,6 +36,7 @@ const currentPath = Astro.url.pathname;
     type={type}
     publishedAt={publishedAt}
     updatedAt={updatedAt}
+    breadcrumbs={breadcrumbs}
   />
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DN0V60B0XN" is:inline></script>

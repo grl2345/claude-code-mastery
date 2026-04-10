@@ -1,4 +1,9 @@
 ---
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
 interface Props {
   title: string;
   description: string;
@@ -7,6 +12,7 @@ interface Props {
   type?: 'website' | 'article';
   publishedAt?: Date;
   updatedAt?: Date;
+  breadcrumbs?: BreadcrumbItem[];
 }
 
 const {
@@ -17,6 +23,7 @@ const {
   type = 'website',
   publishedAt,
   updatedAt,
+  breadcrumbs,
 } = Astro.props;
 
 const siteName = 'Claude Code 精通之路';
@@ -60,13 +67,28 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
     "description": description,
     "author": {
       "@type": "Person",
-      "name": "高瑞林"
+      "name": "高瑞林",
+      "url": "https://xiaogao-ai.com/about"
     },
     "datePublished": publishedAt?.toISOString(),
     "dateModified": updatedAt?.toISOString() || publishedAt?.toISOString(),
     "publisher": {
       "@type": "Organization",
       "name": siteName,
+      "url": "https://xiaogao-ai.com"
     }
+  })} />
+)}
+
+{breadcrumbs && breadcrumbs.length > 0 && (
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": breadcrumbs.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": item.name,
+      "item": item.url
+    }))
   })} />
 )}
