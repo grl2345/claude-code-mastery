@@ -8,6 +8,7 @@ duration: "25 分钟"
 level: "零基础可读"
 publishedAt: 2026-02-25
 updatedAt: 2026-04-03
+hot: true
 ---
 
 # MCP 入门指南

@@ -8,6 +8,7 @@ duration: "20 分钟"
 level: "零基础可读"
 publishedAt: 2026-03-16
 updatedAt: 2026-04-05
+hot: true
 ---
 
 # Google AdSense 变现实录：从申请到月入四位数

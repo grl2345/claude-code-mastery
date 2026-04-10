@@ -8,6 +8,7 @@ duration: "25 分钟"
 level: "零基础可读"
 publishedAt: 2026-03-10
 updatedAt: 2026-04-03
+hot: true
 ---
 
 # 用 AI 搭建副业网站：从零到上线的完整记录

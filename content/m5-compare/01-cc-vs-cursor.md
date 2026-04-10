@@ -8,6 +8,7 @@ duration: "20 分钟"
 level: "零基础可读"
 publishedAt: 2026-03-18
 updatedAt: 2026-04-04
+hot: true
 ---
 
 # Claude Code vs Cursor：两种 AI 编程路线的深度对比

@@ -8,6 +8,7 @@ duration: "45 分钟"
 level: "适合所有人"
 publishedAt: 2026-04-05
 updatedAt: 2026-04-09
+hot: true
 ---
 
 > 本文是对 Julian Goldie 这堂 1 小时 Claude 大师课的**中文深度解读**。建议先看视频，再对照文字版学习。

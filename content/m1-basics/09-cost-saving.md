@@ -8,6 +8,7 @@ duration: "20 分钟"
 level: "零基础可读"
 publishedAt: 2026-02-22
 updatedAt: 2026-04-05
+hot: true
 ---
 
 # 费用与省钱攻略

@@ -13,6 +13,7 @@ const lessons = defineCollection({
     level: z.string(),
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
+    hot: z.boolean().default(false),
     draft: z.boolean().default(false),
   }),
 });

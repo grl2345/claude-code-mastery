@@ -8,6 +8,7 @@ duration: "25 分钟"
 level: "需编程基础"
 publishedAt: 2026-03-28
 updatedAt: 2026-04-06
+hot: true
 ---
 
 ## 为什么要自己写 MCP Server

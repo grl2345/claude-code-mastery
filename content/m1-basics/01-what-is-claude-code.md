@@ -8,6 +8,7 @@ duration: "8 分钟"
 level: "零基础"
 publishedAt: 2026-02-01
 updatedAt: 2026-03-20
+hot: true
 ---
 
 ## 从一个类比开始

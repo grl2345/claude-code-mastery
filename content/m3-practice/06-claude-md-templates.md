@@ -8,6 +8,7 @@ duration: "20 分钟"
 level: "零基础可读"
 publishedAt: 2026-03-20
 updatedAt: 2026-04-06
+hot: true
 ---
 
 ## 为什么 CLAUDE.md 这么重要

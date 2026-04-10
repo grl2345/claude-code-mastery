@@ -8,6 +8,7 @@ duration: "12 分钟"
 level: "零基础可读"
 publishedAt: 2026-04-08
 updatedAt: 2026-04-10
+hot: true
 ---
 
 # API 按量付费 vs Max 订阅：哪种更划算

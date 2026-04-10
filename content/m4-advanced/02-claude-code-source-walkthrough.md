@@ -8,6 +8,7 @@ duration: "120 分钟"
 level: "进阶"
 publishedAt: 2026-03-22
 updatedAt: 2026-04-07
+hot: true
 ---
 
 # 《Claude Code 源码拆解手册》

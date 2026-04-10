@@ -8,6 +8,7 @@ duration: "12 分钟"
 level: "需编程基础"
 publishedAt: 2026-03-02
 updatedAt: 2026-04-01
+hot: true
 ---
 
 ## 为什么说它是秘密武器
