@@ -1,5 +1,6 @@
 ---
 import Nav from '../components/Nav.astro';
+import BottomNav from '../components/BottomNav.astro';
 import Footer from '../components/Footer.astro';
 import SEOHead from '../components/SEOHead.astro';
 import '../styles/global.css';
@@ -26,8 +27,14 @@ const currentPath = Astro.url.pathname;
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#1a1a1a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="CC精通" />
+  <link rel="apple-touch-icon" href="/favicon.svg" />
   <link href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <SEOHead
@@ -60,6 +67,7 @@ const currentPath = Astro.url.pathname;
   <Nav currentPath={currentPath} />
   <slot />
   <Footer />
+  <BottomNav currentPath={currentPath} />
 
   <script>
     // Fade-in on scroll

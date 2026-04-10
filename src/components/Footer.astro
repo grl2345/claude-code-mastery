@@ -255,4 +255,21 @@
       margin: 0 4px;
     }
   }
+
+  /* App-like mobile: compact footer since bottom nav handles navigation */
+  @media (max-width: 900px) {
+    .footer-top {
+      display: none;
+    }
+    .site-footer {
+      padding: 20px 16px calc(20px + env(safe-area-inset-bottom, 0px));
+      padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+    }
+    .footer-bottom {
+      padding-top: 0;
+    }
+    .footer-meta {
+      font-size: 12px;
+    }
+  }
 </style>

@@ -300,6 +300,8 @@
   .article-toc { display: none; }
 }
 @media (max-width: 900px) {
+  .mod-layout { padding-top: 52px; }
+  .sidebar { top: 52px; height: calc(100vh - 52px); }
   .lesson-header h1 { font-size: 26px; letter-spacing: 0; }
   .lesson-meta { flex-wrap: wrap; gap: 12px; }
   .pagination { grid-template-columns: 1fr; }
