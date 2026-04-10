@@ -6,7 +6,7 @@ group: "核心概念"
 description: "Prompt 不是咒语，而是任务描述。掌握好 Prompt 的四个要素。"
 duration: "12 分钟"
 level: "零基础"
-publishedAt: 2026-03-19
+publishedAt: 2026-02-10
 ---
 
 ## Prompt 不是咒语

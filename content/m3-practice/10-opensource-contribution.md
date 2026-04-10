@@ -6,7 +6,7 @@ group: "进阶实战"
 description: "从找到合适的 Issue 到提交被合并的 PR，记录用 Claude Code 完成三次开源贡献的完整过程。"
 duration: "20 分钟"
 level: "需编程基础"
-publishedAt: "2026-04-05"
+publishedAt: 2026-04-01
 ---
 
 ## 为什么要参与开源

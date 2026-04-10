@@ -6,7 +6,7 @@ group: "多文件协作"
 description: "给一个 Express + React 项目加用户通知功能，涉及后端接口、数据模型、前端组件、样式和测试的联动修改。"
 duration: "25 分钟"
 level: "需编程基础"
-publishedAt: 2026-04-05
+publishedAt: 2026-03-17
 ---
 
 ## 需求

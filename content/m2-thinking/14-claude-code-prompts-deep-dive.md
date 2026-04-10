@@ -6,7 +6,7 @@ group: "提示词"
 description: "从源码提取视角出发，解读 Claude Code 系统提示词的结构、优先级与执行约束。"
 duration: "55 分钟"
 level: "进阶"
-publishedAt: 2026-04-06
+publishedAt: 2026-03-20
 ---
 
 # Claude Code 提示词完全解读

@@ -6,7 +6,7 @@ group: "渐进式开发"
 description: "为什么小步迭代比一步到位更高效，以及如何把握合适的粒度。"
 duration: "12 分钟"
 level: "需编程基础"
-publishedAt: 2026-03-26
+publishedAt: 2026-03-05
 ---
 
 ## 一步到位的诱惑

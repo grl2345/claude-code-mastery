@@ -6,7 +6,7 @@ group: "准备工作"
 description: "从零开始安装 Claude Code（CLI + 桌面版），配置开发环境，创建你的第一个 CLAUDE.md。"
 duration: "15 分钟"
 level: "零基础"
-publishedAt: 2026-03-16
+publishedAt: 2026-02-04
 ---
 
 ## 前置条件

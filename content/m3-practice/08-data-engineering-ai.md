@@ -6,7 +6,7 @@ group: "进阶实战"
 description: "使用 Claude Code 处理 ETL 流水线、数据清洗脚本和 SQL 查询优化, 提升数据工程效率"
 duration: "30 分钟"
 level: "需编程基础"
-publishedAt: "2026-04-05"
+publishedAt: 2026-03-26
 ---
 
 # 数据工程与 AI 辅助开发

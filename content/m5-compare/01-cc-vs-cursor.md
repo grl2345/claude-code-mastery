@@ -6,7 +6,7 @@ group: "横向对比"
 description: "从架构理念、使用场景、代码质量、上手难度四个维度，全面对比 Claude Code 和 Cursor。"
 duration: "20 分钟"
 level: "零基础可读"
-publishedAt: "2026-04-05"
+publishedAt: 2026-03-18
 ---
 
 # Claude Code vs Cursor：两种 AI 编程路线的深度对比

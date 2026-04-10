@@ -6,7 +6,7 @@ group: "排查与调试"
 description: "统计了 30 天的使用数据——对话次数、成功率、省时和翻车的场景分类，用数字说话。"
 duration: "20 分钟"
 level: "需编程基础"
-publishedAt: 2026-04-04
+publishedAt: 2026-03-14
 ---
 
 ## 为什么要做数据复盘

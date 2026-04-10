@@ -6,7 +6,7 @@ group: "排查与调试"
 description: "Node.js 服务内存持续增长，从发现问题到定位根因的完整排查过程，Claude Code 帮了大忙也帮了倒忙。"
 duration: "20 分钟"
 level: "需编程基础"
-publishedAt: 2026-04-03
+publishedAt: 2026-03-11
 ---
 
 ## 问题出现

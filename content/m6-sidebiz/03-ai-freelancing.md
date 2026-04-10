@@ -6,7 +6,7 @@ group: "技能变现"
 description: "从接单平台到项目交付，分享用 AI 工具把接私活效率提升 3 倍的实战经验。"
 duration: "18 分钟"
 level: "零基础可读"
-publishedAt: "2026-04-05"
+publishedAt: 2026-03-22
 ---
 
 # AI 接单与自动化：用 Claude Code 提升接私活效率

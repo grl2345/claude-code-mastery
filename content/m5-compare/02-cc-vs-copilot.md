@@ -6,7 +6,7 @@ group: "横向对比"
 description: "自动补全 vs 对话式编程，两种 AI 辅助方式的最佳使用场景。"
 duration: "18 分钟"
 level: "零基础可读"
-publishedAt: "2026-04-05"
+publishedAt: 2026-03-24
 ---
 
 # Claude Code vs GitHub Copilot：谁更适合日常开发

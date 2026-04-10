@@ -6,7 +6,7 @@ group: "职业发展"
 description: "如何利用 AI 编程工具实现职业升级，附技能树和学习路径。"
 duration: "20 分钟"
 level: "零基础可读"
-publishedAt: "2026-04-05"
+publishedAt: 2026-04-02
 ---
 
 ## 一个数据工程师的困惑

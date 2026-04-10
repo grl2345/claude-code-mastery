@@ -6,7 +6,7 @@ group: "资源合集"
 description: "12 个经过实战验证的 CLAUDE.md 模板，覆盖前端、后端、全栈、开源项目等场景，拿来即用。"
 duration: "20 分钟"
 level: "零基础可读"
-publishedAt: "2026-04-05"
+publishedAt: 2026-03-20
 ---
 
 ## 为什么 CLAUDE.md 这么重要

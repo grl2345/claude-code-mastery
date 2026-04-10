@@ -6,7 +6,7 @@ group: "任务拆解"
 description: "目标层、步骤层、验证层——把模糊需求变成可执行指令的方法。"
 duration: "15 分钟"
 level: "需编程基础"
-publishedAt: 2026-03-21
+publishedAt: 2026-02-18
 ---
 
 ## 为什么需要一个模型

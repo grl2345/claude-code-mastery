@@ -6,7 +6,7 @@ group: "资源合集"
 description: "按场景分类的 50 个 Claude Code 提示词，覆盖写代码、改 Bug、重构、测试、文档全流程，附使用技巧和注意事项。"
 duration: "30 分钟"
 level: "零基础可读"
-publishedAt: "2026-04-05"
+publishedAt: 2026-03-23
 ---
 
 ## 关于这份提示词库

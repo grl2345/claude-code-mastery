@@ -6,7 +6,7 @@ group: "自动化"
 description: "用 --print 和管道把 Claude Code 嵌入脚本和工作流，实现代码审查自动化、批量文件处理和 Git Hook 集成。"
 duration: "20 分钟"
 level: "需编程基础"
-publishedAt: 2026-04-05
+publishedAt: 2026-03-15
 ---
 
 ## 什么是 Headless 模式

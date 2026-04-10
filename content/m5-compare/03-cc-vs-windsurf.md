@@ -6,7 +6,7 @@ group: "横向对比"
 description: "Windsurf vs Claude Code，两种产品形态的深度体验报告。"
 duration: "15 分钟"
 level: "零基础可读"
-publishedAt: "2026-04-05"
+publishedAt: 2026-03-30
 ---
 
 # Claude Code vs Windsurf：命令行与 IDE 的效率之争

@@ -6,7 +6,7 @@ group: "选型指南"
 description: "不同 Claude 模型的能力差异、适用场景和性价比分析。"
 duration: "15 分钟"
 level: "零基础可读"
-publishedAt: "2026-04-05"
+publishedAt: 2026-04-04
 ---
 
 # AI 编程模型选型指南：Opus、Sonnet、Haiku 怎么选

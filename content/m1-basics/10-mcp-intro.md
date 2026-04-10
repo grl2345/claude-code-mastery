@@ -6,7 +6,7 @@ group: "参考手册"
 description: "理解 Model Context Protocol 的核心概念, 学会配置 MCP Server, 用实际案例演示如何扩展 Claude Code 的能力"
 duration: "25 分钟"
 level: "零基础可读"
-publishedAt: "2026-04-05"
+publishedAt: 2026-02-25
 ---
 
 # MCP 入门指南

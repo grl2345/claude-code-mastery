@@ -6,7 +6,7 @@ group: "准备工作"
 description: "从一个类比开始理解 Claude Code 的定位，搞清楚它擅长什么、不擅长什么。"
 duration: "8 分钟"
 level: "零基础"
-publishedAt: 2026-03-15
+publishedAt: 2026-02-01
 ---
 
 ## 从一个类比开始

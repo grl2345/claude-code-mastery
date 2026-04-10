@@ -6,7 +6,7 @@ group: "深度分析"
 description: "通读 Claude Code 324 条内部提示词后的深度分析——从克制哲学到验证协议，这些设计理念会改变你使用 AI 编程工具的方式。"
 duration: "25 分钟"
 level: "需编程基础"
-publishedAt: "2026-04-05"
+publishedAt: 2026-03-18
 ---
 
 ## 起因

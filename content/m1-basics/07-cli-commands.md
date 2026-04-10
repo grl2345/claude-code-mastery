@@ -6,7 +6,7 @@ group: "日常工作流"
 description: "Claude Code CLI 的启动方式、斜杠命令、管道操作和常用参数速查。"
 duration: "10 分钟"
 level: "零基础"
-publishedAt: 2026-03-21
+publishedAt: 2026-02-16
 ---
 
 ## 启动方式

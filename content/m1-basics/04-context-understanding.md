@@ -6,7 +6,7 @@ group: "核心概念"
 description: "什么是上下文窗口，它如何被消耗，以及基本的管理策略。"
 duration: "15 分钟"
 level: "零基础"
-publishedAt: 2026-03-18
+publishedAt: 2026-02-07
 ---
 
 ## 什么是上下文窗口

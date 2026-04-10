@@ -6,7 +6,7 @@ group: "选型指南"
 description: "详细算账：不同使用频率下 API 和订阅各花多少钱。"
 duration: "12 分钟"
 level: "零基础可读"
-publishedAt: "2026-04-05"
+publishedAt: 2026-04-08
 ---
 
 # API 按量付费 vs Max 订阅：哪种更划算

@@ -6,7 +6,7 @@ group: "进阶实战"
 description: "将 Claude Code 集成到 GitHub Actions 工作流, 实现自动化代码审查、测试生成和部署流程"
 duration: "30 分钟"
 level: "需编程基础"
-publishedAt: "2026-04-05"
+publishedAt: 2026-03-29
 ---
 
 # CI/CD 自动化实战

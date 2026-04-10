@@ -6,7 +6,7 @@ group: "源码拆解"
 description: "基于社区公开资料，系统拆解 Claude Code 的架构、引擎、工具系统与安全设计。"
 duration: "120 分钟"
 level: "进阶"
-publishedAt: 2026-04-06
+publishedAt: 2026-03-22
 ---
 
 # 《Claude Code 源码拆解手册》

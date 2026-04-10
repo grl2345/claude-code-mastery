@@ -6,7 +6,7 @@ group: "网站变现"
 description: "AdSense 申请、审核通过、广告优化的完整过程，附真实数据。"
 duration: "20 分钟"
 level: "零基础可读"
-publishedAt: "2026-04-05"
+publishedAt: 2026-03-16
 ---
 
 # Google AdSense 变现实录：从申请到月入四位数

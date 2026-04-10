@@ -6,7 +6,7 @@ group: "质量保障"
 description: "AI 时代的测试策略转变：测试不再是可选项，而是每个步骤的标配。"
 duration: "18 分钟"
 level: "需编程基础"
-publishedAt: 2026-03-29
+publishedAt: 2026-03-11
 ---
 
 ## 测试曾经是我最讨厌的环节

@@ -6,7 +6,7 @@ group: "网站变现"
 description: "用 Claude Code 从买域名到上线一个能赚钱的内容网站的全过程。"
 duration: "25 分钟"
 level: "零基础可读"
-publishedAt: "2026-04-05"
+publishedAt: 2026-03-10
 ---
 
 # 用 AI 搭建副业网站：从零到上线的完整记录

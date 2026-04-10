@@ -6,7 +6,7 @@ group: "技能变现"
 description: "分享用 AI 工具辅助技术公众号运营的方法，从选题到排版，从涨粉到变现。"
 duration: "15 分钟"
 level: "零基础可读"
-publishedAt: "2026-04-05"
+publishedAt: 2026-03-28
 ---
 
 # 从 0 到 1 运营技术公众号：AI 辅助内容创作

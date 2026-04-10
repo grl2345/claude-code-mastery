@@ -6,7 +6,7 @@ group: "任务拆解"
 description: "问题不在 prompt 写法，而在于你有没有想清楚要做什么。"
 duration: "10 分钟"
 level: "需编程基础"
-publishedAt: 2026-03-20
+publishedAt: 2026-02-15
 ---
 
 ## 从一个真实场景说起

@@ -6,7 +6,7 @@ group: "综合实战"
 description: "一堂课覆盖 Claude 的 7 大实战场景：落地页生成、SEO 内容自动化、Twitter 增长、Mini App 搭建、Skills 复用、Computer Use 浏览器代理、Claude Code 终端编程。"
 duration: "45 分钟"
 level: "适合所有人"
-publishedAt: "2026-04-07"
+publishedAt: 2026-04-05
 ---
 
 > 本文是对 Julian Goldie 这堂 1 小时 Claude 大师课的**中文深度解读**。建议先看视频，再对照文字版学习。

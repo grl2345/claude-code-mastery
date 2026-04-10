@@ -6,7 +6,7 @@ group: "上下文工程"
 description: "如何写好 CLAUDE.md，让每次对话自动获得项目上下文。"
 duration: "12 分钟"
 level: "需编程基础"
-publishedAt: 2026-03-25
+publishedAt: 2026-03-02
 ---
 
 ## 为什么说它是秘密武器

@@ -6,7 +6,7 @@ group: "核心概念"
 description: "理解 Claude Code 如何感知你的项目，以及如何利用现有代码作为模板。"
 duration: "15 分钟"
 level: "零基础"
-publishedAt: 2026-03-20
+publishedAt: 2026-02-13
 ---
 
 ## Claude Code 如何「看到」你的项目

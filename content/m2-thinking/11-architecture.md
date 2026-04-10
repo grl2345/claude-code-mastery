@@ -6,7 +6,7 @@ group: "质量保障"
 description: "什么时候该听 AI 的建议，什么时候必须自己拿主意。"
 duration: "15 分钟"
 level: "需编程基础"
-publishedAt: 2026-03-30
+publishedAt: 2026-03-13
 ---
 
 ## AI 的建议，什么时候该听？

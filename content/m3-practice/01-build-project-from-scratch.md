@@ -6,7 +6,7 @@ group: "项目搭建"
 description: "用 Claude Code 从 mkdir 到部署上线的完整过程——37 次对话、14 个文件、3 次推翻重来。"
 duration: "30 分钟"
 level: "需编程基础"
-publishedAt: 2026-04-01
+publishedAt: 2026-03-05
 ---
 
 ## 背景

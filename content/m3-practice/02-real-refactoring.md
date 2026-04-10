@@ -6,7 +6,7 @@ group: "项目搭建"
 description: "一个 React 项目里的巨型组件重构实录——拆分策略、Claude Code 的表现、以及差点翻车的依赖问题。"
 duration: "25 分钟"
 level: "需编程基础"
-publishedAt: 2026-04-02
+publishedAt: 2026-03-08
 ---
 
 ## 问题

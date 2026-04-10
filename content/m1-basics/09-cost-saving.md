@@ -6,7 +6,7 @@ group: "参考手册"
 description: "全面解析 Claude Code 的计费模式, 对比 API 与订阅方案, 提供 7 个经过验证的省钱技巧"
 duration: "20 分钟"
 level: "零基础可读"
-publishedAt: "2026-04-05"
+publishedAt: 2026-02-22
 ---
 
 # 费用与省钱攻略
