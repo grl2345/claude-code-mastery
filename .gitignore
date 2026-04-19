@@ -24,4 +24,4 @@ pnpm-debug.log*
 .idea/
 
 # local Claude Code / Cursor settings
-.claude/
+.claude/settings.local.json
