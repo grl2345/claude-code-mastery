@@ -1,0 +1,15 @@
+---
+import { getCollection } from 'astro:content';
+import ModuleLayout from '../../layouts/ModuleLayout.astro';
+
+const allLessons = await getCollection('lessons', ({ data }) => !data.draft && data.module === 'm7-seo');
+const sorted = allLessons.sort((a, b) => a.data.order - b.data.order);
+---
+
+<ModuleLayout
+  moduleId="m7-seo"
+  moduleName="出海 SEO 专题"
+  moduleDesc="AI 编程出海如何挖掘需求。从搜索意图判断到 SERP 竞争分析，一步步搭建可盈利的 AI 工具站。每一课都是一份原汁原味的学习笔记。"
+  moduleColor="#9333ea"
+  lessons={sorted.map(l => ({ slug: l.id, data: l.data }))}
+/>

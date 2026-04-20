@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 560" font-family="system-ui, -apple-system, 'PingFang SC', sans-serif">
+  <defs>
+    <linearGradient id="bgFlow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fefcf7"/>
+      <stop offset="100%" stop-color="#f6f1e6"/>
+    </linearGradient>
+    <filter id="shadowFlow" x="-5%" y="-5%" width="110%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000015"/>
+    </filter>
+    <marker id="arrowFlow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#9a8d73"/>
+    </marker>
+  </defs>
+
+  <rect width="820" height="560" rx="16" fill="url(#bgFlow)" stroke="#e9e2d2" stroke-width="1"/>
+  <text x="410" y="40" text-anchor="middle" font-size="19" font-weight="700" fill="#2b2b2b">意图判断的优先级流程</text>
+  <text x="410" y="62" text-anchor="middle" font-size="12" fill="#7a7a7a">信号词 &gt; 品牌名 &gt; SERP 前 10</text>
+
+  <!-- Start -->
+  <g filter="url(#shadowFlow)">
+    <rect x="310" y="90" width="200" height="52" rx="26" fill="#2b2b2b"/>
+  </g>
+  <text x="410" y="122" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">拿到一个关键词</text>
+
+  <!-- arrow -->
+  <line x1="410" y1="144" x2="410" y2="176" stroke="#9a8d73" stroke-width="2" marker-end="url(#arrowFlow)"/>
+
+  <!-- Priority 1 -->
+  <g filter="url(#shadowFlow)">
+    <rect x="80" y="180" width="660" height="96" rx="12" fill="#fff" stroke="#a7d1a7" stroke-width="1.5"/>
+  </g>
+  <rect x="80" y="180" width="32" height="96" rx="12" fill="#22c55e"/>
+  <text x="96" y="233" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">1</text>
+  <text x="130" y="210" font-size="14" font-weight="700" fill="#15803d">看词里有没有「意图杀手」信号词</text>
+  <text x="130" y="234" font-size="12" fill="#4b5563">· 出现 how to / what is / why → 直接 I</text>
+  <text x="130" y="252" font-size="12" fill="#4b5563">· 出现 best / top / vs / alternative → 直接 C</text>
+  <text x="130" y="270" font-size="12" fill="#4b5563">· 出现 free / online / generator → 直接 T</text>
+
+  <line x1="410" y1="278" x2="410" y2="306" stroke="#9a8d73" stroke-width="2" marker-end="url(#arrowFlow)"/>
+  <text x="440" y="296" font-size="11" fill="#9a8d73">都没有</text>
+
+  <!-- Priority 2 -->
+  <g filter="url(#shadowFlow)">
+    <rect x="80" y="310" width="660" height="96" rx="12" fill="#fff" stroke="#f4c574" stroke-width="1.5"/>
+  </g>
+  <rect x="80" y="310" width="32" height="96" rx="12" fill="#d97706"/>
+  <text x="96" y="363" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">2</text>
+  <text x="130" y="340" font-size="14" font-weight="700" fill="#92400e">看有没有品牌名</text>
+  <text x="130" y="364" font-size="12" fill="#4b5563">· 只有品牌 / 品牌 + login / pricing → N（不做）</text>
+  <text x="130" y="382" font-size="12" fill="#4b5563">· 品牌 + alternative / vs → C（金矿！蹭流量）</text>
+  <text x="130" y="400" font-size="11" fill="#9ca3af">例：chatgpt alternative → C，因 alternative 改写了意图</text>
+
+  <line x1="410" y1="408" x2="410" y2="436" stroke="#9a8d73" stroke-width="2" marker-end="url(#arrowFlow)"/>
+  <text x="440" y="426" font-size="11" fill="#9a8d73">都没有</text>
+
+  <!-- Priority 3 -->
+  <g filter="url(#shadowFlow)">
+    <rect x="80" y="440" width="660" height="88" rx="12" fill="#fff" stroke="#9bb8e8" stroke-width="1.5"/>
+  </g>
+  <rect x="80" y="440" width="32" height="88" rx="12" fill="#3b82f6"/>
+  <text x="96" y="489" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">3</text>
+  <text x="130" y="470" font-size="14" font-weight="700" fill="#1e40af">看 SERP 前 10 的页面类型</text>
+  <text x="130" y="494" font-size="12" fill="#4b5563">· 工具站多 → T　　· 榜单评测多 → C</text>
+  <text x="130" y="512" font-size="12" fill="#4b5563">· 教程博客多 → I　　· 品牌官网多 → N</text>
+</svg>

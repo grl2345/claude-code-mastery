@@ -5,7 +5,7 @@ const lessons = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './content' }),
   schema: z.object({
     title: z.string(),
-    module: z.enum(['m1-basics', 'm2-thinking', 'm3-practice', 'm4-advanced', 'm5-compare', 'm6-sidebiz']),
+    module: z.enum(['m1-basics', 'm2-thinking', 'm3-practice', 'm4-advanced', 'm5-compare', 'm6-sidebiz', 'm7-seo']),
     order: z.number(),
     group: z.string().optional(),
     description: z.string(),

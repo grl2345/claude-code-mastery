@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 460" font-family="system-ui, -apple-system, 'PingFang SC', sans-serif">
+  <defs>
+    <linearGradient id="bgIntent" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fefcf7"/>
+      <stop offset="100%" stop-color="#f6f1e6"/>
+    </linearGradient>
+    <filter id="shadowIntent" x="-5%" y="-5%" width="110%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000015"/>
+    </filter>
+  </defs>
+
+  <rect width="860" height="460" rx="16" fill="url(#bgIntent)" stroke="#e9e2d2" stroke-width="1"/>
+  <text x="430" y="42" text-anchor="middle" font-size="20" font-weight="700" fill="#2b2b2b">四种搜索意图 · 只做 T 和 C</text>
+  <text x="430" y="66" text-anchor="middle" font-size="13" fill="#7a7a7a">同一个词，不同的人搜，动机完全不同</text>
+
+  <!-- I - Informational -->
+  <g filter="url(#shadowIntent)">
+    <rect x="40" y="96" width="180" height="230" rx="14" fill="#fff" stroke="#e8d5d5" stroke-width="1.5"/>
+  </g>
+  <circle cx="130" cy="140" r="28" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="130" y="149" text-anchor="middle" font-size="22" font-weight="700" fill="#b91c1c">I</text>
+  <text x="130" y="184" text-anchor="middle" font-size="14" font-weight="700" fill="#2b2b2b">信息型</text>
+  <text x="130" y="202" text-anchor="middle" font-size="11" fill="#9ca3af">Informational</text>
+  <line x1="62" y1="220" x2="198" y2="220" stroke="#f3e7e7" stroke-width="1"/>
+  <text x="130" y="244" text-anchor="middle" font-size="12" fill="#6b7280">想学知识</text>
+  <text x="130" y="262" text-anchor="middle" font-size="11" fill="#9ca3af">how to · what is</text>
+  <text x="130" y="278" text-anchor="middle" font-size="11" fill="#9ca3af">tutorial · guide</text>
+  <rect x="80" y="294" width="100" height="22" rx="11" fill="#fef2f2"/>
+  <text x="130" y="310" text-anchor="middle" font-size="11" font-weight="700" fill="#b91c1c">❌ 不做</text>
+
+  <!-- N - Navigational -->
+  <g filter="url(#shadowIntent)">
+    <rect x="240" y="96" width="180" height="230" rx="14" fill="#fff" stroke="#e8d5d5" stroke-width="1.5"/>
+  </g>
+  <circle cx="330" cy="140" r="28" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="330" y="149" text-anchor="middle" font-size="22" font-weight="700" fill="#b91c1c">N</text>
+  <text x="330" y="184" text-anchor="middle" font-size="14" font-weight="700" fill="#2b2b2b">导航型</text>
+  <text x="330" y="202" text-anchor="middle" font-size="11" fill="#9ca3af">Navigational</text>
+  <line x1="262" y1="220" x2="398" y2="220" stroke="#f3e7e7" stroke-width="1"/>
+  <text x="330" y="244" text-anchor="middle" font-size="12" fill="#6b7280">直奔某品牌</text>
+  <text x="330" y="262" text-anchor="middle" font-size="11" fill="#9ca3af">chatgpt login</text>
+  <text x="330" y="278" text-anchor="middle" font-size="11" fill="#9ca3af">midjourney pricing</text>
+  <rect x="280" y="294" width="100" height="22" rx="11" fill="#fef2f2"/>
+  <text x="330" y="310" text-anchor="middle" font-size="11" font-weight="700" fill="#b91c1c">❌ 不做</text>
+
+  <!-- C - Commercial -->
+  <g filter="url(#shadowIntent)">
+    <rect x="440" y="96" width="180" height="230" rx="14" fill="#fff" stroke="#c6dcc6" stroke-width="1.5"/>
+  </g>
+  <circle cx="530" cy="140" r="28" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+  <text x="530" y="149" text-anchor="middle" font-size="22" font-weight="700" fill="#166534">C</text>
+  <text x="530" y="184" text-anchor="middle" font-size="14" font-weight="700" fill="#2b2b2b">商业调查型</text>
+  <text x="530" y="202" text-anchor="middle" font-size="11" fill="#9ca3af">Commercial</text>
+  <line x1="462" y1="220" x2="598" y2="220" stroke="#e3efe3" stroke-width="1"/>
+  <text x="530" y="244" text-anchor="middle" font-size="12" fill="#6b7280">比较方案、看评测</text>
+  <text x="530" y="262" text-anchor="middle" font-size="11" fill="#9ca3af">best · top · vs</text>
+  <text x="530" y="278" text-anchor="middle" font-size="11" fill="#9ca3af">review · alternative</text>
+  <rect x="478" y="294" width="104" height="22" rx="11" fill="#f0fdf4"/>
+  <text x="530" y="310" text-anchor="middle" font-size="11" font-weight="700" fill="#166534">✅ 做评测页</text>
+
+  <!-- T - Transactional -->
+  <g filter="url(#shadowIntent)">
+    <rect x="640" y="96" width="180" height="230" rx="14" fill="#fff" stroke="#a7d1a7" stroke-width="2"/>
+  </g>
+  <circle cx="730" cy="140" r="28" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="730" y="149" text-anchor="middle" font-size="22" font-weight="700" fill="#15803d">T</text>
+  <text x="730" y="184" text-anchor="middle" font-size="14" font-weight="700" fill="#2b2b2b">交易型</text>
+  <text x="730" y="202" text-anchor="middle" font-size="11" fill="#9ca3af">Transactional</text>
+  <line x1="662" y1="220" x2="798" y2="220" stroke="#d1e7d1" stroke-width="1"/>
+  <text x="730" y="244" text-anchor="middle" font-size="12" fill="#6b7280">现在就要用</text>
+  <text x="730" y="262" text-anchor="middle" font-size="11" fill="#9ca3af">free · online · tool</text>
+  <text x="730" y="278" text-anchor="middle" font-size="11" fill="#9ca3af">generator · maker</text>
+  <rect x="678" y="294" width="104" height="22" rx="11" fill="#dcfce7"/>
+  <text x="730" y="310" text-anchor="middle" font-size="11" font-weight="700" fill="#15803d">✅✅ 主战场</text>
+
+  <!-- Bottom note -->
+  <rect x="40" y="360" width="780" height="70" rx="10" fill="#fff7ed" stroke="#fed7aa" stroke-width="1"/>
+  <text x="60" y="388" font-size="13" font-weight="700" fill="#9a3412">为什么只做 T 和 C?</text>
+  <text x="60" y="412" font-size="12" fill="#6b4423">T：用户要工具，转化链路最短    C：用户要对比，把自己塞进「Top 10」蹭流量</text>
+</svg>
